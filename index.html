@@ -22,9 +22,10 @@
       --gold: #FFC72C
     }
 
-    html,
-    body {
-      min-height: 100%
+    html {
+      min-height: 100%;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%
     }
 
     body {
@@ -53,7 +54,7 @@
     .top {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       padding: 14px 16px 10px;
       max-width: 1000px;
       width: 100%;
@@ -103,7 +104,8 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: transform .15s, background .2s
+      transition: transform .15s, background .2s;
+      touch-action: manipulation
     }
 
     .icon-btn:active {
@@ -191,7 +193,7 @@
       padding: 11px 14px;
       border-radius: 12px;
       font: inherit;
-      font-size: 1rem;
+      font-size: 16px;
       outline: none
     }
 
@@ -239,7 +241,8 @@
       font-weight: 700;
       cursor: pointer;
       white-space: nowrap;
-      transition: transform .15s, background .2s, color .2s, border-color .2s
+      transition: transform .15s, background .2s, color .2s, border-color .2s;
+      touch-action: manipulation
     }
 
     .chip[aria-pressed="true"] {
@@ -262,12 +265,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       gap: 18px;
       padding: 0 16px 20px;
       max-width: 1000px;
       width: 100%;
-      margin: 0 auto
+      margin: 0 auto;
+      justify-content: center;
+      justify-content: safe center
     }
 
     .card {
@@ -369,7 +373,9 @@
       padding: 16px 26px;
       transition: transform .14s, box-shadow .2s, filter .2s;
       letter-spacing: .01em;
-      white-space: nowrap
+      white-space: nowrap;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent
     }
 
     .btn:active {
@@ -602,7 +608,8 @@
     .modal .qr img {
       display: block;
       width: 170px;
-      height: 170px
+      height: 170px;
+      max-width: 100%
     }
 
     .modal .guest-count {
@@ -734,7 +741,8 @@
       display: flex;
       justify-content: center;
       gap: 7px;
-      padding: 4px 0
+      padding: 4px 0;
+      flex-wrap: wrap
     }
 
     .intro-dot {
@@ -788,16 +796,383 @@
       z-index: 999
     }
 
-    @media (max-width:520px) {
+    /* =========================================================
+     RESPONSIVE
+     ========================================================= */
+
+    /* Tablet — slightly tighter card text */
+    @media (max-width: 900px) {
       .q {
+        max-width: 22ch
+      }
+    }
+
+    /* Phones — chips scroll horizontally instead of wrapping */
+    @media (max-width: 700px) {
+      .chips {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 6px;
+        padding: 0 14px 14px;
+        scroll-snap-type: x proximity;
+        scroll-padding-inline: 14px;
+        -webkit-mask-image: linear-gradient(90deg, transparent, #000 12px, #000 calc(100% - 12px), transparent);
+        mask-image: linear-gradient(90deg, transparent, #000 12px, #000 calc(100% - 12px), transparent);
+      }
+
+      .chips::-webkit-scrollbar {
+        display: none
+      }
+
+      .chip {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+        font-size: .8rem;
+        padding: 8px 14px;
+      }
+    }
+
+    /* Small phone — tighter layout, stacked buttons */
+    @media (max-width: 560px) {
+      .top {
+        flex-wrap: wrap;
+        row-gap: 8px;
+        padding: calc(10px + env(safe-area-inset-top)) 12px 8px;
+        gap: 6px;
+      }
+
+      .brand {
+        flex: 1 1 auto;
+        min-width: 0
+      }
+
+      .top h1 {
+        display: none
+      }
+
+      .role {
+        font-size: .68rem;
+        padding: 5px 10px;
+        letter-spacing: .04em;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis
+      }
+
+      .icon-btn {
+        min-width: 38px;
+        height: 38px;
+        padding: 0 10px;
+        font-size: .85rem
+      }
+
+      .icon-btn.wide {
+        font-size: .74rem;
+        padding: 0 10px
+      }
+
+      .settings {
+        width: calc(100% - 24px);
+        padding: 14px
+      }
+
+      .settings label {
+        font-size: .82rem
+      }
+
+      .settings .hint {
+        font-size: .74rem
+      }
+
+      main {
+        padding: 0 12px 16px;
+        gap: 14px
+      }
+
+      .card {
+        border-radius: 22px;
+        padding: clamp(22px, 5vw, 36px) clamp(16px, 4.5vw, 28px);
+        min-height: clamp(200px, 34vh, 340px);
+        gap: 14px;
+      }
+
+      .q {
+        font-size: clamp(1.2rem, 5.4vw, 1.75rem);
         max-width: 20ch
       }
 
-      .controls .btn {
-        flex: 1
+      .q.intro {
+        font-size: clamp(1rem, 4vw, 1.25rem)
       }
 
-      .brand h1 {
+      .answer {
+        font-size: clamp(.95rem, 3.6vw, 1.2rem);
+        padding: 10px 16px
+      }
+
+      .btn {
+        padding: 15px 22px;
+        font-size: .95rem;
+        border-radius: 14px
+      }
+
+      .btn.primary {
+        padding: 15px 28px;
+        font-size: 1rem
+      }
+
+      .btn.reveal {
+        padding: 11px 18px;
+        font-size: .88rem
+      }
+
+      .choices .btn {
+        flex: 1 1 100%;
+        max-width: none;
+        font-size: 1rem;
+        padding: 16px 20px
+      }
+
+      .controls {
+        gap: 8px
+      }
+
+      .controls .btn {
+        flex: 1 1 calc(50% - 4px);
+        padding: 15px 16px
+      }
+
+      footer {
+        padding: 12px 14px calc(14px + env(safe-area-inset-bottom));
+        gap: 4px
+      }
+
+      footer .keys {
+        display: none
+      }
+
+      .toast {
+        bottom: 16px;
+        font-size: .82rem;
+        padding: 11px 18px
+      }
+
+      .modal {
+        padding: 22px 18px;
+        border-radius: 20px;
+        gap: 13px
+      }
+
+      .modal h2 {
+        font-size: 1.1rem
+      }
+
+      .modal .big-code {
+        font-size: 2.2rem;
+        letter-spacing: .18em;
+        padding: 10px 0
+      }
+
+      .modal .code-input {
+        font-size: 1.4rem;
+        letter-spacing: .24em;
+        padding: 13px
+      }
+
+      .modal .qr img {
+        width: 150px;
+        height: 150px
+      }
+
+      .modal .link-box {
+        font-size: .72rem
+      }
+
+      .modal .modal-actions {
+        gap: 8px
+      }
+
+      .modal .modal-actions .btn {
+        flex: 1 1 100%;
+        padding: 13px 16px;
+        font-size: .9rem
+      }
+
+      .intro-overlay {
+        padding: 14px
+      }
+
+      .intro-card {
+        padding: 24px 18px;
+        border-radius: 22px;
+        gap: 13px
+      }
+
+      .intro-emoji {
+        font-size: 2.4rem
+      }
+
+      .intro-card h2 {
+        font-size: 1.1rem
+      }
+
+      .intro-card p {
+        font-size: .87rem;
+        line-height: 1.55
+      }
+
+      .intro-actions {
+        gap: 8px
+      }
+
+      .intro-actions .btn {
+        flex: 1 1 100%;
+        padding: 13px 16px;
+        font-size: .92rem
+      }
+
+      .intro-tip {
+        font-size: .72rem
+      }
+    }
+
+    /* Very small phone (320–380px) */
+    @media (max-width: 380px) {
+      .top {
+        padding: calc(8px + env(safe-area-inset-top)) 10px 6px;
+        gap: 5px
+      }
+
+      .icon-btn {
+        min-width: 34px;
+        height: 34px;
+        font-size: .78rem;
+        padding: 0 8px
+      }
+
+      .icon-btn.wide {
+        font-size: .68rem;
+        padding: 0 8px
+      }
+
+      .role {
+        font-size: .62rem;
+        padding: 4px 8px
+      }
+
+      .chips {
+        padding: 0 10px 12px;
+        gap: 5px
+      }
+
+      .chip {
+        font-size: .74rem;
+        padding: 7px 12px
+      }
+
+      main {
+        padding: 0 10px 14px;
+        gap: 12px
+      }
+
+      .card {
+        border-radius: 18px;
+        padding: 20px 14px;
+        min-height: 180px;
+        gap: 12px
+      }
+
+      .q {
+        font-size: clamp(1.1rem, 5.8vw, 1.4rem);
+        max-width: 18ch
+      }
+
+      .q.intro {
+        font-size: .95rem
+      }
+
+      .btn {
+        padding: 13px 18px;
+        font-size: .88rem;
+        border-radius: 14px
+      }
+
+      .btn.primary {
+        padding: 14px 22px;
+        font-size: .95rem
+      }
+
+      .answer {
+        font-size: .92rem;
+        padding: 9px 12px
+      }
+    }
+
+    /* Touch-only devices: hide keyboard hints */
+    @media (hover: none) and (pointer: coarse) {
+      footer .keys {
+        display: none
+      }
+    }
+
+    /* Landscape phones: compact vertical layout */
+    @media (max-height: 540px) and (orientation: landscape) {
+      .top {
+        padding: 8px 16px 6px
+      }
+
+      .top h1 {
+        display: none
+      }
+
+      .chips {
+        padding: 0 16px 10px
+      }
+
+      main {
+        gap: 10px;
+        padding: 0 16px 10px
+      }
+
+      .card {
+        min-height: 0;
+        padding: 20px 24px;
+        border-radius: 20px;
+        gap: 12px
+      }
+
+      .q {
+        font-size: clamp(1rem, 2.6vw, 1.35rem);
+        max-width: 32ch
+      }
+
+      .q.intro {
+        font-size: .95rem
+      }
+
+      .btn {
+        padding: 12px 20px;
+        font-size: .88rem
+      }
+
+      .btn.primary {
+        padding: 12px 24px;
+        font-size: .92rem
+      }
+
+      .controls {
+        gap: 8px
+      }
+
+      footer {
+        padding: 8px 16px calc(8px + env(safe-area-inset-bottom))
+      }
+
+      footer .keys {
         display: none
       }
     }
@@ -875,7 +1250,6 @@
     <div class="modal" id="modal"></div>
   </div>
 
-  <!-- ============ ONBOARDING ============ -->
   <div class="intro-overlay" id="introOverlay" hidden>
     <div class="intro-card">
       <div class="intro-emoji" id="introEmoji">🎉</div>
@@ -1435,6 +1809,11 @@
       { key: "bible", label: "✝️ Bible" }
     ];
 
+    /* Decks excluded from the "Random Mix" filter. Charades is omitted so
+       Random Mix stays focused on conversational + dare + Bible prompts.
+       To include charades again, empty this array. */
+    const RANDOM_MIX_EXCLUDE = ["charades"];
+
     const STORAGE_KEY = "naijaPartyCards.v3";
     const INTRO_KEY = "naijaPartyCards.introSeen";
     const PEER_PREFIX = "naija-party-";
@@ -1623,7 +2002,7 @@
       {
         emoji: "🎲",
         title: "1. Choose your game",
-        body: "Tap any chip at the top to pick a deck: Playful Naija, Friends Edition, Do Am or Leave Am, Charades, or Bible. Or leave it on Random Mix to pull from all 500 prompts."
+        body: "Tap any chip at the top to pick a deck: Playful Naija, Friends Edition, Do Am or Leave Am, Charades, or Bible. Or leave it on Random Mix to pull from all conversational, dare, and Bible prompts."
       },
       {
         emoji: "👉",
@@ -1729,7 +2108,12 @@
        ========================================================= */
 
     function buildQueue() {
-      const keys = state.filter === "all" ? Object.keys(DECKS) : [state.filter];
+      let keys;
+      if (state.filter === "all") {
+        keys = Object.keys(DECKS).filter(k => !RANDOM_MIX_EXCLUDE.includes(k));
+      } else {
+        keys = [state.filter];
+      }
       let pool = [];
       keys.forEach(k => {
         RAW[k].forEach(raw => pool.push(normalizeItem(raw, k)));
@@ -2309,7 +2693,6 @@
       }, 300);
     })();
 
-    /* Auto-show onboarding on first visit (skip if joining a party via link) */
     (function maybeIntro() {
       const params = new URLSearchParams(location.search);
       const joining = !!(params.get("room") || "").trim();
