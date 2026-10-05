@@ -30,10 +30,10 @@ Built as one HTML file with zero build steps, zero backend, and zero accounts. D
 
 ## Features
 
-- **600 prompts** across six decks — Playful Naija, Friends Edition, Do Am or Leave Am, Charades, Bible Questions, and Bible Charades.
+- **600 prompts** across six decks — Playful Naija, Friends Talk, Do It or Drop It, Charades, Bible Questions, and Bible Charades.
 - **Real-time Party Mode** — one host, unlimited guests, all devices see the same card simultaneously.
 - **Room codes + QR codes** — guests join in seconds by typing a 4-character code, scanning a QR, or opening a shared link.
-- **Do Am or Leave Am** — dare and charade cards let players accept or skip, with confetti and sound feedback.
+- **Do It or Drop It** — dare and charade cards let players accept or skip, with confetti and sound feedback.
 - **Bible trivia with reveal** — questions hide their answers behind a synced Reveal Answer button.
 - **Random Mix or targeted decks** — play a shuffle of the four conversational decks, or focus on a single game.
 - **Onboarding guide** — a 7-step tour appears on first open and can be reopened anytime.
@@ -89,15 +89,15 @@ Solo mode works fully offline over `file://`.
 
 ## Game Decks
 
-| Deck              | Emoji | Count | Style                                                     |
-| ----------------- | ----- | ----- | --------------------------------------------------------- |
-| Playful Naija     | 🇳🇬     | 100   | Would-you-rather, who-in-this-room, finish-the-sentence   |
-| Friends Edition   | 🫂     | 100   | Group debates, hot takes, playful roast prompts           |
-| Do Am or Leave Am | 🔥     | 100   | Dares, performances, reveals                              |
-| Charades          | 🎭     | 100   | Act-it-out prompts — Nigerian life, animals, jobs, movies |
-| Bible Questions   | ✝️     | 100   | Trivia with hidden answers, including obscure questions   |
-| Bible Charades    | 📖     | 100   | Act-it-out Bible stories, parables, and events            |
-| **Random Mix**    | 🎲     | 400   | The four conversational decks shuffled together           |
+| Deck             | Emoji | Count | Style                                                     |
+| ---------------- | ----- | ----- | --------------------------------------------------------- |
+| Playful Naija    | 🇳🇬     | 100   | Would-you-rather, who-in-this-room, finish-the-sentence   |
+| Friends Talk     | 🫂     | 100   | Group debates, hot takes, playful roast prompts           |
+| Do It or Drop It | 🔥     | 100   | Dares, performances, reveals                              |
+| Charades         | 🎭     | 100   | Act-it-out prompts — Nigerian life, animals, jobs, movies |
+| Bible Questions  | ✝️     | 100   | Trivia with hidden answers, including obscure questions   |
+| Bible Charades   | 📖     | 100   | Act-it-out Bible stories, parables, and events            |
+| **Random Mix**   | 🎲     | 400   | The four conversational decks shuffled together           |
 
 ### Card behaviour by type
 
@@ -118,8 +118,8 @@ const RANDOM_MIX_EXCLUDE = ["charades", "biblec"];
 
 **Included in Random Mix:**
 - Playful Naija
-- Friends Edition
-- Do Am or Leave Am
+- Friends Talk
+- Do It or Drop It
 - Bible Questions
 
 **Excluded from Random Mix:**
@@ -173,7 +173,7 @@ A 7-step guide appears automatically the first time someone opens the app. It wa
 1. **Welcome** — what the app is
 2. **Choose your game** — the filter chips and the six decks
 3. **Draw a card** — button, swipe, and keyboard
-4. **Do Am or Leave Am** — how dares and charades work
+4. **Do It or Drop It** — how dares and charades work
 5. **Bible Questions & Bible Charades** — the reveal mechanic and the charade format
 6. **Party Mode** — host and join with a shared code
 7. **Make it personal** — Settings, name, sound, reset
