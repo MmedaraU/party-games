@@ -1,0 +1,2323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07160f">
+  <title>Naija Party Cards 🎉</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box
+    }
+
+    [hidden] {
+      display: none !important
+    }
+
+    :root {
+      --green: #00A651;
+      --gold: #FFC72C
+    }
+
+    html,
+    body {
+      min-height: 100%
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+      background: #07160f;
+      color: #eaf5ee;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: radial-gradient(60vw 60vw at 12% -5%, rgba(0, 166, 81, .40), transparent 62%),
+        radial-gradient(50vw 50vw at 95% 5%, rgba(255, 199, 44, .18), transparent 60%),
+        radial-gradient(70vw 60vw at 50% 115%, rgba(0, 166, 81, .28), transparent 62%)
+    }
+
+    .top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 16px 10px;
+      max-width: 1000px;
+      width: 100%;
+      margin: 0 auto
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      flex: 1
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex: none;
+      background: var(--gold);
+      box-shadow: 0 0 0 5px rgba(255, 199, 44, .16), 0 0 22px rgba(255, 199, 44, .65)
+    }
+
+    .top h1 {
+      font-size: clamp(1rem, 3.2vw, 1.25rem);
+      margin: 0;
+      letter-spacing: -.02em;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .icon-btn {
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .16);
+      color: #dff3e6;
+      min-width: 42px;
+      height: 42px;
+      padding: 0 12px;
+      border-radius: 12px;
+      font-size: .95rem;
+      font-weight: 700;
+      cursor: pointer;
+      flex: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: transform .15s, background .2s
+    }
+
+    .icon-btn:active {
+      transform: scale(.93)
+    }
+
+    .icon-btn[aria-pressed="true"] {
+      background: #fff;
+      color: #0b1a12
+    }
+
+    .icon-btn.wide {
+      font-size: .82rem
+    }
+
+    .role {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(0, 166, 81, .18);
+      border: 1px solid rgba(0, 166, 81, .5);
+      color: #9ff0c4;
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      padding: 6px 12px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      white-space: nowrap
+    }
+
+    .role.guest {
+      background: rgba(124, 58, 237, .2);
+      border-color: rgba(124, 58, 237, .55);
+      color: #d6bcff
+    }
+
+    .role .live {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4ade80;
+      animation: pulse 1.6s infinite
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .25
+      }
+    }
+
+    .settings {
+      max-width: 1000px;
+      width: calc(100% - 32px);
+      margin: 0 auto 12px;
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      backdrop-filter: blur(8px)
+    }
+
+    .settings label {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: .85rem;
+      font-weight: 600;
+      color: #bfe0cc
+    }
+
+    .settings input[type=text] {
+      background: rgba(0, 0, 0, .35);
+      border: 1px solid rgba(255, 255, 255, .2);
+      color: #fff;
+      padding: 11px 14px;
+      border-radius: 12px;
+      font: inherit;
+      font-size: 1rem;
+      outline: none
+    }
+
+    .settings input[type=text]:focus {
+      border-color: var(--gold)
+    }
+
+    .settings input[type=text]:disabled {
+      opacity: .5
+    }
+
+    .settings .row {
+      flex-direction: row;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer
+    }
+
+    .settings .hint {
+      margin: 0;
+      font-size: .76rem;
+      color: #8fb8a2;
+      line-height: 1.45
+    }
+
+    .chips {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 0 16px 16px;
+      max-width: 1000px;
+      width: 100%;
+      margin: 0 auto
+    }
+
+    .chip {
+      border: 1px solid rgba(255, 255, 255, .18);
+      background: rgba(255, 255, 255, .06);
+      color: #dff3e6;
+      padding: 9px 16px;
+      border-radius: 999px;
+      font: inherit;
+      font-size: .88rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform .15s, background .2s, color .2s, border-color .2s
+    }
+
+    .chip[aria-pressed="true"] {
+      background: #fff;
+      color: #0b1a12;
+      border-color: #fff
+    }
+
+    .chip:active {
+      transform: scale(.95)
+    }
+
+    .chip:disabled {
+      opacity: .4;
+      cursor: not-allowed
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      padding: 0 16px 20px;
+      max-width: 1000px;
+      width: 100%;
+      margin: 0 auto
+    }
+
+    .card {
+      position: relative;
+      width: 100%;
+      background: linear-gradient(180deg, #fffdf8, #fbf3e2);
+      color: #12171e;
+      border-radius: 28px;
+      padding: clamp(26px, 4.5vw, 52px) clamp(20px, 4vw, 48px);
+      min-height: clamp(230px, 40vh, 400px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: clamp(14px, 2.5vw, 22px);
+      box-shadow: 0 34px 60px -26px rgba(0, 0, 0, .85), 0 0 0 1px rgba(255, 255, 255, .07);
+      overflow: hidden
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 9px;
+      background: var(--accent, #00A651)
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -70px -40px;
+      height: 150px;
+      background: radial-gradient(closest-side, color-mix(in srgb, var(--accent, #00A651) 22%, transparent), transparent);
+      pointer-events: none
+    }
+
+    @keyframes cardIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px) rotate(-1.6deg) scale(.955)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .card.enter {
+      animation: cardIn .4s cubic-bezier(.2, .9, .3, 1.15) both
+    }
+
+    .tag {
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--accent, #00A651);
+      opacity: .95
+    }
+
+    .q {
+      margin: 0;
+      font-size: clamp(1.28rem, 4.4vw, 2.35rem);
+      line-height: 1.24;
+      font-weight: 800;
+      letter-spacing: -.022em;
+      max-width: 24ch;
+      text-wrap: balance
+    }
+
+    .q.intro {
+      font-size: clamp(1.1rem, 3.4vw, 1.6rem);
+      font-weight: 700;
+      color: #3d4a55;
+      max-width: 26ch
+    }
+
+    .answer {
+      margin: 0;
+      font-size: clamp(1rem, 3vw, 1.45rem);
+      font-weight: 700;
+      color: #0d6b3f;
+      background: #e8f7ee;
+      border: 1px solid #b6e2c8;
+      border-radius: 14px;
+      padding: 12px 20px;
+      max-width: 30ch;
+      line-height: 1.35
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 16px;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      padding: 16px 26px;
+      transition: transform .14s, box-shadow .2s, filter .2s;
+      letter-spacing: .01em;
+      white-space: nowrap
+    }
+
+    .btn:active {
+      transform: translateY(2px) scale(.98)
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid #FFC72C;
+      outline-offset: 3px
+    }
+
+    .btn:disabled {
+      opacity: .4;
+      cursor: not-allowed;
+      transform: none
+    }
+
+    .btn.primary {
+      background: linear-gradient(180deg, #00c25f, #00913f);
+      color: #fff;
+      box-shadow: 0 14px 30px -12px rgba(0, 194, 95, .95);
+      font-size: 1.05rem;
+      padding: 17px 34px
+    }
+
+    .btn.ghost {
+      background: transparent;
+      color: #b9d6c6;
+      border: 1px solid rgba(255, 255, 255, .2);
+      padding: 17px 24px
+    }
+
+    .btn.reveal {
+      background: linear-gradient(180deg, #7c3aed, #5b21b6);
+      color: #fff;
+      font-size: .95rem;
+      padding: 12px 22px;
+      box-shadow: 0 12px 26px -12px rgba(124, 58, 237, .9)
+    }
+
+    .choices {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      z-index: 1
+    }
+
+    .choices .btn {
+      flex: 1 1 190px;
+      max-width: 260px;
+      font-size: 1.02rem
+    }
+
+    .btn.do {
+      background: linear-gradient(180deg, #ff8f45, #f2600c);
+      color: #fff;
+      box-shadow: 0 14px 30px -14px rgba(242, 96, 12, 1)
+    }
+
+    .btn.leave {
+      background: #eef2ef;
+      color: #28352e;
+      border: 1px solid #dde5e0
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      width: 100%
+    }
+
+    .waiting {
+      font-size: .85rem;
+      color: #9fc4b1;
+      font-weight: 600;
+      text-align: center;
+      background: rgba(255, 255, 255, .06);
+      border: 1px dashed rgba(255, 255, 255, .2);
+      padding: 14px 20px;
+      border-radius: 14px
+    }
+
+    footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 14px 18px calc(18px + env(safe-area-inset-bottom));
+      font-size: .78rem;
+      color: #8fb8a2;
+      text-align: center
+    }
+
+    footer .keys {
+      opacity: .6;
+      font-size: .72rem
+    }
+
+    footer .helplink {
+      background: none;
+      border: 0;
+      color: var(--gold);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      padding: 0
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      transform: translate(-50%, 20px);
+      background: #fff;
+      color: #0b1a12;
+      font-weight: 700;
+      font-size: .88rem;
+      padding: 12px 20px;
+      border-radius: 999px;
+      z-index: 1400;
+      box-shadow: 0 18px 40px -14px rgba(0, 0, 0, .8);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s, transform .25s;
+      max-width: 90vw;
+      text-align: center
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0)
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1100;
+      background: rgba(3, 10, 6, .82);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      overflow-y: auto
+    }
+
+    .modal {
+      background: #0e1f16;
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 24px;
+      padding: 26px 22px;
+      max-width: 430px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 40px 80px -30px rgba(0, 0, 0, .9)
+    }
+
+    .modal h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      letter-spacing: -.02em
+    }
+
+    .modal p {
+      margin: 0;
+      font-size: .86rem;
+      color: #9fc4b1;
+      line-height: 1.5
+    }
+
+    .modal .big-code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: .22em;
+      text-align: center;
+      color: var(--gold);
+      padding: 14px 0;
+      text-shadow: 0 0 30px rgba(255, 199, 44, .5)
+    }
+
+    .modal .code-input {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: .3em;
+      text-align: center;
+      text-transform: uppercase;
+      background: rgba(0, 0, 0, .4);
+      border: 1px solid rgba(255, 255, 255, .22);
+      color: #fff;
+      padding: 14px;
+      border-radius: 14px;
+      outline: none;
+      width: 100%
+    }
+
+    .modal .code-input:focus {
+      border-color: var(--gold)
+    }
+
+    .modal .link-box {
+      background: rgba(0, 0, 0, .35);
+      border: 1px solid rgba(255, 255, 255, .15);
+      border-radius: 12px;
+      padding: 11px 13px;
+      font-size: .76rem;
+      color: #9fc4b1;
+      word-break: break-all;
+      font-family: ui-monospace, monospace
+    }
+
+    .modal .qr {
+      display: flex;
+      justify-content: center;
+      background: #fff;
+      border-radius: 16px;
+      padding: 12px;
+      align-self: center
+    }
+
+    .modal .qr img {
+      display: block;
+      width: 170px;
+      height: 170px
+    }
+
+    .modal .guest-count {
+      text-align: center;
+      font-size: .82rem;
+      color: #9fc4b1;
+      font-weight: 700
+    }
+
+    .modal .modal-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap
+    }
+
+    .modal .modal-actions .btn {
+      flex: 1 1 130px;
+      padding: 14px 18px;
+      font-size: .92rem
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #facc15;
+      margin-right: 7px;
+      vertical-align: middle;
+      animation: pulse 1.2s infinite
+    }
+
+    .status-dot.ok {
+      background: #4ade80;
+      animation: none
+    }
+
+    .status-dot.err {
+      background: #f87171;
+      animation: none
+    }
+
+    /* ---------- ONBOARDING ---------- */
+    .intro-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1300;
+      background: rgba(3, 10, 6, .92);
+      backdrop-filter: blur(9px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      overflow-y: auto;
+      animation: introFade .25s ease
+    }
+
+    @keyframes introFade {
+      from {
+        opacity: 0
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    .intro-card {
+      background: #0e1f16;
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 26px;
+      padding: 30px 24px;
+      max-width: 460px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+      box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .95);
+      animation: introPop .35s cubic-bezier(.2, .9, .3, 1.15)
+    }
+
+    @keyframes introPop {
+      from {
+        opacity: 0;
+        transform: translateY(24px) scale(.95)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .intro-emoji {
+      font-size: 3rem;
+      line-height: 1;
+      animation: emojiFloat 3s ease-in-out infinite
+    }
+
+    @keyframes emojiFloat {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-6px)
+      }
+    }
+
+    .intro-card h2 {
+      margin: 0;
+      font-size: 1.25rem;
+      letter-spacing: -.02em;
+      color: #fff;
+      line-height: 1.3
+    }
+
+    .intro-card p {
+      margin: 0;
+      font-size: .92rem;
+      line-height: 1.6;
+      color: #9fc4b1
+    }
+
+    .intro-dots {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      padding: 4px 0
+    }
+
+    .intro-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .22);
+      cursor: pointer;
+      transition: all .25s;
+      border: 0;
+      padding: 0
+    }
+
+    .intro-dot.active {
+      background: var(--gold);
+      width: 24px;
+      border-radius: 4px
+    }
+
+    .intro-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap
+    }
+
+    .intro-actions .btn {
+      flex: 1 1 120px;
+      padding: 14px 18px;
+      font-size: .95rem
+    }
+
+    .intro-tip {
+      font-size: .76rem;
+      color: #7fa992;
+      border-top: 1px solid rgba(255, 255, 255, .09);
+      padding-top: 12px;
+      line-height: 1.55;
+      text-align: left
+    }
+
+    .intro-tip b {
+      color: #bfe0cc
+    }
+
+    #confetti {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999
+    }
+
+    @media (max-width:520px) {
+      .q {
+        max-width: 20ch
+      }
+
+      .controls .btn {
+        flex: 1
+      }
+
+      .brand h1 {
+        display: none
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+
+      .card.enter,
+      .intro-card,
+      .intro-emoji {
+        animation: none
+      }
+
+      * {
+        transition-duration: .01ms !important
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <canvas id="confetti"></canvas>
+
+  <header class="top">
+    <div class="brand">
+      <span class="dot"></span>
+      <h1 id="partyTitle">🎉 Naija Party Cards</h1>
+    </div>
+    <span class="role" id="rolePill" hidden></span>
+    <button class="icon-btn" id="helpBtn" title="How to play" aria-label="How to play">❓</button>
+    <button class="icon-btn wide" id="partyBtn" title="Party mode">🎉 Party</button>
+    <button class="icon-btn" id="gear" title="Settings" aria-label="Settings">⚙️</button>
+  </header>
+
+  <div class="settings" id="settings" hidden>
+    <label>
+      Birthday person's name (optional)
+      <input type="text" id="nameInput" placeholder="e.g. Tunde" maxlength="18" autocomplete="off">
+    </label>
+    <label class="row"><input type="checkbox" id="soundChk" checked> Sound effects</label>
+    <p class="hint">The name you type replaces “the birthday celebrant” in any prompt that mentions them. When hosting,
+      guests see the same name.</p>
+  </div>
+
+  <nav class="chips" id="chips" aria-label="Game modes"></nav>
+
+  <main>
+    <section class="card" id="card" style="--accent:#00A651">
+      <div class="tag" id="tag">Ready</div>
+      <p class="q intro" id="question">Tap <b>Next Card</b> to draw your first prompt.</p>
+      <p class="answer" id="answer" hidden></p>
+      <button class="btn reveal" id="revealBtn" hidden>👁️ Reveal Answer</button>
+      <div class="choices" id="choices" hidden>
+        <button class="btn do" id="doBtn">💪 I DO AM</button>
+        <button class="btn leave" id="leaveBtn">🙅 I LEAVE AM</button>
+      </div>
+    </section>
+
+    <div class="controls" id="controls">
+      <button class="btn primary" id="nextBtn">Next Card →</button>
+      <button class="btn ghost" id="resetBtn">Reset</button>
+    </div>
+    <div class="waiting" id="waitingNote" hidden>Waiting for the host to draw the next card…</div>
+  </main>
+
+  <footer>
+    <span id="stats">0 cards drawn</span>
+    <button class="helplink" id="helpLink">How to play ❓</button>
+    <span class="keys">Space / → = next · 1 = do am · 2 = leave am · A = reveal · R = reset</span>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <div class="overlay" id="overlay" hidden>
+    <div class="modal" id="modal"></div>
+  </div>
+
+  <!-- ============ ONBOARDING ============ -->
+  <div class="intro-overlay" id="introOverlay" hidden>
+    <div class="intro-card">
+      <div class="intro-emoji" id="introEmoji">🎉</div>
+      <h2 id="introTitle">Welcome</h2>
+      <p id="introBody"></p>
+      <div class="intro-dots" id="introDots"></div>
+      <div class="intro-actions">
+        <button class="btn ghost" id="introBack" hidden>← Back</button>
+        <button class="btn primary" id="introNext">Next →</button>
+      </div>
+      <div class="intro-tip" id="introTip" hidden></div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+  <script>
+    /* =========================================================
+       1. THE DECKS  (500 prompts total)
+       ========================================================= */
+
+    const RAW = {
+
+      naija: [
+        "Would you rather fight one agbero or argue with three Nigerian aunties?",
+        "If your life was a Nollywood movie, what would the title be?",
+        "Who in this room is most likely to eat all the meat in the pot and deny it?",
+        "Finish the sentence: 'No be everybody wey dey laugh…'",
+        "If you could ban one Nigerian food forever, what would it be?",
+        "Would you rather have free suya for a year or free data for a year?",
+        "What is the most Nigerian thing you have ever done?",
+        "If your family had a reality show, what would it be called?",
+        "You are stuck in Lagos traffic for 5 hours. What do you do?",
+        "Who in this room would survive a village burial without getting food poisoned?",
+        "Would you rather be famous for a funny fail or rich but unknown?",
+        "If you could rename Nigeria, what would you call it?",
+        "What is the pettiest reason you have ever refused to eat someone's food?",
+        "Who is most likely to arrive late to an owambe and still complain about the food?",
+        "If you were a Nigerian street food, which one would you be?",
+        "Would you rather have a personal generator or a personal borehole?",
+        "What is your go-to excuse for missing an event?",
+        "Who in this room is most likely to become a politician if they need money?",
+        "If you could delete one Nigerian slang, what would it be?",
+        "What is the funniest thing you have heard a Nigerian auntie say?",
+        "Would you rather attend a wedding with no jollof or a wedding with no music?",
+        "If your mum's cooking was a song, what song would it be?",
+        "Who in this room would win a Nigerian market haggling contest?",
+        "What is the most dramatic thing you have done for food?",
+        "If you were to give a TED Talk, what would it be about?",
+        "Would you rather be a danfo driver or a keke driver for a day?",
+        "What is your Nigerian superhero name and power?",
+        "Who in this room is most likely to cry during a Nollywood movie?",
+        "If you could only eat one Nigerian soup forever, which one?",
+        "What is the worst Nigerian food combination you have ever seen?",
+        "Would you rather have NEPA take light during your favourite show or during charging?",
+        "If you could interview any Nigerian celebrity, who and what would you ask?",
+        "Who in this room is most likely to start a playful argument at a party?",
+        "What is the most Nigerian way to solve a problem?",
+        "If you were a Lagos bus conductor, what would your catchphrase be?",
+        "Would you rather eat garri with no sugar or rice with no stew?",
+        "What is the pettiest thing you have done to a sibling?",
+        "Who in this room is most likely to become a millionaire and forget their friends?",
+        "If you could bring back one Nigerian TV show, which one?",
+        "What is your go-to dance move at a Nigerian party?",
+        "Would you rather have a conversation with your village people or your landlord?",
+        "If your life had a theme song, what Nigerian song would it be?",
+        "Who in this room is most likely to eat their words after a strong claim?",
+        "What is the funniest nickname you have ever been given?",
+        "If you were to open a Nigerian restaurant, what would you name it?",
+        "Would you rather be stuck in a bus with a crying baby or a preacher?",
+        "What is the most ridiculous thing you believed as a child?",
+        "Who in this room is most likely to become a motivational speaker?",
+        "If you could ban one Nigerian tradition, what would it be?",
+        "What is the best Nigerian advice you have ever received?",
+        "Would you rather have a permanent supply of puff-puff or akara?",
+        "If you could swap lives with any Nigerian celebrity for a day, who?",
+        "Who in this room is most likely to talk their way out of trouble?",
+        "What is the most Nigerian thing to do at a wedding?",
+        "If you were a character in a Nollywood film, would you be the hero, the villain, or the comic relief?",
+        "Would you rather attend a party with no jollof or no small chops?",
+        "What is the funniest thing you have done to avoid washing plates?",
+        "Who in this room is most likely to fall asleep during a family meeting?",
+        "If you could rename jollof rice, what would you call it?",
+        "What is your favourite Nigerian insult that is not actually an insult?",
+        "Would you rather have free transport for a year or free food for a year?",
+        "If you had to describe your family using one Nigerian food, what and why?",
+        "Who in this room is most likely to spend all their money on aso ebi?",
+        "What is the most dramatic reaction you have had to NEPA taking light?",
+        "If you could make one Nigerian law, what would it be?",
+        "Would you rather be a Big Brother Naija housemate or a judge on a cooking show?",
+        "What is the funniest thing you have heard someone say in a Nigerian market?",
+        "Who in this room is most likely to become a social media influencer?",
+        "If you could only listen to one Nigerian artist forever, who?",
+        "What is the most Nigerian way to greet someone?",
+        "Would you rather eat amala with ewedu or pounded yam with egusi?",
+        "If you were to write a book about your life, what would the title be?",
+        "Who in this room is most likely to cry when they are angry?",
+        "What is the pettiest reason you have stopped talking to someone?",
+        "If you could bring one Nigerian tradition to the rest of the world, what would it be?",
+        "Would you rather have a personal chef or a personal driver?",
+        "What is the most Nigerian thing you have ever said?",
+        "Who in this room is most likely to become a landlord?",
+        "If you could delete one Nigerian song from existence, what would it be?",
+        "What is the funniest thing you have done at a Nigerian party?",
+        "Would you rather be stuck in a village without network or in Lagos without money?",
+        "If your life was a Nigerian song, what would the chorus be?",
+        "Who in this room is most likely to become a lawyer?",
+        "What is the most Nigerian way to show love?",
+        "If you could have dinner with any Nigerian historical figure, who?",
+        "Would you rather have a never-ending supply of suya or shawarma?",
+        "What is the funniest thing you have heard a Nigerian child say?",
+        "Who in this room is most likely to become a comedian?",
+        "If you could change one thing about Nigerian parties, what would it be?",
+        "What is the most Nigerian excuse for being late?",
+        "Would you rather be a Nigerian musician or a Nigerian actor?",
+        "If you had to perform at a family party, what talent would you show?",
+        "Who in this room is most likely to become a teacher?",
+        "What is the most Nigerian thing to do when you are broke?",
+        "If you could only eat Nigerian food for the rest of your life, what would your last meal be?",
+        "Would you rather have a conversation with a Nigerian ghost or a Nigerian scammer?",
+        "What is the funniest thing you have seen on a Nigerian bus?",
+        "Who in this room is most likely to become a chef?",
+        "If you could bring back one Nigerian fashion trend, what would it be?",
+        "What is the best thing about being Nigerian?"
+      ],
+
+      friends: [
+        "Would you rather always have to speak in Nigerian proverbs or always have to sing your replies?",
+        "Would you rather have a friend who always borrows money and never pays back, or a friend who always tells you the brutal truth?",
+        "Would you rather eat only eba and egusi for a month or only bread and butter for a month?",
+        "Would you rather your group chat be leaked to your parents or your search history be projected on a screen?",
+        "Would you rather be the funniest person in the room or the richest?",
+        "Would you rather fight your best friend over the last piece of meat or let them have it and silently resent them?",
+        "Would you rather have a personal hype man who follows you everywhere or a personal chef?",
+        "Would you rather your friend date your ex or your friend owe you money forever?",
+        "Would you rather attend a party where you know no one or host a party where no one shows up?",
+        "Would you rather be famous for a meme or be a millionaire in secret?",
+        "Who is most likely to become a Nigerian politician and actually try to help people?",
+        "Who would survive the longest in a Nigerian reality show without getting into a fight?",
+        "Who is most likely to claim they are 5 minutes away while still in the shower?",
+        "Who would accidentally send a text about someone to that same person?",
+        "Who is most likely to become a millionaire and still be stingy?",
+        "Who would cry first in a heated argument?",
+        "Who is most likely to fall asleep at their own birthday party?",
+        "Who would eat their friend's food from the fridge and deny it with a straight face?",
+        "Who is most likely to become a Nollywood villain?",
+        "Who would start a group chat and then mute it?",
+        "Describe the person on your left using only three Nigerian foods.",
+        "If the person on your right were a Nigerian song, what song would they be and why?",
+        "What is the most Nigerian habit of the person sitting next to you?",
+        "If the person across from you had a catchphrase, what would it be?",
+        "What would your best friend's reality show be called?",
+        "Describe the birthday celebrant's energy in one word.",
+        "If someone in this room were a Lagos bus conductor, what would they yell?",
+        "What is the most 'them' thing the person on your left has ever done?",
+        "What would you do if you found out your friend was secretly a Nigerian prince?",
+        "What would you do if your friend borrowed your car and returned it with no fuel?",
+        "What would you do if you saw your friend's partner cheating and they asked you to keep it secret?",
+        "What would you do if your friend won 50 million naira and did not buy you anything?",
+        "What would you do if you had to survive a week in Lagos with only 5,000 naira?",
+        "What would you do if your friend started dating your sibling?",
+        "What would you do if you had to choose between your phone and your friend for a week?",
+        "What would you do if your friend showed up at your house unannounced with 10 other people?",
+        "Finish the sentence: 'A true friend is someone who…'",
+        "Finish the sentence: 'You know you are Nigerian when…'",
+        "Finish the sentence: 'The most Nigerian thing about my friend is…'",
+        "Finish the sentence: 'If I had to describe my friendship group in one word, it would be…'",
+        "Finish the sentence: 'The one thing I would never share with my friends is…'",
+        "Finish the sentence: 'My friendship group would survive a zombie apocalypse because…'",
+        "Finish the sentence: 'The worst thing a friend can do is…'",
+        "Finish the sentence: 'The best thing about having Nigerian friends is…'",
+        "What is the most overrated Nigerian food?",
+        "What is the most underrated Nigerian food?",
+        "Which Nigerian artist is overhyped?",
+        "Is jollof rice better with or without chicken?",
+        "Is it okay to eat eba with your hands or must you use a spoon?",
+        "What is the most annoying Nigerian slang right now?",
+        "Is it acceptable to wear slippers to a wedding?",
+        "Should Nigerian parents be allowed to choose their children's careers?",
+        "Is it okay to ghost a friend who owes you money?",
+        "Is 'African time' a real thing or just an excuse?",
+        "What was your favourite Nigerian cartoon growing up?",
+        "What is the most Nigerian childhood punishment you received?",
+        "What was the best Nigerian snack from your childhood?",
+        "Who was your first Nigerian celebrity crush?",
+        "What is the most Nigerian game you played as a child?",
+        "What is the one Nigerian food you hated as a child but love now?",
+        "Everyone: do your best impression of the person on your right.",
+        "Everyone: say the first word that comes to mind when you think of the birthday celebrant.",
+        "Everyone: give the person on your left a new nickname based on their personality.",
+        "Everyone: describe the person across from you as a Nigerian food.",
+        "Everyone: what is the birthday celebrant's most likely reality TV show?",
+        "Everyone: what would the birthday celebrant's last words be?",
+        "Everyone: what is the one thing the birthday celebrant would take to a desert island?",
+        "Everyone: what is the birthday celebrant's secret talent?",
+        "If your friendship group were a Nigerian political party, what would it be called?",
+        "If your life was a Nigerian movie, what would the plot twist be?",
+        "If you could only communicate using Nigerian slang for a day, how would it go?",
+        "If your friend group had a theme song, what would it be?",
+        "If you had to swap lives with one friend for a day, who would it be and why?",
+        "If your friendship group ran a Nigerian restaurant, what would be on the menu?",
+        "If you had to describe your friendship in Nigerian weather terms, what would it be?",
+        "If your friend group was a Nigerian band, what would you be called?",
+        "What is the most valuable lesson a friend has taught you?",
+        "What is the nicest thing a friend has ever done for you?",
+        "What is the funniest memory you have with this group?",
+        "What is one thing you appreciate about the person to your left?",
+        "What is one thing you have always wanted to tell a friend but never have?",
+        "What does friendship mean to you in one sentence?",
+        "What is the most Nigerian way you have shown love to a friend?",
+        "What is the one thing you would change about your friendship group?",
+        "Rapid fire: jollof or fried rice?",
+        "Rapid fire: suya or shawarma?",
+        "Rapid fire: eba or pounded yam?",
+        "Rapid fire: Lagos or Abuja?",
+        "Rapid fire: danfo or keke?",
+        "Rapid fire: Afrobeats or highlife?",
+        "Rapid fire: Nollywood or Hollywood?",
+        "Rapid fire: owambe or beach party?",
+        "Rapid fire: garri or rice?",
+        "Rapid fire: plantain or beans?",
+        "What is the one thing that would make you end a friendship?",
+        "What is the best advice a friend has given you?",
+        "If you could relive one day with this group, what day would it be?",
+        "What is the one thing you hope never changes about this group?",
+        "What is the most Nigerian thing about this friendship?",
+        "What makes this friendship group special?"
+      ],
+
+      doam: [
+        "Sing your favourite Nigerian song in your best voice for 20 seconds.",
+        "Speak only in Nigerian Pidgin for the next three rounds.",
+        "Do your best impression of a Nigerian auntie greeting guests at a party.",
+        "Let the group give you a funny nickname and answer to it until your next turn.",
+        "Do a 10-second catwalk like you are at Lagos Fashion Week.",
+        "Call a friend and say 'I just won 1 million naira!' then quickly say 'I am joking' and hang up.",
+        "Dance to any song the group chooses for 15 seconds.",
+        "Tell the group one funny thing you did as a child.",
+        "Do your best impression of a Nigerian politician promising free electricity.",
+        "Let the person on your right give you a funny caption, and you must say it out loud.",
+        "Say the alphabet backwards in 15 seconds.",
+        "Act out a dramatic Nollywood death scene.",
+        "Speak in a village elder voice for the next two rounds.",
+        "Reveal your most useless talent.",
+        "Let the group choose a Nigerian accent for you to mimic.",
+        "Do 10 squats while singing 'African Queen'.",
+        "Tell everyone the name of a celebrity you would love to meet.",
+        "Act like you are selling pure water in traffic.",
+        "Let the group ask you one family-friendly question you must answer honestly.",
+        "Do your best impression of a Nigerian teacher scolding a student.",
+        "Balance a spoon on your nose for 10 seconds.",
+        "Do 5 push-ups while saying 'I am a champion!'",
+        "Sing everything you say for the next three turns.",
+        "Speak in a whisper until your next turn.",
+        "Use only hand gestures for one full round.",
+        "Reveal the last harmless lie you told.",
+        "Reveal the pettiest reason you once ignored someone.",
+        "Reveal your most embarrassing childhood memory.",
+        "Reveal the weirdest food combination you enjoy.",
+        "Reveal your most useless purchase ever.",
+        "Reveal your worst habit.",
+        "Reveal a nickname you hate.",
+        "Reveal the last movie that made you cry.",
+        "Reveal your biggest fear.",
+        "Give a sincere compliment to everyone in the room.",
+        "Let the group ask you 3 rapid-fire questions.",
+        "Let the person on your left describe you in 3 words.",
+        "Swap seats with someone and mimic them for one round.",
+        "Let the group decide your next dare.",
+        "High-five everyone and say 'No wahala!'",
+        "Give a 30-second speech on why jollof rice is superior.",
+        "Defend a controversial Nigerian food opinion for 1 minute.",
+        "Try to make the group laugh in 20 seconds.",
+        "Let the group vote on your most Nigerian habit.",
+        "Eat a spoonful of the peppery stew on the table without complaining.",
+        "Drink a glass of water without using your hands.",
+        "Eat a piece of food with your eyes closed and guess what it is.",
+        "Feed the person on your left blindfolded.",
+        "Taste something and describe it like a fancy food critic.",
+        "Swap plates with someone for one round.",
+        "Eat a snack without making any noise.",
+        "Name 10 Nigerian foods in 10 seconds.",
+        "Let the group choose what you eat next.",
+        "Do a 10-second jollof rice review.",
+        "Start a group dance and make everyone join.",
+        "Lead the group in a Nigerian praise chorus.",
+        "Organize a 1-minute talent show for everyone.",
+        "Let the group choose a song and you must lip-sync it.",
+        "Tell a story that starts with 'When I was in primary school…'",
+        "Do 15 jumping jacks.",
+        "Hold a plank for 20 seconds.",
+        "Touch your toes without bending your knees.",
+        "Balance on one leg for 30 seconds.",
+        "Do your best breakdance move.",
+        "Dance like a robot for 10 seconds.",
+        "Try a handstand against the wall.",
+        "Spin around 5 times, then walk in a straight line.",
+        "Do 5 star jumps.",
+        "Hop like a frog across the room.",
+        "Draw a portrait of the person on your right in 30 seconds.",
+        "Make up a rap about the person on your left.",
+        "Create a 10-second advert for an imaginary Nigerian product.",
+        "Invent a new Nigerian slang and use it in a sentence.",
+        "Tell a 30-second story using only Nigerian proverbs.",
+        "Make a funny face and hold it for 10 seconds.",
+        "Do an impression of a Nigerian radio presenter.",
+        "Read a random text in a dramatic voice.",
+        "Make up a song about the last thing you ate.",
+        "Speak in rhymes for the next two rounds.",
+        "Talk like a Nigerian radio host for 1 minute.",
+        "Let the group choose your profile picture for a day.",
+        "Call a family member and speak only in Pidgin for 1 minute.",
+        "Do your best impression of a Nigerian pastor.",
+        "Act like you just won a Grammy.",
+        "Let the group give you a 10-second makeover with whatever is available.",
+        "Wear your jacket or shirt backwards for the next 3 rounds.",
+        "Let someone style your hair in a funny way.",
+        "Do a 20-second stand-up comedy routine.",
+        "Tell the group your most embarrassing school story.",
+        "Let the group choose a Nigerian song for you to perform with full drama.",
+        "Pretend to be a Lagos traffic warden for one minute.",
+        "Do your best impression of a Nigerian market woman haggling.",
+        "Speak like a football commentator narrating your last meal.",
+        "Give a 20-second weather report in Pidgin.",
+        "Recite a nursery rhyme in a deep, serious voice.",
+        "Act like you are late for a flight and running through the airport.",
+        "Do a slow-motion replay of your best dance move.",
+        "Let the group choose three words you must use in every sentence for one round.",
+        "Give a motivational speech about why nobody should give up on jollof rice.",
+        "End the game by giving everyone a funny title based on their personality."
+      ],
+
+      charades: [
+        "Act out: A Lagos danfo conductor shouting for passengers",
+        "Act out: Haggling at Balogun Market",
+        "Act out: NEPA taking light during a movie",
+        "Act out: A Nigerian auntie arriving late to a party",
+        "Act out: Selling pure water in traffic",
+        "Act out: A Nigerian mum doing the mummy's corner dance",
+        "Act out: Waiting 30 minutes for your food at a restaurant",
+        "Act out: A baby taking its first steps",
+        "Act out: Someone who forgot their phone at home",
+        "Act out: A Nigerian dad trying to use TikTok",
+        "Act out: A chicken crossing the road",
+        "Act out: A goat eating from a market stall",
+        "Act out: A dog chasing its tail",
+        "Act out: A cat trying to catch a fly",
+        "Act out: A monkey stealing food",
+        "Act out: A snake slithering through grass",
+        "Act out: A cow chewing cud",
+        "Act out: A parrot repeating what someone says",
+        "Act out: A fish out of water",
+        "Act out: A proud peacock",
+        "Act out: Brushing your teeth in a rush",
+        "Act out: Trying to open a stubborn jar",
+        "Act out: Stepping on a Lego",
+        "Act out: Walking on hot sand at the beach",
+        "Act out: Getting caught in the rain without an umbrella",
+        "Act out: Trying to catch a bus that is about to leave",
+        "Act out: Falling asleep in a meeting",
+        "Act out: Eating pepper soup and realizing it is too hot",
+        "Act out: Taking a selfie from every angle",
+        "Act out: Trying to fix a bad WiFi connection",
+        "Act out: Waking up late for work",
+        "Act out: Doing laundry by hand",
+        "Act out: Learning to ride a bicycle",
+        "Act out: Blowing out birthday candles",
+        "Act out: Opening a gift you do not like",
+        "Act out: A doctor giving an injection",
+        "Act out: A teacher writing on a blackboard",
+        "Act out: A tailor taking measurements",
+        "Act out: A barber giving a haircut",
+        "Act out: A bus driver in Lagos traffic",
+        "Act out: A pastor preaching with passion",
+        "Act out: A police officer directing traffic",
+        "Act out: A footballer scoring a goal",
+        "Act out: A chef flipping food in a pan",
+        "Act out: A photographer at a wedding",
+        "Act out: Someone who just won the lottery",
+        "Act out: Someone who just missed their flight",
+        "Act out: Someone who saw a ghost",
+        "Act out: Someone who just ate the best jollof rice",
+        "Act out: Someone pretending to be busy at work",
+        "Act out: Someone who stepped on a nail",
+        "Act out: Someone who lost their phone",
+        "Act out: Someone who just got paid",
+        "Act out: Someone who is extremely shy",
+        "Act out: Someone who is trying not to laugh",
+        "Act out: The Titanic sinking scene",
+        "Act out: A superhero saving the day",
+        "Act out: A zombie walking",
+        "Act out: A robot running out of battery",
+        "Act out: A slow-motion action scene",
+        "Act out: A Nollywood dramatic death",
+        "Act out: Singing in the rain",
+        "Act out: A lion king sunrise",
+        "Act out: A horror movie chase",
+        "Act out: A romantic movie reunion",
+        "Act out: Playing football",
+        "Act out: Playing table tennis",
+        "Act out: Swimming in a race",
+        "Act out: Boxing",
+        "Act out: Playing a video game",
+        "Act out: Running a marathon",
+        "Act out: Playing a drum",
+        "Act out: Playing the piano",
+        "Act out: Yoga",
+        "Act out: Skipping rope",
+        "Act out: Eating a bowl of eba with egusi",
+        "Act out: Sucking a mango",
+        "Act out: Drinking hot tea",
+        "Act out: Biting into a very sour lime",
+        "Act out: Chewing meat that will not soften",
+        "Act out: Roasting corn",
+        "Act out: Peeling an orange",
+        "Act out: Making puff-puff",
+        "Act out: Eating rice with a fork",
+        "Act out: Sharing a plate of food",
+        "Act out: A traffic light changing from red to green",
+        "Act out: A phone battery dying",
+        "Act out: A balloon deflating",
+        "Act out: A clock ticking",
+        "Act out: A candle burning out",
+        "Act out: A flower blooming",
+        "Act out: A door creaking open",
+        "Act out: A car engine failing to start",
+        "Act out: A kettle boiling",
+        "Act out: An airplane taking off",
+        "Act out: A train arriving at a station",
+        "Act out: A rocket launching",
+        "Act out: A baby crying",
+        "Act out: An old person getting up from a chair",
+        "Act out: Someone snoring loudly"
+      ],
+
+      bible: [
+        { text: "Act out: Noah building the ark", kind: "charade" },
+        { text: "Act out: Moses parting the Red Sea", kind: "charade" },
+        { text: "Act out: David fighting Goliath", kind: "charade" },
+        { text: "Act out: Jonah being swallowed by the big fish", kind: "charade" },
+        { text: "Act out: Adam and Eve in the Garden of Eden", kind: "charade" },
+        { text: "Act out: Daniel in the lions' den", kind: "charade" },
+        { text: "Act out: The Good Samaritan helping a stranger", kind: "charade" },
+        { text: "Act out: Jesus walking on water", kind: "charade" },
+        { text: "Act out: The Prodigal Son returning home", kind: "charade" },
+        { text: "Act out: The Last Supper", kind: "charade" },
+        { text: "Act out: Samson pushing down the pillars", kind: "charade" },
+        { text: "Act out: The walls of Jericho falling", kind: "charade" },
+        { text: "Act out: Baby Moses in the basket", kind: "charade" },
+        { text: "Act out: The three wise men following the star", kind: "charade" },
+        { text: "Act out: Jesus feeding the 5,000", kind: "charade" },
+        { text: "Act out: Zacchaeus climbing a tree", kind: "charade" },
+        { text: "Act out: Peter walking on water and sinking", kind: "charade" },
+        { text: "Act out: The burning bush", kind: "charade" },
+        { text: "Act out: Jesus healing a blind man", kind: "charade" },
+        { text: "Act out: The angel appearing to Mary", kind: "charade" },
+        { text: "Act out: Joseph and his colorful coat", kind: "charade" },
+        { text: "Act out: Moses receiving the Ten Commandments", kind: "charade" },
+        { text: "Act out: Jesus calming the storm", kind: "charade" },
+        { text: "Act out: The woman at the well", kind: "charade" },
+        { text: "Act out: The raising of Lazarus", kind: "charade" },
+        { text: "Act out: Jesus washing the disciples' feet", kind: "charade" },
+        { text: "Act out: The resurrection morning", kind: "charade" },
+        { text: "Act out: Paul's conversion on the road to Damascus", kind: "charade" },
+        { text: "Act out: Elijah calling down fire from heaven", kind: "charade" },
+        { text: "Act out: The shepherds hearing the good news", kind: "charade" },
+        { text: "Who built the ark?", answer: "Noah" },
+        { text: "How many days did it take God to create the world?", answer: "Six" },
+        { text: "How many disciples did Jesus have?", answer: "Twelve" },
+        { text: "Who betrayed Jesus?", answer: "Judas Iscariot" },
+        { text: "Who was the mother of Jesus?", answer: "Mary" },
+        { text: "Who was the first man?", answer: "Adam" },
+        { text: "Who was the first woman?", answer: "Eve" },
+        { text: "Which book of the Bible comes first?", answer: "Genesis" },
+        { text: "Who led the Israelites out of Egypt?", answer: "Moses" },
+        { text: "What did God create on the first day?", answer: "Light" },
+        { text: "Who was thrown into the lions' den?", answer: "Daniel" },
+        { text: "How many books are in the Bible?", answer: "66" },
+        { text: "Who wrote most of the Psalms?", answer: "David" },
+        { text: "What was Jesus's first miracle?", answer: "Turning water into wine" },
+        { text: "Who baptized Jesus?", answer: "John the Baptist" },
+        { text: "Which apostle walked on water with Jesus?", answer: "Peter" },
+        { text: "What is the shortest verse in the Bible?", answer: "Jesus wept (John 11:35)" },
+        { text: "Who was the strongest man in the Bible?", answer: "Samson" },
+        { text: "Who was the wisest man?", answer: "Solomon" },
+        { text: "What sea did Moses part?", answer: "The Red Sea" },
+        { text: "Who was the father of many nations?", answer: "Abraham" },
+        { text: "What did Jesus say is the greatest commandment?", answer: "Love God and love your neighbor" },
+        { text: "Who is the author of the book of Acts?", answer: "Luke" },
+        { text: "How many days was Lazarus dead before Jesus raised him?", answer: "Four" },
+        { text: "What is the first book of the New Testament?", answer: "Matthew" },
+        { text: "Who was the first Christian martyr?", answer: "Stephen" },
+        { text: "Which disciple doubted Jesus's resurrection?", answer: "Thomas" },
+        { text: "Where was Jesus born?", answer: "Bethlehem" },
+        { text: "Who were the first two brothers in the Bible?", answer: "Cain and Abel" },
+        { text: "What did the Israelites eat in the wilderness?", answer: "Manna" },
+        { text: "Who interpreted Pharaoh's dreams?", answer: "Joseph" },
+        { text: "How many plagues struck Egypt?", answer: "Ten" },
+        { text: "Who was the mother of Isaac?", answer: "Sarah" },
+        { text: "What was Paul's name before his conversion?", answer: "Saul" },
+        { text: "Which cities did God destroy with fire and brimstone?", answer: "Sodom and Gomorrah" },
+        { text: "Who was the first king of Israel?", answer: "Saul" },
+        { text: "Which king wrote many of the Proverbs?", answer: "Solomon" },
+        { text: "Who was thrown into a fiery furnace?", answer: "Shadrach, Meshach, and Abednego" },
+        { text: "What garden did Jesus pray in before his arrest?", answer: "Gethsemane" },
+        { text: "Who denied Jesus three times?", answer: "Peter" },
+        { text: "What did Jesus ride into Jerusalem?", answer: "A donkey" },
+        { text: "How many loaves and fish fed the 5,000?", answer: "Five loaves and two fish" },
+        { text: "Who was the tax collector that climbed a tree?", answer: "Zacchaeus" },
+        { text: "What did Jesus turn water into?", answer: "Wine" },
+        { text: "Which apostle was a doctor?", answer: "Luke" },
+        { text: "How many days was Jonah in the fish?", answer: "Three" },
+        { text: "Who was the wife of Abraham?", answer: "Sarah" },
+        { text: "What mountain did Moses receive the Ten Commandments on?", answer: "Mount Sinai" },
+        { text: "Who was the first person to see the risen Jesus?", answer: "Mary Magdalene" },
+        { text: "What is the last book of the Bible?", answer: "Revelation" },
+        { text: "Who was the Roman governor who sentenced Jesus?", answer: "Pontius Pilate" },
+        { text: "What did Jesus do at the Last Supper?", answer: "Instituted Communion and washed the disciples' feet" },
+        { text: "How many people were on Noah's ark?", answer: "Eight" },
+        { text: "What animal spoke to Balaam?", answer: "A donkey" },
+        { text: "Who was the first high priest of Israel?", answer: "Aaron" },
+        { text: "What did Paul do before following Christ?", answer: "Persecuted Christians" },
+        { text: "How long did the Israelites wander in the wilderness?", answer: "Forty years" },
+        { text: "Who was the father of John the Baptist?", answer: "Zechariah" },
+        { text: "What was the name of Jesus's earthly father?", answer: "Joseph" },
+        { text: "How many people did Jesus raise from the dead?", answer: "Three" },
+        { text: "What did Jesus say to the storm?", answer: "Peace, be still" },
+        { text: "Which prophet was taken up in a whirlwind?", answer: "Elijah" },
+        { text: "Who wrote the book of Revelation?", answer: "John" },
+        { text: "What is the first listed fruit of the Spirit?", answer: "Love" },
+        { text: "Where were disciples first called Christians?", answer: "Antioch" },
+        { text: "What did the Holy Spirit appear as at Pentecost?", answer: "Tongues of fire" },
+        { text: "Who replaced Judas as an apostle?", answer: "Matthias" },
+        { text: "What did Jesus say about the poor?", answer: "You will always have the poor with you" },
+        { text: "How many days did Jesus appear after his resurrection?", answer: "Forty" },
+        { text: "What is the greatest gift according to 1 Corinthians 13?", answer: "Love" }
+      ]
+    };
+
+    /* =========================================================
+       2. CONFIG
+       ========================================================= */
+
+    const DECKS = {
+      naija: { label: "Playful Naija", emoji: "🇳🇬", color: "#00A651" },
+      friends: { label: "Friends Edition", emoji: "🫂", color: "#7C3AED" },
+      doam: { label: "Do Am or Leave Am", emoji: "🔥", color: "#F97316" },
+      charades: { label: "Charades", emoji: "🎭", color: "#0EA5E9" },
+      bible: { label: "Bible Charades & Questions", emoji: "✝️", color: "#B45309" }
+    };
+
+    const FILTERS = [
+      { key: "all", label: "🎲 Random Mix" },
+      { key: "naija", label: "🇳🇬 Playful Naija" },
+      { key: "friends", label: "🫂 Friends Edition" },
+      { key: "doam", label: "🔥 Do Am or Leave Am" },
+      { key: "charades", label: "🎭 Charades" },
+      { key: "bible", label: "✝️ Bible" }
+    ];
+
+    const STORAGE_KEY = "naijaPartyCards.v3";
+    const INTRO_KEY = "naijaPartyCards.introSeen";
+    const PEER_PREFIX = "naija-party-";
+    const CODE_CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+    /* =========================================================
+       3. DOM
+       ========================================================= */
+
+    const cardEl = document.getElementById("card");
+    const tagEl = document.getElementById("tag");
+    const qEl = document.getElementById("question");
+    const answerEl = document.getElementById("answer");
+    const revealBtn = document.getElementById("revealBtn");
+    const choices = document.getElementById("choices");
+    const controls = document.getElementById("controls");
+    const waiting = document.getElementById("waitingNote");
+    const nextBtn = document.getElementById("nextBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const doBtn = document.getElementById("doBtn");
+    const leaveBtn = document.getElementById("leaveBtn");
+    const chipsEl = document.getElementById("chips");
+    const statsEl = document.getElementById("stats");
+    const toastEl = document.getElementById("toast");
+    const gear = document.getElementById("gear");
+    const settings = document.getElementById("settings");
+    const nameInput = document.getElementById("nameInput");
+    const soundChk = document.getElementById("soundChk");
+    const partyBtn = document.getElementById("partyBtn");
+    const rolePill = document.getElementById("rolePill");
+    const overlay = document.getElementById("overlay");
+    const modal = document.getElementById("modal");
+    const helpBtn = document.getElementById("helpBtn");
+    const helpLink = document.getElementById("helpLink");
+
+    const introOverlay = document.getElementById("introOverlay");
+    const introEmoji = document.getElementById("introEmoji");
+    const introTitle = document.getElementById("introTitle");
+    const introBody = document.getElementById("introBody");
+    const introDots = document.getElementById("introDots");
+    const introBack = document.getElementById("introBack");
+    const introNext = document.getElementById("introNext");
+    const introTip = document.getElementById("introTip");
+
+    /* =========================================================
+       4. STATE
+       ========================================================= */
+
+    const state = {
+      filter: "all",
+      queue: [],
+      current: null,
+      drawn: 0,
+      didCount: 0,
+      leaveCount: 0
+    };
+
+    let role = "solo";
+    let roomCode = "";
+    let partyName = "";
+    let remoteRemaining = null;
+    let revealed = false;
+
+    let soundOn = true;
+    let peer = null;
+    let hostConn = null;
+    let guestConns = [];
+
+    let introIndex = 0;
+
+    /* =========================================================
+       5. HELPERS
+       ========================================================= */
+
+    function shuffle(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function personalize(text) {
+      const n = (partyName || "").trim();
+      if (!n) return text;
+      return text.replace(/the birthday celebrant/gi, n).replace(/birthday celebrant/gi, n);
+    }
+
+    function normalizeItem(raw, deck) {
+      if (typeof raw === "string") {
+        return { deck, text: raw, kind: deck === "charades" ? "charade" : "plain" };
+      }
+      return {
+        deck,
+        text: raw.text,
+        answer: raw.answer,
+        kind: raw.kind || (raw.answer ? "question" : "plain")
+      };
+    }
+
+    let toastTimer = null;
+    function toast(msg) {
+      toastEl.textContent = msg;
+      toastEl.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2000);
+    }
+
+    /* ---- Sound ---- */
+    let audioCtx = null;
+    function tone(freq, dur = 0.08, type = "triangle", gain = 0.05) {
+      if (!soundOn) return;
+      try {
+        audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === "suspended") audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.value = freq;
+        g.gain.setValueAtTime(gain, audioCtx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
+        osc.connect(g); g.connect(audioCtx.destination);
+        osc.start(); osc.stop(audioCtx.currentTime + dur);
+      } catch (e) { }
+    }
+    function cardSound() { tone(520, 0.06, "triangle", 0.045); setTimeout(() => tone(780, 0.09, "triangle", 0.04), 55); }
+    function doSound() { tone(660, 0.07); setTimeout(() => tone(990, 0.12), 70); }
+    function skipSound() { tone(300, 0.12, "sine", 0.05); }
+
+    /* ---- Confetti ---- */
+    const cv = document.getElementById("confetti");
+    const cx = cv.getContext("2d");
+    let particles = [];
+    let rafId = null;
+    const CONFETTI_COLORS = ["#00A651", "#FFC72C", "#ffffff", "#F97316", "#7C3AED", "#16a34a"];
+
+    function fitCanvas() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cv.width = window.innerWidth * dpr;
+      cv.height = window.innerHeight * dpr;
+      cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    window.addEventListener("resize", fitCanvas);
+    fitCanvas();
+
+    function burst(n = 40, x = window.innerWidth / 2, y = window.innerHeight * 0.32) {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      for (let i = 0; i < n; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 4 + Math.random() * 9;
+        particles.push({
+          x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed - 4,
+          g: 0.26 + Math.random() * 0.22, w: 5 + Math.random() * 7, h: 8 + Math.random() * 10,
+          rot: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.42,
+          c: CONFETTI_COLORS[(Math.random() * CONFETTI_COLORS.length) | 0],
+          life: 70 + Math.random() * 40
+        });
+      }
+      if (!rafId) rafId = requestAnimationFrame(tickConfetti);
+    }
+
+    function tickConfetti() {
+      cx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      particles = particles.filter(p => p.life > 0 && p.y < window.innerHeight + 80);
+      for (const p of particles) {
+        p.vy += p.g; p.vx *= 0.995; p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.life--;
+        cx.save(); cx.translate(p.x, p.y); cx.rotate(p.rot);
+        cx.globalAlpha = Math.min(1, p.life / 30); cx.fillStyle = p.c;
+        cx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); cx.restore();
+      }
+      if (particles.length) rafId = requestAnimationFrame(tickConfetti);
+      else { rafId = null; cx.clearRect(0, 0, window.innerWidth, window.innerHeight); }
+    }
+
+    /* =========================================================
+       6. ONBOARDING
+       ========================================================= */
+
+    const INTRO_STEPS = [
+      {
+        emoji: "🎉",
+        title: "Welcome to Naija Party Cards",
+        body: "500 prompts for parties, friends and family — playful Naija questions, friends-edition debates, charades, Bible games, and dares. Pick a game, draw a card, and let the party run itself."
+      },
+      {
+        emoji: "🎲",
+        title: "1. Choose your game",
+        body: "Tap any chip at the top to pick a deck: Playful Naija, Friends Edition, Do Am or Leave Am, Charades, or Bible. Or leave it on Random Mix to pull from all 500 prompts."
+      },
+      {
+        emoji: "👉",
+        title: "2. Draw a card",
+        body: "Tap Next Card, swipe left on the card, or press Space / →. Each draw is random, and the deck avoids repeats until it reshuffles itself."
+      },
+      {
+        emoji: "💪",
+        title: "3. Do Am or Leave Am",
+        body: "Dares and charades show two buttons: I DO AM to perform it, or I LEAVE AM to skip. Choosing either fires confetti and moves to the next card automatically. Keyboard: 1 = do, 2 = leave."
+      },
+      {
+        emoji: "✝️",
+        title: "4. Bible questions",
+        body: "Bible trivia cards hide the answer behind a Reveal Answer button. Tap it (or press A) when the group is ready. Bible charades work like normal charades."
+      },
+      {
+        emoji: "🎉",
+        title: "5. Play together with Party Mode",
+        body: "Tap Party → Host a Party on one device. Share the 4-letter code, link, or QR code. Everyone who joins sees the same card on their own phone, at the same time. Guests can tap Do Am or Leave Am and the host's device advances everyone."
+      },
+      {
+        emoji: "⚙️",
+        title: "6. Make it personal",
+        body: "Open ⚙️ Settings to type the birthday person's name — prompts that mention 'the birthday celebrant' will use their name instead. Toggle sound effects on or off. Press R anytime to reset the deck."
+      }
+    ];
+
+    function renderIntro() {
+      const step = INTRO_STEPS[introIndex];
+      introEmoji.textContent = step.emoji;
+      introTitle.textContent = step.title;
+      introBody.textContent = step.body;
+
+      introDots.innerHTML = "";
+      INTRO_STEPS.forEach((_, i) => {
+        const d = document.createElement("button");
+        d.type = "button";
+        d.className = "intro-dot" + (i === introIndex ? " active" : "");
+        d.setAttribute("aria-label", "Go to step " + (i + 1));
+        d.addEventListener("click", () => { introIndex = i; renderIntro(); });
+        introDots.appendChild(d);
+      });
+
+      introBack.hidden = introIndex === 0;
+      introNext.textContent = introIndex === INTRO_STEPS.length - 1 ? "Let's Play 🎉" : "Next →";
+
+      if (introIndex === INTRO_STEPS.length - 1) {
+        introTip.hidden = false;
+        introTip.innerHTML = "<b>Shortcuts:</b> Space / → = next card · 1 = do am · 2 = leave am · A = reveal answer · R = reset. Reopen this guide anytime with the ❓ button or the footer link.";
+      } else {
+        introTip.hidden = true;
+      }
+    }
+
+    function openIntro(start) {
+      introIndex = typeof start === "number" ? start : 0;
+      renderIntro();
+      introOverlay.hidden = false;
+    }
+
+    function closeIntro() {
+      introOverlay.hidden = true;
+      try { localStorage.setItem(INTRO_KEY, "1"); } catch (e) { }
+    }
+
+    introNext.addEventListener("click", () => {
+      if (introIndex === INTRO_STEPS.length - 1) {
+        closeIntro();
+        tone(880, 0.09);
+        burst(50);
+        return;
+      }
+      introIndex++;
+      tone(600, 0.05);
+      renderIntro();
+    });
+
+    introBack.addEventListener("click", () => {
+      if (introIndex > 0) {
+        introIndex--;
+        tone(500, 0.05);
+        renderIntro();
+      }
+    });
+
+    helpBtn.addEventListener("click", () => openIntro(0));
+    helpLink.addEventListener("click", () => openIntro(0));
+
+    introOverlay.addEventListener("click", (e) => {
+      if (e.target === introOverlay) closeIntro();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (introOverlay.hidden) return;
+      if (e.key === "ArrowRight" || e.key === "Enter") { e.preventDefault(); introNext.click(); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); introBack.click(); }
+      if (e.key === "Escape") { e.preventDefault(); closeIntro(); }
+    });
+
+    /* =========================================================
+       7. RENDERING
+       ========================================================= */
+
+    function buildQueue() {
+      const keys = state.filter === "all" ? Object.keys(DECKS) : [state.filter];
+      let pool = [];
+      keys.forEach(k => {
+        RAW[k].forEach(raw => pool.push(normalizeItem(raw, k)));
+      });
+      state.queue = shuffle(pool);
+    }
+
+    function updateStats() {
+      const remaining = role === "guest" && remoteRemaining !== null ? remoteRemaining : state.queue.length;
+      const plural = state.drawn === 1 ? "" : "s";
+      let s = `${state.drawn} card${plural} drawn · ${remaining} left in deck`;
+      if (state.didCount + state.leaveCount > 0) {
+        s += ` · 💪 ${state.didCount} done · 🙅 ${state.leaveCount} skipped`;
+      }
+      statsEl.textContent = s;
+    }
+
+    function animateCard() {
+      cardEl.classList.remove("enter");
+      void cardEl.offsetWidth;
+      cardEl.classList.add("enter");
+    }
+
+    function showWelcome() {
+      cardEl.style.setProperty("--accent", "#00A651");
+      tagEl.textContent = "Ready";
+      qEl.className = "q intro";
+      qEl.textContent = role === "guest"
+        ? "Waiting for the host to draw the first card…"
+        : "Tap “Next Card” to draw your first prompt.";
+      answerEl.hidden = true;
+      revealBtn.hidden = true;
+      choices.hidden = true;
+      updateStats();
+    }
+
+    function render(item, opts) {
+      opts = opts || {};
+      const deck = DECKS[item.deck];
+
+      cardEl.style.setProperty("--accent", deck.color);
+      tagEl.textContent = `${deck.emoji}  ${deck.label}`;
+      qEl.className = "q";
+      qEl.textContent = personalize(item.text);
+
+      const isPerformance = item.deck === "doam" || item.kind === "charade";
+      choices.hidden = !isPerformance;
+
+      const rv = !!opts.revealed;
+      if (item.answer) {
+        answerEl.textContent = item.answer;
+        answerEl.hidden = !rv;
+        revealBtn.hidden = rv;
+      } else {
+        answerEl.hidden = true;
+        answerEl.textContent = "";
+        revealBtn.hidden = true;
+      }
+
+      if (opts.animate !== false) animateCard();
+      updateStats();
+    }
+
+    /* =========================================================
+       8. GAME LOGIC
+       ========================================================= */
+
+    function drawCard() {
+      if (role === "guest") { sendToHost({ type: "action", action: "next" }); return; }
+      if (state.queue.length === 0) { buildQueue(); toast("Deck reshuffled 🔄"); }
+      const item = state.queue.pop();
+      state.current = item;
+      state.drawn++;
+      revealed = false;
+      cardSound();
+      burst(34);
+      render(item);
+      broadcastState();
+    }
+
+    function chooseDo() {
+      if (role === "guest") { sendToHost({ type: "action", action: "do" }); toast("Sent to host 💪"); return; }
+      if (!state.current) return;
+      state.didCount++;
+      doSound();
+      burst(80);
+      toast("Respect! 💪");
+      broadcastState();
+      setTimeout(drawCard, 180);
+    }
+
+    function chooseLeave() {
+      if (role === "guest") { sendToHost({ type: "action", action: "leave" }); toast("Sent to host 🙅"); return; }
+      if (!state.current) return;
+      state.leaveCount++;
+      skipSound();
+      toast("We saw that 🙅");
+      broadcastState();
+      setTimeout(drawCard, 160);
+    }
+
+    function revealAnswer() {
+      if (!state.current || !state.current.answer) return;
+      revealed = true;
+      answerEl.textContent = state.current.answer;
+      answerEl.hidden = false;
+      revealBtn.hidden = true;
+      tone(880, 0.09);
+      if (role === "host") broadcastState();
+    }
+
+    function resetGame() {
+      if (role === "guest") return;
+      state.drawn = 0;
+      state.didCount = 0;
+      state.leaveCount = 0;
+      state.current = null;
+      revealed = false;
+      buildQueue();
+      showWelcome();
+      toast("Deck reset 🔄");
+      broadcastState();
+    }
+
+    function setFilter(key) {
+      if (role === "guest") return;
+      if (state.filter === key) return;
+      state.filter = key;
+      buildQueue();
+      state.current = null;
+      state.drawn = 0;
+      state.didCount = 0;
+      state.leaveCount = 0;
+      revealed = false;
+
+      [...chipsEl.children].forEach(c => {
+        c.setAttribute("aria-pressed", String(c.dataset.key === key));
+      });
+
+      tone(600, 0.05);
+      showWelcome();
+      broadcastState();
+    }
+
+    /* =========================================================
+       9. SYNC LAYER
+       ========================================================= */
+
+    function makeCode() {
+      let out = "";
+      for (let i = 0; i < 4; i++) out += CODE_CHARS[Math.floor(Math.random() * CODE_CHARS.length)];
+      return out;
+    }
+
+    function buildStatePayload() {
+      return {
+        type: "state",
+        card: state.current,
+        drawn: state.drawn,
+        didCount: state.didCount,
+        leaveCount: state.leaveCount,
+        remaining: state.queue.length,
+        filter: state.filter,
+        name: partyName,
+        revealed: revealed
+      };
+    }
+
+    function broadcastState() {
+      if (role !== "host") return;
+      const payload = buildStatePayload();
+      guestConns.forEach(c => { if (c && c.open) { try { c.send(payload); } catch (e) { } } });
+      updateRolePill();
+    }
+
+    function sendToHost(msg) {
+      if (role !== "guest" || !hostConn || !hostConn.open) { toast("Not connected to host"); return; }
+      try { hostConn.send(msg); } catch (e) { }
+    }
+
+    function applyRemoteState(p) {
+      const sameCard = state.current && p.card &&
+        state.current.text === p.card.text && state.current.deck === p.card.deck;
+
+      state.current = p.card;
+      state.drawn = p.drawn;
+      state.didCount = p.didCount;
+      state.leaveCount = p.leaveCount;
+      remoteRemaining = p.remaining;
+      revealed = !!p.revealed;
+
+      if (typeof p.name === "string") { partyName = p.name; nameInput.value = p.name; }
+
+      if (p.filter !== state.filter) {
+        state.filter = p.filter;
+        [...chipsEl.children].forEach(c => {
+          c.setAttribute("aria-pressed", String(c.dataset.key === p.filter));
+        });
+      }
+
+      if (p.card) {
+        if (!sameCard) cardSound();
+        render(p.card, { animate: !sameCard, revealed: revealed });
+      } else {
+        showWelcome();
+      }
+    }
+
+    /* =========================================================
+       10. PARTY MODE UI
+       ========================================================= */
+
+    function updateRolePill() {
+      if (role === "solo") { rolePill.hidden = true; return; }
+      rolePill.hidden = false;
+      rolePill.className = "role" + (role === "guest" ? " guest" : "");
+      if (role === "host") {
+        const n = guestConns.filter(c => c.open).length;
+        rolePill.innerHTML = `<span class="live"></span> Host · ${roomCode} · ${n} guest${n === 1 ? "" : "s"}`;
+      } else {
+        rolePill.innerHTML = `<span class="live"></span> Joined · ${roomCode}`;
+      }
+    }
+
+    function applyRoleUI() {
+      if (role === "guest") {
+        controls.hidden = true;
+        waiting.hidden = false;
+        nameInput.disabled = true;
+        [...chipsEl.children].forEach(c => { c.disabled = true; });
+        partyBtn.textContent = "🔗 Joined";
+      } else {
+        controls.hidden = false;
+        waiting.hidden = true;
+        nameInput.disabled = false;
+        [...chipsEl.children].forEach(c => { c.disabled = false; });
+        partyBtn.textContent = role === "host" ? "🎉 Hosting" : "🎉 Party";
+      }
+      updateRolePill();
+    }
+
+    function openModal(html) { modal.innerHTML = html; overlay.hidden = false; }
+    function closeModal() { overlay.hidden = true; modal.innerHTML = ""; }
+
+    function showPartyMenu() {
+      if (role === "host") { showHostPanel(); return; }
+      if (role === "guest") {
+        openModal(`
+      <h2>🔗 Joined Party</h2>
+      <p>You are connected to room <b>${roomCode}</b>. Cards drawn by the host appear here automatically.</p>
+      <div class="modal-actions">
+        <button class="btn ghost" id="mLeave">Leave Party</button>
+        <button class="btn primary" id="mClose">Close</button>
+      </div>
+    `);
+        document.getElementById("mClose").onclick = closeModal;
+        document.getElementById("mLeave").onclick = () => { leaveParty(); closeModal(); };
+        return;
+      }
+
+      openModal(`
+    <h2>🎉 Party Mode</h2>
+    <p>Host a room so everyone at the party sees the same card on their own device at the same time.</p>
+    <div class="modal-actions">
+      <button class="btn primary" id="mHost">🎉 Host a Party</button>
+      <button class="btn ghost" id="mJoin">🔗 Join a Party</button>
+    </div>
+    <p style="font-size:.76rem;color:#7fa992">Tip: you can also open the shared link directly and you'll join automatically.</p>
+  `);
+      document.getElementById("mHost").onclick = () => startHosting();
+      document.getElementById("mJoin").onclick = () => showJoinPanel();
+    }
+
+    function showHostPanel() {
+      const link = location.origin + location.pathname + "?room=" + roomCode;
+      const qrSrc = "https://api.qrserver.com/v1/create-qr-code/?size=340x340&margin=0&data=" + encodeURIComponent(link);
+      const n = guestConns.filter(c => c.open).length;
+
+      openModal(`
+    <h2>🎉 You're Hosting</h2>
+    <p>Share this code or link. Everyone who joins sees the same card as you, in real time.</p>
+    <div class="big-code">${roomCode}</div>
+    <div class="qr"><img alt="QR code to join" src="${qrSrc}"></div>
+    <div class="link-box" id="linkBox">${link}</div>
+    <div class="guest-count" id="guestCount">👥 ${n} guest${n === 1 ? "" : "s"} connected</div>
+    <div class="modal-actions">
+      <button class="btn primary" id="mCopy">Copy Link</button>
+      <button class="btn ghost" id="mStop">End Party</button>
+      <button class="btn ghost" id="mClose">Close</button>
+    </div>
+  `);
+      document.getElementById("mClose").onclick = closeModal;
+      document.getElementById("mCopy").onclick = async () => {
+        try { await navigator.clipboard.writeText(link); toast("Link copied ✅"); }
+        catch (e) { toast("Copy failed — long-press the link"); }
+      };
+      document.getElementById("mStop").onclick = () => { stopParty(); closeModal(); };
+    }
+
+    function showJoinPanel(prefill) {
+      openModal(`
+    <h2>🔗 Join a Party</h2>
+    <p>Enter the 4-character code from the host's screen.</p>
+    <input class="code-input" id="mCode" maxlength="4" autocomplete="off" spellcheck="false" placeholder="ABCD" value="${prefill || ""}">
+    <p id="mStatus" style="font-size:.82rem;min-height:1.2em"></p>
+    <div class="modal-actions">
+      <button class="btn primary" id="mGo">Join</button>
+      <button class="btn ghost" id="mBack">Back</button>
+    </div>
+  `);
+      const codeInput = document.getElementById("mCode");
+      const statusEl = document.getElementById("mStatus");
+      codeInput.focus();
+      codeInput.addEventListener("input", () => {
+        codeInput.value = codeInput.value.toUpperCase().replace(/[^A-Z0-9]/g, "");
+      });
+      codeInput.addEventListener("keydown", (e) => { if (e.key === "Enter") document.getElementById("mGo").click(); });
+      document.getElementById("mBack").onclick = () => showPartyMenu();
+      document.getElementById("mGo").onclick = () => {
+        const code = codeInput.value.trim().toUpperCase();
+        if (code.length !== 4) { statusEl.innerHTML = `<span class="status-dot err"></span>Enter a 4-character code`; return; }
+        statusEl.innerHTML = `<span class="status-dot"></span>Connecting…`;
+        joinParty(code, statusEl);
+      };
+      if (prefill && prefill.length === 4) setTimeout(() => document.getElementById("mGo").click(), 250);
+    }
+
+    function startHosting() {
+      if (typeof Peer === "undefined") { toast("Sync library failed to load"); return; }
+      role = "host";
+      roomCode = makeCode();
+      guestConns = [];
+
+      openModal(`<h2>🎉 Starting Room…</h2><p id="mStatus"><span class="status-dot"></span>Connecting to the party network…</p>`);
+      const myStatus = document.getElementById("mStatus");
+
+      peer = new Peer(PEER_PREFIX + roomCode, { debug: 0 });
+
+      peer.on("open", () => {
+        applyRoleUI();
+        broadcastState();
+        showHostPanel();
+        toast("Room " + roomCode + " is live 🎉");
+      });
+
+      peer.on("connection", (conn) => {
+        guestConns.push(conn);
+        conn.on("open", () => {
+          try { conn.send(buildStatePayload()); } catch (e) { }
+          updateRolePill();
+          refreshHostPanelCount();
+          toast("A guest joined 👋");
+          tone(700, 0.07);
+        });
+        conn.on("data", (data) => {
+          if (!data || typeof data !== "object") return;
+          if (data.type === "action") {
+            if (data.action === "next") drawCard();
+            if (data.action === "do") chooseDo();
+            if (data.action === "leave") chooseLeave();
+          }
+        });
+        const drop = () => {
+          guestConns = guestConns.filter(c => c !== conn);
+          updateRolePill();
+          refreshHostPanelCount();
+        };
+        conn.on("close", drop);
+        conn.on("error", drop);
+      });
+
+      peer.on("error", (err) => {
+        if (err && err.type === "unavailable-id") {
+          try { peer.destroy(); } catch (e) { }
+          startHosting();
+          return;
+        }
+        myStatus.innerHTML = `<span class="status-dot err"></span>Connection problem: ${err.type || "unknown"}`;
+        toast("Sync error — check your internet");
+      });
+    }
+
+    function refreshHostPanelCount() {
+      const el = document.getElementById("guestCount");
+      if (!el) return;
+      const n = guestConns.filter(c => c.open).length;
+      el.textContent = `👥 ${n} guest${n === 1 ? "" : "s"} connected`;
+    }
+
+    function joinParty(code, statusEl) {
+      if (typeof Peer === "undefined") {
+        statusEl.innerHTML = `<span class="status-dot err"></span>Sync library failed to load`;
+        return;
+      }
+      roomCode = code;
+      peer = new Peer({ debug: 0 });
+      peer.on("open", () => {
+        hostConn = peer.connect(PEER_PREFIX + code, { reliable: true });
+        const timeout = setTimeout(() => {
+          if (statusEl) statusEl.innerHTML = `<span class="status-dot err"></span>Could not find room ${code}`;
+        }, 12000);
+        hostConn.on("open", () => {
+          clearTimeout(timeout);
+          role = "guest";
+          applyRoleUI();
+          closeModal();
+          toast("Joined room " + code + " 🎉");
+          tone(700, 0.08);
+        });
+        hostConn.on("data", (data) => {
+          if (!data || typeof data !== "object") return;
+          if (data.type === "state") applyRemoteState(data);
+        });
+        hostConn.on("close", () => { toast("Host ended the party"); leaveParty(); });
+        hostConn.on("error", () => {
+          if (statusEl) statusEl.innerHTML = `<span class="status-dot err"></span>Connection error`;
+        });
+      });
+      peer.on("error", (err) => {
+        if (statusEl) {
+          statusEl.innerHTML = `<span class="status-dot err"></span>${err.type === "peer-unavailable" ? "Room not found" : "Connection error"}`;
+        }
+      });
+    }
+
+    function stopParty() {
+      try { guestConns.forEach(c => c.close()); } catch (e) { }
+      try { if (peer) peer.destroy(); } catch (e) { }
+      guestConns = [];
+      peer = null;
+      role = "solo";
+      roomCode = "";
+      remoteRemaining = null;
+      applyRoleUI();
+      toast("Party ended");
+    }
+
+    function leaveParty() {
+      try { if (hostConn) hostConn.close(); } catch (e) { }
+      try { if (peer) peer.destroy(); } catch (e) { }
+      hostConn = null;
+      peer = null;
+      role = "solo";
+      roomCode = "";
+      remoteRemaining = null;
+      buildQueue();
+      applyRoleUI();
+      showWelcome();
+      if (location.search) history.replaceState(null, "", location.pathname);
+    }
+
+    /* =========================================================
+       11. CHIPS
+       ========================================================= */
+
+    function buildChips() {
+      chipsEl.innerHTML = "";
+      FILTERS.forEach(f => {
+        const b = document.createElement("button");
+        b.className = "chip";
+        b.type = "button";
+        b.dataset.key = f.key;
+        b.textContent = f.label;
+        b.setAttribute("aria-pressed", String(state.filter === f.key));
+        b.addEventListener("click", () => setFilter(f.key));
+        chipsEl.appendChild(b);
+      });
+    }
+
+    /* =========================================================
+       12. SETTINGS
+       ========================================================= */
+
+    function saveSettings() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ name: nameInput.value, sound: soundOn }));
+      } catch (e) { }
+    }
+
+    function loadSettings() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+        if (saved.name) { nameInput.value = saved.name; partyName = saved.name; }
+        if (typeof saved.sound === "boolean") { soundOn = saved.sound; soundChk.checked = soundOn; }
+      } catch (e) { }
+    }
+
+    nameInput.addEventListener("input", () => {
+      if (role === "guest") return;
+      partyName = nameInput.value;
+      saveSettings();
+      if (state.current) render(state.current, { animate: false, revealed: revealed });
+      broadcastState();
+    });
+
+    soundChk.addEventListener("change", () => {
+      soundOn = soundChk.checked;
+      saveSettings();
+      if (soundOn) tone(700, 0.07);
+    });
+
+    gear.addEventListener("click", () => {
+      settings.hidden = !settings.hidden;
+      gear.setAttribute("aria-pressed", String(!settings.hidden));
+      if (!settings.hidden && role !== "guest") nameInput.focus();
+    });
+
+    partyBtn.addEventListener("click", showPartyMenu);
+
+    /* =========================================================
+       13. EVENTS
+       ========================================================= */
+
+    nextBtn.addEventListener("click", drawCard);
+    resetBtn.addEventListener("click", resetGame);
+    doBtn.addEventListener("click", chooseDo);
+    leaveBtn.addEventListener("click", chooseLeave);
+    revealBtn.addEventListener("click", revealAnswer);
+
+    document.addEventListener("keydown", (e) => {
+      if (!introOverlay.hidden) return;
+      const typing = e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA");
+      if (typing) return;
+      if (e.code === "Space" || e.key === " " || e.key === "ArrowRight" || e.key === "Enter") {
+        e.preventDefault(); drawCard();
+      } else if (e.key === "1") {
+        if (state.current && (state.current.deck === "doam" || state.current.kind === "charade")) chooseDo();
+      } else if (e.key === "2") {
+        if (state.current && (state.current.deck === "doam" || state.current.kind === "charade")) chooseLeave();
+      } else if (e.key.toLowerCase() === "r") {
+        resetGame();
+      } else if (e.key.toLowerCase() === "a") {
+        revealAnswer();
+      }
+    });
+
+    let touchX = null, touchY = null;
+    cardEl.addEventListener("touchstart", (e) => {
+      touchX = e.changedTouches[0].clientX;
+      touchY = e.changedTouches[0].clientY;
+    }, { passive: true });
+
+    cardEl.addEventListener("touchend", (e) => {
+      if (touchX === null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      const dy = e.changedTouches[0].clientY - touchY;
+      if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.6) {
+        if (dx < 0) drawCard();
+        else if (state.current && (state.current.deck === "doam" || state.current.kind === "charade")) chooseLeave();
+      }
+      touchX = touchY = null;
+    }, { passive: true });
+
+    overlay.addEventListener("click", (e) => { if (e.target === overlay) closeModal(); });
+
+    /* =========================================================
+       14. BOOT
+       ========================================================= */
+
+    loadSettings();
+    buildChips();
+    buildQueue();
+    applyRoleUI();
+    showWelcome();
+
+    (function autoJoin() {
+      const params = new URLSearchParams(location.search);
+      const room = (params.get("room") || "").trim().toUpperCase();
+      if (!room) return;
+      if (typeof Peer === "undefined") {
+        setTimeout(() => toast("Sync library failed to load"), 800);
+        return;
+      }
+      setTimeout(() => {
+        openModal(`<h2>🔗 Joining Party…</h2><p id="mStatus"><span class="status-dot"></span>Connecting to room ${room}…</p>`);
+        joinParty(room, document.getElementById("mStatus"));
+      }, 300);
+    })();
+
+    /* Auto-show onboarding on first visit (skip if joining a party via link) */
+    (function maybeIntro() {
+      const params = new URLSearchParams(location.search);
+      const joining = !!(params.get("room") || "").trim();
+      let seen = false;
+      try { seen = localStorage.getItem(INTRO_KEY) === "1"; } catch (e) { }
+      if (!seen && !joining) setTimeout(() => openIntro(0), 450);
+    })();
+  </script>
+</body>
+
+</html>
