@@ -219,6 +219,7 @@
       line-height: 1.45
     }
 
+    /* ---------- DESKTOP CHIPS ---------- */
     .chips {
       display: flex;
       gap: 8px;
@@ -258,6 +259,276 @@
     .chip:disabled {
       opacity: .4;
       cursor: not-allowed
+    }
+
+    /* ---------- MOBILE / TABLET-PORTRAIT GAME SELECTOR ---------- */
+    .game-select {
+      display: none;
+      align-items: center;
+      gap: 12px;
+      width: calc(100% - 32px);
+      max-width: 1000px;
+      margin: 0 auto 16px;
+      padding: 13px 16px;
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 14px;
+      color: #eaf5ee;
+      font: inherit;
+      font-size: .95rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: left;
+      touch-action: manipulation;
+      transition: background .2s, transform .15s;
+    }
+
+    .game-select:active {
+      transform: scale(.99);
+      background: rgba(255, 255, 255, .09)
+    }
+
+    .game-select:disabled {
+      opacity: .45;
+      cursor: not-allowed
+    }
+
+    .game-select:focus-visible {
+      outline: 3px solid #FFC72C;
+      outline-offset: 3px
+    }
+
+    .game-select-emoji {
+      font-size: 1.15rem;
+      flex: none
+    }
+
+    .game-select-label {
+      flex: 1;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .game-select-hint {
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #7fa992;
+      flex: none;
+    }
+
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 20px;
+      flex: none;
+    }
+
+    .hamburger span {
+      display: block;
+      height: 2px;
+      background: currentColor;
+      border-radius: 2px;
+    }
+
+    .hamburger span:nth-child(2) {
+      width: 75%
+    }
+
+    .hamburger span:nth-child(3) {
+      width: 50%
+    }
+
+    /* ---------- BOTTOM SHEET ---------- */
+    .deck-sheet {
+      position: fixed;
+      inset: 0;
+      z-index: 1250;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+    }
+
+    .deck-sheet.open {
+      opacity: 1;
+      pointer-events: auto
+    }
+
+    .deck-sheet-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(3, 10, 6, .72);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .deck-sheet-panel {
+      position: relative;
+      width: 100%;
+      max-width: 560px;
+      background: #0e1f16;
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-bottom: 0;
+      border-radius: 24px 24px 0 0;
+      padding: 12px 14px calc(18px + env(safe-area-inset-bottom));
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transform: translateY(100%);
+      transition: transform .32s cubic-bezier(.2, .9, .3, 1.1);
+      box-shadow: 0 -30px 70px -25px rgba(0, 0, 0, .95);
+      max-height: 86dvh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .deck-sheet.open .deck-sheet-panel {
+      transform: translateY(0)
+    }
+
+    .deck-sheet-grabber {
+      width: 44px;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, .22);
+      margin: 2px auto 8px;
+      flex: none;
+    }
+
+    .deck-sheet-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 4px 8px 10px;
+      flex: none;
+    }
+
+    .deck-sheet-title {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -.01em;
+      color: #fff;
+    }
+
+    .deck-sheet-close {
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .16);
+      color: #dff3e6;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: manipulation;
+    }
+
+    .deck-sheet-close:active {
+      transform: scale(.94)
+    }
+
+    .deck-sheet-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px
+    }
+
+    .deck-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 12px;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      color: #eaf5ee;
+      font: inherit;
+      font-size: .95rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: left;
+      touch-action: manipulation;
+      transition: background .15s, border-color .15s;
+      min-height: 52px;
+    }
+
+    .deck-option:active {
+      background: rgba(255, 255, 255, .06)
+    }
+
+    .deck-option[aria-checked="true"] {
+      background: rgba(0, 166, 81, .15);
+      border-color: rgba(0, 166, 81, .55);
+    }
+
+    .deck-option:disabled {
+      opacity: .4;
+      cursor: not-allowed
+    }
+
+    .deck-option:focus-visible {
+      outline: 3px solid #FFC72C;
+      outline-offset: 2px
+    }
+
+    .deck-option-emoji {
+      font-size: 1.35rem;
+      flex: none;
+      line-height: 1
+    }
+
+    .deck-option-body {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px
+    }
+
+    .deck-option-label {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .deck-option-count {
+      font-size: .72rem;
+      font-weight: 600;
+      color: #7fa992;
+      letter-spacing: .02em
+    }
+
+    .deck-option-check {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .08);
+      border: 1.5px solid rgba(255, 255, 255, .2);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .72rem;
+      font-weight: 900;
+      color: transparent;
+      flex: none;
+      transition: background .15s, border-color .15s, color .15s;
+    }
+
+    .deck-option[aria-checked="true"] .deck-option-check {
+      background: var(--green);
+      border-color: var(--green);
+      color: #fff;
     }
 
     main {
@@ -795,12 +1066,17 @@
       z-index: 999
     }
 
+    /* =========================================================
+     RESPONSIVE
+     ========================================================= */
+
     @media (max-width: 900px) {
       .q {
         max-width: 22ch
       }
     }
 
+    /* Small screens (phones in any orientation, narrow tablets): horizontal chip scroll as fallback */
     @media (max-width: 700px) {
       .chips {
         flex-wrap: nowrap;
@@ -826,6 +1102,18 @@
         scroll-snap-align: start;
         font-size: .8rem;
         padding: 8px 14px
+      }
+    }
+
+    /* Hamburger mode: phones + tablets in portrait.
+     Hide chips, show the full-width game selector button. */
+    @media (max-width: 1024px) and (orientation: portrait) {
+      .chips {
+        display: none
+      }
+
+      .game-select {
+        display: flex
       }
     }
 
@@ -878,6 +1166,18 @@
 
       .settings .hint {
         font-size: .74rem
+      }
+
+      .game-select {
+        width: calc(100% - 24px);
+        margin: 0 auto 14px;
+        padding: 12px 14px;
+        font-size: .9rem;
+        gap: 10px
+      }
+
+      .game-select-hint {
+        display: none
       }
 
       main {
@@ -1030,6 +1330,16 @@
       .intro-tip {
         font-size: .72rem
       }
+
+      .deck-sheet-panel {
+        padding: 10px 10px calc(14px + env(safe-area-inset-bottom))
+      }
+
+      .deck-option {
+        padding: 12px 10px;
+        min-height: 50px;
+        font-size: .92rem
+      }
     }
 
     @media (max-width: 380px) {
@@ -1053,6 +1363,13 @@
       .role {
         font-size: .62rem;
         padding: 4px 8px
+      }
+
+      .game-select {
+        width: calc(100% - 20px);
+        margin: 0 auto 12px;
+        padding: 11px 12px;
+        font-size: .86rem
       }
 
       .chips {
@@ -1174,6 +1491,11 @@
         animation: none
       }
 
+      .deck-sheet,
+      .deck-sheet-panel {
+        transition: none
+      }
+
       * {
         transition-duration: .01ms !important
       }
@@ -1208,6 +1530,14 @@
 
   <nav class="chips" id="chips" aria-label="Game modes"></nav>
 
+  <button class="game-select" id="gameSelect" aria-haspopup="dialog" aria-expanded="false" aria-controls="deckSheet"
+    title="Choose a game">
+    <span class="game-select-emoji" id="gameSelectEmoji">🎲</span>
+    <span class="game-select-label" id="gameSelectLabel">Random Mix</span>
+    <span class="game-select-hint">Choose</span>
+    <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+  </button>
+
   <main>
     <section class="card" id="card" style="--accent:#00A651">
       <div class="tag" id="tag">Ready</div>
@@ -1239,6 +1569,19 @@
     <div class="modal" id="modal"></div>
   </div>
 
+  <!-- ============ GAME SELECT BOTTOM SHEET ============ -->
+  <div class="deck-sheet" id="deckSheet" aria-hidden="true">
+    <div class="deck-sheet-backdrop" id="deckSheetBackdrop"></div>
+    <div class="deck-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="deckSheetTitle">
+      <div class="deck-sheet-grabber" aria-hidden="true"></div>
+      <div class="deck-sheet-header">
+        <span class="deck-sheet-title" id="deckSheetTitle">Choose a game</span>
+        <button class="deck-sheet-close" id="deckSheetClose" aria-label="Close">✕</button>
+      </div>
+      <div class="deck-sheet-list" id="deckSheetList" role="radiogroup" aria-label="Game modes"></div>
+    </div>
+  </div>
+
   <div class="intro-overlay" id="introOverlay" hidden>
     <div class="intro-card">
       <div class="intro-emoji" id="introEmoji">🎉</div>
@@ -1261,7 +1604,6 @@
 
     const RAW = {
 
-      /* ---------- PLAYFUL NAIJA (100) ---------- */
       naija: [
         "Would you rather fight one agbero or argue with three Nigerian aunties?",
         "If your life was a Nollywood movie, what would the title be?",
@@ -1365,7 +1707,6 @@
         "What is the best thing about being Nigerian?"
       ],
 
-      /* ---------- FRIENDS EDITION (100) ---------- */
       friends: [
         "Would you rather always have to speak in Nigerian proverbs or always have to sing your replies?",
         "Would you rather have a friend who always borrows money and never pays back, or a friend who always tells you the brutal truth?",
@@ -1469,7 +1810,6 @@
         "What makes this friendship group special?"
       ],
 
-      /* ---------- DO AM OR LEAVE AM (100) ---------- */
       doam: [
         "Sing your favourite Nigerian song in your best voice for 20 seconds.",
         "Speak only in Nigerian Pidgin for the next three rounds.",
@@ -1573,7 +1913,6 @@
         "End the game by giving everyone a funny title based on their personality."
       ],
 
-      /* ---------- CHARADES (100) ---------- */
       charades: [
         "Act out: A Lagos danfo conductor shouting for passengers",
         "Act out: Haggling at Balogun Market",
@@ -1677,7 +2016,6 @@
         "Act out: Someone snoring loudly"
       ],
 
-      /* ---------- BIBLE QUESTIONS (100) ---------- */
       bibleq: [
         { text: "Who built the ark?", answer: "Noah" },
         { text: "How many days did it take God to create the world?", answer: "Six" },
@@ -1781,7 +2119,6 @@
         { text: "What was the name of the servant of Abraham who found a wife for Isaac?", answer: "Eliezer" }
       ],
 
-      /* ---------- BIBLE CHARADES (100) ---------- */
       biblec: [
         "Act out: Noah building the ark",
         "Act out: Moses parting the Red Sea",
@@ -1899,16 +2236,16 @@
     };
 
     const FILTERS = [
-      { key: "all", label: "🎲 Random Mix" },
-      { key: "naija", label: "🇳🇬 Playful Naija" },
-      { key: "friends", label: "🫂 Friends Edition" },
-      { key: "doam", label: "🔥 Do Am or Leave Am" },
-      { key: "charades", label: "🎭 Charades" },
-      { key: "bibleq", label: "✝️ Bible Questions" },
-      { key: "biblec", label: "📖 Bible Charades" }
+      { key: "all", label: "🎲 Random Mix", short: "Random Mix" },
+      { key: "naija", label: "🇳🇬 Playful Naija", short: "Playful Naija" },
+      { key: "friends", label: "🫂 Friends Edition", short: "Friends Edition" },
+      { key: "doam", label: "🔥 Do Am or Leave Am", short: "Do Am or Leave Am" },
+      { key: "charades", label: "🎭 Charades", short: "Charades" },
+      { key: "bibleq", label: "✝️ Bible Questions", short: "Bible Questions" },
+      { key: "biblec", label: "📖 Bible Charades", short: "Bible Charades" }
     ];
 
-    /* Decks excluded from Random Mix. Charades-style decks are omitted so
+    /* Decks excluded from Random Mix. Charade-style decks are omitted so
        Random Mix stays focused on conversational, dare, and Bible trivia
        prompts. To include one again, remove it from this array. */
     const RANDOM_MIX_EXCLUDE = ["charades", "biblec"];
@@ -1948,6 +2285,14 @@
     const helpBtn = document.getElementById("helpBtn");
     const helpLink = document.getElementById("helpLink");
 
+    const gameSelect = document.getElementById("gameSelect");
+    const gameSelectEmoji = document.getElementById("gameSelectEmoji");
+    const gameSelectLabel = document.getElementById("gameSelectLabel");
+    const deckSheet = document.getElementById("deckSheet");
+    const deckSheetBackdrop = document.getElementById("deckSheetBackdrop");
+    const deckSheetClose = document.getElementById("deckSheetClose");
+    const deckSheetList = document.getElementById("deckSheetList");
+
     const introOverlay = document.getElementById("introOverlay");
     const introEmoji = document.getElementById("introEmoji");
     const introTitle = document.getElementById("introTitle");
@@ -1982,6 +2327,7 @@
     let guestConns = [];
 
     let introIndex = 0;
+    let deckSheetOpen = false;
 
     /* =========================================================
        5. HELPERS
@@ -2013,6 +2359,15 @@
         answer: raw.answer,
         kind: raw.kind || (raw.answer ? "question" : "plain")
       };
+    }
+
+    function deckCount(key) {
+      if (key === "all") {
+        return Object.keys(DECKS)
+          .filter(k => !RANDOM_MIX_EXCLUDE.includes(k))
+          .reduce((sum, k) => sum + RAW[k].length, 0);
+      }
+      return RAW[key] ? RAW[key].length : 0;
     }
 
     let toastTimer = null;
@@ -2102,7 +2457,7 @@
       {
         emoji: "🎲",
         title: "1. Choose your game",
-        body: "Tap any chip at the top to pick a deck: Playful Naija, Friends Edition, Do Am or Leave Am, Charades, Bible Questions, or Bible Charades. Or leave it on Random Mix for a mix of conversational, dare, and Bible trivia prompts."
+        body: "On desktop, tap a chip at the top. On mobile and tablet, tap the game selector bar to open the game menu. Choose Playful Naija, Friends Edition, Do Am or Leave Am, Charades, Bible Questions, or Bible Charades — or leave it on Random Mix."
       },
       {
         emoji: "👉",
@@ -2196,15 +2551,101 @@
       if (e.target === introOverlay) closeIntro();
     });
 
-    document.addEventListener("keydown", (e) => {
-      if (introOverlay.hidden) return;
-      if (e.key === "ArrowRight" || e.key === "Enter") { e.preventDefault(); introNext.click(); }
-      if (e.key === "ArrowLeft") { e.preventDefault(); introBack.click(); }
-      if (e.key === "Escape") { e.preventDefault(); closeIntro(); }
-    });
+    /* =========================================================
+       7. GAME SELECTOR (BOTTOM SHEET) + CHIPS
+       ========================================================= */
+
+    function openDeckSheet() {
+      if (deckSheetOpen) return;
+      if (role === "guest") { toast("Host controls the game"); return; }
+      deckSheetOpen = true;
+      deckSheet.classList.add("open");
+      deckSheet.setAttribute("aria-hidden", "false");
+      gameSelect.setAttribute("aria-expanded", "true");
+      tone(620, 0.05);
+    }
+
+    function closeDeckSheet() {
+      if (!deckSheetOpen) return;
+      deckSheetOpen = false;
+      deckSheet.classList.remove("open");
+      deckSheet.setAttribute("aria-hidden", "true");
+      gameSelect.setAttribute("aria-expanded", "false");
+    }
+
+    gameSelect.addEventListener("click", openDeckSheet);
+    deckSheetClose.addEventListener("click", closeDeckSheet);
+    deckSheetBackdrop.addEventListener("click", closeDeckSheet);
+
+    function updateGameSelectButton() {
+      const f = FILTERS.find(x => x.key === state.filter);
+      if (!f) return;
+      // Prefer the emoji from the label's first token
+      const first = f.label.split(" ");
+      gameSelectEmoji.textContent = first[0];
+      gameSelectLabel.textContent = f.short || first.slice(1).join(" ");
+    }
+
+    function updateFilterUI() {
+      // Desktop chips
+      [...chipsEl.children].forEach(c => {
+        c.setAttribute("aria-pressed", String(c.dataset.key === state.filter));
+      });
+      // Sheet options
+      [...deckSheetList.children].forEach(c => {
+        c.setAttribute("aria-checked", String(c.dataset.key === state.filter));
+      });
+      updateGameSelectButton();
+    }
+
+    function buildChips() {
+      chipsEl.innerHTML = "";
+      deckSheetList.innerHTML = "";
+
+      FILTERS.forEach(f => {
+        // ----- Desktop chip -----
+        const b = document.createElement("button");
+        b.className = "chip";
+        b.type = "button";
+        b.dataset.key = f.key;
+        b.textContent = f.label;
+        b.setAttribute("aria-pressed", String(state.filter === f.key));
+        b.addEventListener("click", () => setFilter(f.key));
+        chipsEl.appendChild(b);
+
+        // ----- Sheet option -----
+        const opt = document.createElement("button");
+        opt.className = "deck-option";
+        opt.type = "button";
+        opt.dataset.key = f.key;
+        opt.setAttribute("role", "radio");
+        opt.setAttribute("aria-checked", String(state.filter === f.key));
+
+        const parts = f.label.split(" ");
+        const emoji = parts[0];
+        const shortLabel = f.short || parts.slice(1).join(" ");
+        const count = deckCount(f.key);
+
+        opt.innerHTML = `
+      <span class="deck-option-emoji" aria-hidden="true">${emoji}</span>
+      <span class="deck-option-body">
+        <span class="deck-option-label">${shortLabel}</span>
+        <span class="deck-option-count">${count} card${count === 1 ? "" : "s"}</span>
+      </span>
+      <span class="deck-option-check" aria-hidden="true">✓</span>
+    `;
+
+        opt.addEventListener("click", () => {
+          setFilter(f.key);
+          closeDeckSheet();
+        });
+
+        deckSheetList.appendChild(opt);
+      });
+    }
 
     /* =========================================================
-       7. RENDERING
+       8. RENDERING
        ========================================================= */
 
     function buildQueue() {
@@ -2278,7 +2719,7 @@
     }
 
     /* =========================================================
-       8. GAME LOGIC
+       9. GAME LOGIC
        ========================================================= */
 
     function drawCard() {
@@ -2349,17 +2790,14 @@
       state.leaveCount = 0;
       revealed = false;
 
-      [...chipsEl.children].forEach(c => {
-        c.setAttribute("aria-pressed", String(c.dataset.key === key));
-      });
-
+      updateFilterUI();
       tone(600, 0.05);
       showWelcome();
       broadcastState();
     }
 
     /* =========================================================
-       9. SYNC LAYER
+       10. SYNC LAYER
        ========================================================= */
 
     function makeCode() {
@@ -2409,9 +2847,7 @@
 
       if (p.filter !== state.filter) {
         state.filter = p.filter;
-        [...chipsEl.children].forEach(c => {
-          c.setAttribute("aria-pressed", String(c.dataset.key === p.filter));
-        });
+        updateFilterUI();
       }
 
       if (p.card) {
@@ -2423,7 +2859,7 @@
     }
 
     /* =========================================================
-       10. PARTY MODE UI
+       11. PARTY MODE UI
        ========================================================= */
 
     function updateRolePill() {
@@ -2443,13 +2879,17 @@
         controls.hidden = true;
         waiting.hidden = false;
         nameInput.disabled = true;
+        gameSelect.disabled = true;
         [...chipsEl.children].forEach(c => { c.disabled = true; });
+        [...deckSheetList.children].forEach(c => { c.disabled = true; });
         partyBtn.textContent = "🔗 Joined";
       } else {
         controls.hidden = false;
         waiting.hidden = true;
         nameInput.disabled = false;
+        gameSelect.disabled = false;
         [...chipsEl.children].forEach(c => { c.disabled = false; });
+        [...deckSheetList.children].forEach(c => { c.disabled = false; });
         partyBtn.textContent = role === "host" ? "🎉 Hosting" : "🎉 Party";
       }
       updateRolePill();
@@ -2666,24 +3106,6 @@
     }
 
     /* =========================================================
-       11. CHIPS
-       ========================================================= */
-
-    function buildChips() {
-      chipsEl.innerHTML = "";
-      FILTERS.forEach(f => {
-        const b = document.createElement("button");
-        b.className = "chip";
-        b.type = "button";
-        b.dataset.key = f.key;
-        b.textContent = f.label;
-        b.setAttribute("aria-pressed", String(state.filter === f.key));
-        b.addEventListener("click", () => setFilter(f.key));
-        chipsEl.appendChild(b);
-      });
-    }
-
-    /* =========================================================
        12. SETTINGS
        ========================================================= */
 
@@ -2734,9 +3156,24 @@
     revealBtn.addEventListener("click", revealAnswer);
 
     document.addEventListener("keydown", (e) => {
-      if (!introOverlay.hidden) return;
+      // Intro guide has its own keys
+      if (!introOverlay.hidden) {
+        if (e.key === "ArrowRight" || e.key === "Enter") { e.preventDefault(); introNext.click(); }
+        if (e.key === "ArrowLeft") { e.preventDefault(); introBack.click(); }
+        if (e.key === "Escape") { e.preventDefault(); closeIntro(); }
+        return;
+      }
+
+      // Deck sheet: close on Escape
+      if (deckSheetOpen && e.key === "Escape") {
+        e.preventDefault();
+        closeDeckSheet();
+        return;
+      }
+
       const typing = e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA");
       if (typing) return;
+
       if (e.code === "Space" || e.key === " " || e.key === "ArrowRight" || e.key === "Enter") {
         e.preventDefault(); drawCard();
       } else if (e.key === "1") {
@@ -2775,6 +3212,7 @@
 
     loadSettings();
     buildChips();
+    updateFilterUI();
     buildQueue();
     applyRoleUI();
     showWelcome();
@@ -2797,7 +3235,7 @@
       const params = new URLSearchParams(location.search);
       const joining = !!(params.get("room") || "").trim();
       let seen = false;
-      try { seen = localStorage.getItem(INTRO_KEY) === "1"; } catch (e) { }
+      try { seen = localStorage.getItem(INTRO_SEEN_KEY || INTRO_KEY) === "1"; } catch (e) { }
       if (!seen && !joining) setTimeout(() => openIntro(0), 450);
     })();
   </script>
