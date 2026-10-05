@@ -652,7 +652,6 @@
       animation: none
     }
 
-    /* ---------- ONBOARDING ---------- */
     .intro-overlay {
       position: fixed;
       inset: 0;
@@ -796,18 +795,12 @@
       z-index: 999
     }
 
-    /* =========================================================
-     RESPONSIVE
-     ========================================================= */
-
-    /* Tablet — slightly tighter card text */
     @media (max-width: 900px) {
       .q {
         max-width: 22ch
       }
     }
 
-    /* Phones — chips scroll horizontally instead of wrapping */
     @media (max-width: 700px) {
       .chips {
         flex-wrap: nowrap;
@@ -832,17 +825,16 @@
         flex: 0 0 auto;
         scroll-snap-align: start;
         font-size: .8rem;
-        padding: 8px 14px;
+        padding: 8px 14px
       }
     }
 
-    /* Small phone — tighter layout, stacked buttons */
     @media (max-width: 560px) {
       .top {
         flex-wrap: wrap;
         row-gap: 8px;
         padding: calc(10px + env(safe-area-inset-top)) 12px 8px;
-        gap: 6px;
+        gap: 6px
       }
 
       .brand {
@@ -897,7 +889,7 @@
         border-radius: 22px;
         padding: clamp(22px, 5vw, 36px) clamp(16px, 4.5vw, 28px);
         min-height: clamp(200px, 34vh, 340px);
-        gap: 14px;
+        gap: 14px
       }
 
       .q {
@@ -1040,7 +1032,6 @@
       }
     }
 
-    /* Very small phone (320–380px) */
     @media (max-width: 380px) {
       .top {
         padding: calc(8px + env(safe-area-inset-top)) 10px 6px;
@@ -1112,14 +1103,12 @@
       }
     }
 
-    /* Touch-only devices: hide keyboard hints */
     @media (hover: none) and (pointer: coarse) {
       footer .keys {
         display: none
       }
     }
 
-    /* Landscape phones: compact vertical layout */
     @media (max-height: 540px) and (orientation: landscape) {
       .top {
         padding: 8px 16px 6px
@@ -1267,11 +1256,12 @@
   <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
   <script>
     /* =========================================================
-       1. THE DECKS  (500 prompts total)
+       1. THE DECKS  (600 prompts total)
        ========================================================= */
 
     const RAW = {
 
+      /* ---------- PLAYFUL NAIJA (100) ---------- */
       naija: [
         "Would you rather fight one agbero or argue with three Nigerian aunties?",
         "If your life was a Nollywood movie, what would the title be?",
@@ -1375,6 +1365,7 @@
         "What is the best thing about being Nigerian?"
       ],
 
+      /* ---------- FRIENDS EDITION (100) ---------- */
       friends: [
         "Would you rather always have to speak in Nigerian proverbs or always have to sing your replies?",
         "Would you rather have a friend who always borrows money and never pays back, or a friend who always tells you the brutal truth?",
@@ -1478,6 +1469,7 @@
         "What makes this friendship group special?"
       ],
 
+      /* ---------- DO AM OR LEAVE AM (100) ---------- */
       doam: [
         "Sing your favourite Nigerian song in your best voice for 20 seconds.",
         "Speak only in Nigerian Pidgin for the next three rounds.",
@@ -1581,6 +1573,7 @@
         "End the game by giving everyone a funny title based on their personality."
       ],
 
+      /* ---------- CHARADES (100) ---------- */
       charades: [
         "Act out: A Lagos danfo conductor shouting for passengers",
         "Act out: Haggling at Balogun Market",
@@ -1684,37 +1677,8 @@
         "Act out: Someone snoring loudly"
       ],
 
-      bible: [
-        { text: "Act out: Noah building the ark", kind: "charade" },
-        { text: "Act out: Moses parting the Red Sea", kind: "charade" },
-        { text: "Act out: David fighting Goliath", kind: "charade" },
-        { text: "Act out: Jonah being swallowed by the big fish", kind: "charade" },
-        { text: "Act out: Adam and Eve in the Garden of Eden", kind: "charade" },
-        { text: "Act out: Daniel in the lions' den", kind: "charade" },
-        { text: "Act out: The Good Samaritan helping a stranger", kind: "charade" },
-        { text: "Act out: Jesus walking on water", kind: "charade" },
-        { text: "Act out: The Prodigal Son returning home", kind: "charade" },
-        { text: "Act out: The Last Supper", kind: "charade" },
-        { text: "Act out: Samson pushing down the pillars", kind: "charade" },
-        { text: "Act out: The walls of Jericho falling", kind: "charade" },
-        { text: "Act out: Baby Moses in the basket", kind: "charade" },
-        { text: "Act out: The three wise men following the star", kind: "charade" },
-        { text: "Act out: Jesus feeding the 5,000", kind: "charade" },
-        { text: "Act out: Zacchaeus climbing a tree", kind: "charade" },
-        { text: "Act out: Peter walking on water and sinking", kind: "charade" },
-        { text: "Act out: The burning bush", kind: "charade" },
-        { text: "Act out: Jesus healing a blind man", kind: "charade" },
-        { text: "Act out: The angel appearing to Mary", kind: "charade" },
-        { text: "Act out: Joseph and his colorful coat", kind: "charade" },
-        { text: "Act out: Moses receiving the Ten Commandments", kind: "charade" },
-        { text: "Act out: Jesus calming the storm", kind: "charade" },
-        { text: "Act out: The woman at the well", kind: "charade" },
-        { text: "Act out: The raising of Lazarus", kind: "charade" },
-        { text: "Act out: Jesus washing the disciples' feet", kind: "charade" },
-        { text: "Act out: The resurrection morning", kind: "charade" },
-        { text: "Act out: Paul's conversion on the road to Damascus", kind: "charade" },
-        { text: "Act out: Elijah calling down fire from heaven", kind: "charade" },
-        { text: "Act out: The shepherds hearing the good news", kind: "charade" },
+      /* ---------- BIBLE QUESTIONS (100) ---------- */
+      bibleq: [
         { text: "Who built the ark?", answer: "Noah" },
         { text: "How many days did it take God to create the world?", answer: "Six" },
         { text: "How many disciples did Jesus have?", answer: "Twelve" },
@@ -1784,7 +1748,140 @@
         { text: "Who replaced Judas as an apostle?", answer: "Matthias" },
         { text: "What did Jesus say about the poor?", answer: "You will always have the poor with you" },
         { text: "How many days did Jesus appear after his resurrection?", answer: "Forty" },
-        { text: "What is the greatest gift according to 1 Corinthians 13?", answer: "Love" }
+        { text: "What is the greatest gift according to 1 Corinthians 13?", answer: "Love" },
+        { text: "Which book of the Bible does not mention God by name?", answer: "Esther" },
+        { text: "Who was the queen who saved the Jews from destruction?", answer: "Esther" },
+        { text: "Which prophet married a woman named Gomer?", answer: "Hosea" },
+        { text: "What was the name of Abraham's nephew who lived in Sodom?", answer: "Lot" },
+        { text: "Which prophet saw the valley of dry bones come to life?", answer: "Ezekiel" },
+        { text: "What mountain did Elijah face the prophets of Baal on?", answer: "Mount Carmel" },
+        { text: "Who was the female judge and prophetess of Israel?", answer: "Deborah" },
+        { text: "What was the name of Ruth's mother-in-law?", answer: "Naomi" },
+        { text: "Which king of Judah saw the sun move backward as a sign?", answer: "Hezekiah" },
+        { text: "What was the writing on the wall at Belshazzar's feast?", answer: "Mene, Mene, Tekel, Upharsin" },
+        { text: "Who interpreted the writing on the wall?", answer: "Daniel" },
+        { text: "On which island did John receive the vision of Revelation?", answer: "Patmos" },
+        { text: "Which two books of the Bible are named after women?", answer: "Ruth and Esther" },
+        { text: "How many sons did Jacob have?", answer: "Twelve" },
+        { text: "What was Paul's trade before his ministry?", answer: "Tentmaker" },
+        { text: "Who was the first apostle to be martyred?", answer: "James, brother of John" },
+        { text: "What was the name of the servant girl who recognized Peter's voice?", answer: "Rhoda" },
+        { text: "How many chapters are in the book of Psalms?", answer: "150" },
+        { text: "What is the longest chapter in the Bible?", answer: "Psalm 119" },
+        { text: "Who was the last judge of Israel?", answer: "Samuel" },
+        { text: "How many stones did David pick up before fighting Goliath?", answer: "Five" },
+        { text: "What was the name of Moses' brother?", answer: "Aaron" },
+        { text: "What was the name of Moses' sister?", answer: "Miriam" },
+        { text: "Which prophet was fed by ravens in the wilderness?", answer: "Elijah" },
+        { text: "What was the name of the widow whose oil multiplied?", answer: "The widow of Zarephath" },
+        { text: "What was the name of Joshua's father?", answer: "Nun" },
+        { text: "Who was the mother of John the Baptist?", answer: "Elizabeth" },
+        { text: "What was the name of the first person Jesus called to be his disciple?", answer: "Peter (Simon)" },
+        { text: "How many years did Solomon's temple take to build?", answer: "Seven" },
+        { text: "What was the name of the servant of Abraham who found a wife for Isaac?", answer: "Eliezer" }
+      ],
+
+      /* ---------- BIBLE CHARADES (100) ---------- */
+      biblec: [
+        "Act out: Noah building the ark",
+        "Act out: Moses parting the Red Sea",
+        "Act out: David fighting Goliath",
+        "Act out: Jonah being swallowed by the big fish",
+        "Act out: Adam and Eve in the Garden of Eden",
+        "Act out: Daniel in the lions' den",
+        "Act out: The Good Samaritan helping a stranger",
+        "Act out: Jesus walking on water",
+        "Act out: The Prodigal Son returning home",
+        "Act out: The Last Supper",
+        "Act out: Samson pushing down the pillars",
+        "Act out: The walls of Jericho falling",
+        "Act out: Baby Moses in the basket",
+        "Act out: The three wise men following the star",
+        "Act out: Jesus feeding the 5,000",
+        "Act out: Zacchaeus climbing a tree",
+        "Act out: Peter walking on water and sinking",
+        "Act out: The burning bush",
+        "Act out: Jesus healing a blind man",
+        "Act out: The angel appearing to Mary",
+        "Act out: Joseph and his colorful coat",
+        "Act out: Moses receiving the Ten Commandments",
+        "Act out: Jesus calming the storm",
+        "Act out: The woman at the well",
+        "Act out: The raising of Lazarus",
+        "Act out: Jesus washing the disciples' feet",
+        "Act out: The resurrection morning",
+        "Act out: Paul's conversion on the road to Damascus",
+        "Act out: Elijah calling down fire from heaven",
+        "Act out: The shepherds hearing the good news",
+        "Act out: Jesus healing the paralytic lowered through the roof",
+        "Act out: The ten lepers being healed",
+        "Act out: Jesus turning water into wine",
+        "Act out: The Sermon on the Mount",
+        "Act out: Jesus cursing the fig tree",
+        "Act out: The transfiguration",
+        "Act out: Jesus praying in the wilderness",
+        "Act out: The temptation of Jesus in the desert",
+        "Act out: John the Baptist preaching in the wilderness",
+        "Act out: Jesus calling his first disciples",
+        "Act out: The miracle of the loaves and fishes",
+        "Act out: Peter's mother-in-law being healed",
+        "Act out: Jairus' daughter being raised",
+        "Act out: The woman touching Jesus' garment",
+        "Act out: Jesus casting out demons",
+        "Act out: The rich young ruler walking away sad",
+        "Act out: Zacchaeus climbing down to meet Jesus",
+        "Act out: The Pharisee and the tax collector praying",
+        "Act out: The wise and foolish builders",
+        "Act out: The parable of the sower",
+        "Act out: The parable of the talents",
+        "Act out: The parable of the lost sheep",
+        "Act out: The parable of the lost coin",
+        "Act out: The parable of the mustard seed",
+        "Act out: The parable of the wheat and tares",
+        "Act out: The parable of the unforgiving servant",
+        "Act out: The parable of the vineyard workers",
+        "Act out: The parable of the wedding banquet",
+        "Act out: The parable of the ten virgins",
+        "Act out: The parable of the sheep and goats",
+        "Act out: The woman caught in adultery",
+        "Act out: Jesus writing in the sand",
+        "Act out: The man born blind being healed",
+        "Act out: The Garden of Gethsemane prayer",
+        "Act out: Jesus standing before Pilate",
+        "Act out: The crown of thorns being placed on Jesus",
+        "Act out: The crucifixion",
+        "Act out: The empty tomb on resurrection morning",
+        "Act out: Doubting Thomas touching Jesus' wounds",
+        "Act out: The road to Emmaus",
+        "Act out: The ascension of Jesus",
+        "Act out: Pentecost tongues of fire",
+        "Act out: Peter healing the lame man at the temple gate",
+        "Act out: Ananias and Sapphira",
+        "Act out: Stephen being stoned",
+        "Act out: Paul and Silas singing in prison",
+        "Act out: Paul shipwrecked on Malta",
+        "Act out: Paul bitten by a viper and shaking it off",
+        "Act out: The Ethiopian eunuch being baptized",
+        "Act out: Cornelius receiving the vision",
+        "Act out: Peter's vision of unclean animals",
+        "Act out: The council at Jerusalem",
+        "Act out: Lydia being baptized",
+        "Act out: The Philippian jailer being saved",
+        "Act out: Eutychus falling from the window",
+        "Act out: Agabus prophesying with a belt",
+        "Act out: John on the island of Patmos",
+        "Act out: The vision of the New Jerusalem",
+        "Act out: The four horsemen of the apocalypse",
+        "Act out: The angel blowing a trumpet",
+        "Act out: The tree of life",
+        "Act out: The river of life",
+        "Act out: The prodigal son feeding pigs",
+        "Act out: The Good Shepherd finding the lost sheep",
+        "Act out: The talents being buried in the ground",
+        "Act out: Elisha and the floating axe head",
+        "Act out: Elijah fed by ravens",
+        "Act out: The widow's oil multiplying",
+        "Act out: Naaman dipping in the Jordan seven times"
       ]
     };
 
@@ -1797,7 +1894,8 @@
       friends: { label: "Friends Edition", emoji: "🫂", color: "#7C3AED" },
       doam: { label: "Do Am or Leave Am", emoji: "🔥", color: "#F97316" },
       charades: { label: "Charades", emoji: "🎭", color: "#0EA5E9" },
-      bible: { label: "Bible Charades & Questions", emoji: "✝️", color: "#B45309" }
+      bibleq: { label: "Bible Questions", emoji: "✝️", color: "#B45309" },
+      biblec: { label: "Bible Charades", emoji: "📖", color: "#92400E" }
     };
 
     const FILTERS = [
@@ -1806,13 +1904,14 @@
       { key: "friends", label: "🫂 Friends Edition" },
       { key: "doam", label: "🔥 Do Am or Leave Am" },
       { key: "charades", label: "🎭 Charades" },
-      { key: "bible", label: "✝️ Bible" }
+      { key: "bibleq", label: "✝️ Bible Questions" },
+      { key: "biblec", label: "📖 Bible Charades" }
     ];
 
-    /* Decks excluded from the "Random Mix" filter. Charades is omitted so
-       Random Mix stays focused on conversational + dare + Bible prompts.
-       To include charades again, empty this array. */
-    const RANDOM_MIX_EXCLUDE = ["charades"];
+    /* Decks excluded from Random Mix. Charades-style decks are omitted so
+       Random Mix stays focused on conversational, dare, and Bible trivia
+       prompts. To include one again, remove it from this array. */
+    const RANDOM_MIX_EXCLUDE = ["charades", "biblec"];
 
     const STORAGE_KEY = "naijaPartyCards.v3";
     const INTRO_KEY = "naijaPartyCards.introSeen";
@@ -1905,7 +2004,8 @@
 
     function normalizeItem(raw, deck) {
       if (typeof raw === "string") {
-        return { deck, text: raw, kind: deck === "charades" ? "charade" : "plain" };
+        const isCharade = deck === "charades" || deck === "biblec";
+        return { deck, text: raw, kind: isCharade ? "charade" : "plain" };
       }
       return {
         deck,
@@ -1997,12 +2097,12 @@
       {
         emoji: "🎉",
         title: "Welcome to Naija Party Cards",
-        body: "500 prompts for parties, friends and family — playful Naija questions, friends-edition debates, charades, Bible games, and dares. Pick a game, draw a card, and let the party run itself."
+        body: "600 prompts across six decks — playful Naija questions, friends-edition debates, dares, charades, Bible trivia, and Bible charades. Pick a game, draw a card, and let the party run itself."
       },
       {
         emoji: "🎲",
         title: "1. Choose your game",
-        body: "Tap any chip at the top to pick a deck: Playful Naija, Friends Edition, Do Am or Leave Am, Charades, or Bible. Or leave it on Random Mix to pull from all conversational, dare, and Bible prompts."
+        body: "Tap any chip at the top to pick a deck: Playful Naija, Friends Edition, Do Am or Leave Am, Charades, Bible Questions, or Bible Charades. Or leave it on Random Mix for a mix of conversational, dare, and Bible trivia prompts."
       },
       {
         emoji: "👉",
@@ -2012,12 +2112,12 @@
       {
         emoji: "💪",
         title: "3. Do Am or Leave Am",
-        body: "Dares and charades show two buttons: I DO AM to perform it, or I LEAVE AM to skip. Choosing either fires confetti and moves to the next card automatically. Keyboard: 1 = do, 2 = leave."
+        body: "Dares and charade cards show two buttons: I DO AM to perform it, or I LEAVE AM to skip. Choosing either fires confetti and moves to the next card automatically. Keyboard: 1 = do, 2 = leave."
       },
       {
         emoji: "✝️",
-        title: "4. Bible questions",
-        body: "Bible trivia cards hide the answer behind a Reveal Answer button. Tap it (or press A) when the group is ready. Bible charades work like normal charades."
+        title: "4. Bible Questions & Bible Charades",
+        body: "Bible Questions hide the answer behind a Reveal Answer button — tap it (or press A) when the group is ready. Bible Charades work like normal charades: act it out, or skip with I LEAVE AM."
       },
       {
         emoji: "🎉",
