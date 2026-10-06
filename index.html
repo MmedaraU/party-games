@@ -219,7 +219,6 @@
       line-height: 1.45
     }
 
-    /* ---------- DESKTOP CHIPS ---------- */
     .chips {
       display: flex;
       gap: 8px;
@@ -261,7 +260,6 @@
       cursor: not-allowed
     }
 
-    /* ---------- MOBILE / TABLET-PORTRAIT GAME SELECTOR ---------- */
     .game-select {
       display: none;
       align-items: center;
@@ -308,7 +306,7 @@
       min-width: 0;
       white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellipsis;
+      text-overflow: ellipsis
     }
 
     .game-select-hint {
@@ -317,7 +315,7 @@
       letter-spacing: .12em;
       text-transform: uppercase;
       color: #7fa992;
-      flex: none;
+      flex: none
     }
 
     .hamburger {
@@ -325,14 +323,14 @@
       flex-direction: column;
       gap: 4px;
       width: 20px;
-      flex: none;
+      flex: none
     }
 
     .hamburger span {
       display: block;
       height: 2px;
       background: currentColor;
-      border-radius: 2px;
+      border-radius: 2px
     }
 
     .hamburger span:nth-child(2) {
@@ -343,7 +341,6 @@
       width: 50%
     }
 
-    /* ---------- BOTTOM SHEET ---------- */
     .deck-sheet {
       position: fixed;
       inset: 0;
@@ -353,7 +350,7 @@
       justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transition: opacity .25s ease;
+      transition: opacity .25s ease
     }
 
     .deck-sheet.open {
@@ -366,7 +363,7 @@
       inset: 0;
       background: rgba(3, 10, 6, .72);
       backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px)
     }
 
     .deck-sheet-panel {
@@ -386,7 +383,7 @@
       box-shadow: 0 -30px 70px -25px rgba(0, 0, 0, .95);
       max-height: 86dvh;
       overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
+      -webkit-overflow-scrolling: touch
     }
 
     .deck-sheet.open .deck-sheet-panel {
@@ -399,7 +396,7 @@
       border-radius: 2px;
       background: rgba(255, 255, 255, .22);
       margin: 2px auto 8px;
-      flex: none;
+      flex: none
     }
 
     .deck-sheet-header {
@@ -408,14 +405,14 @@
       justify-content: space-between;
       gap: 10px;
       padding: 4px 8px 10px;
-      flex: none;
+      flex: none
     }
 
     .deck-sheet-title {
       font-size: 1rem;
       font-weight: 800;
       letter-spacing: -.01em;
-      color: #fff;
+      color: #fff
     }
 
     .deck-sheet-close {
@@ -431,7 +428,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      touch-action: manipulation;
+      touch-action: manipulation
     }
 
     .deck-sheet-close:active {
@@ -460,7 +457,7 @@
       text-align: left;
       touch-action: manipulation;
       transition: background .15s, border-color .15s;
-      min-height: 52px;
+      min-height: 52px
     }
 
     .deck-option:active {
@@ -469,7 +466,7 @@
 
     .deck-option[aria-checked="true"] {
       background: rgba(0, 166, 81, .15);
-      border-color: rgba(0, 166, 81, .55);
+      border-color: rgba(0, 166, 81, .55)
     }
 
     .deck-option:disabled {
@@ -522,13 +519,13 @@
       font-weight: 900;
       color: transparent;
       flex: none;
-      transition: background .15s, border-color .15s, color .15s;
+      transition: background .15s, border-color .15s, color .15s
     }
 
     .deck-option[aria-checked="true"] .deck-option-check {
       background: var(--green);
       border-color: var(--green);
-      color: #fff;
+      color: #fff
     }
 
     main {
@@ -1066,17 +1063,12 @@
       z-index: 999
     }
 
-    /* =========================================================
-     RESPONSIVE
-     ========================================================= */
-
     @media (max-width: 900px) {
       .q {
         max-width: 22ch
       }
     }
 
-    /* Small screens (phones in any orientation, narrow tablets): horizontal chip scroll as fallback */
     @media (max-width: 700px) {
       .chips {
         flex-wrap: nowrap;
@@ -1105,8 +1097,6 @@
       }
     }
 
-    /* Hamburger mode: phones + tablets in portrait.
-     Hide chips, show the full-width game selector button. */
     @media (max-width: 1024px) and (orientation: portrait) {
       .chips {
         display: none
@@ -1569,7 +1559,6 @@
     <div class="modal" id="modal"></div>
   </div>
 
-  <!-- ============ GAME SELECT BOTTOM SHEET ============ -->
   <div class="deck-sheet" id="deckSheet" aria-hidden="true">
     <div class="deck-sheet-backdrop" id="deckSheetBackdrop"></div>
     <div class="deck-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="deckSheetTitle">
@@ -1599,7 +1588,7 @@
   <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
   <script>
     /* =========================================================
-       1. THE DECKS  (600 prompts total)
+       1. THE DECKS  (700 prompts total)
        ========================================================= */
 
     const RAW = {
@@ -1701,7 +1690,7 @@
         "What is the most Nigerian thing to do when you are broke?",
         "If you could only eat Nigerian food for the rest of your life, what would your last meal be?",
         "Would you rather have a conversation with a Nigerian ghost or a Nigerian scammer?",
-        "What is the funniest thing you have seen on a Nigerian bus/keke?",
+        "What is the funniest thing you have seen on a Nigerian bus?",
         "Who in this room is most likely to become a chef?",
         "If you could bring back one Nigerian fashion trend, what would it be?",
         "What is the best thing about being Nigerian?"
@@ -1808,6 +1797,109 @@
         "What is the one thing you hope never changes about this group?",
         "What is the most Nigerian thing about this friendship?",
         "What makes this friendship group special?"
+      ],
+
+      realtalk: [
+        "#1 What was your first impression of me?",
+        "#2 What do you think my first impression of you was?",
+        "#3 What is the most wrong assumption you have ever made about me?",
+        "#4 Describe me in three words, then explain why.",
+        "#5 What do you think I care about most in life?",
+        "#6 What do you think I care about least?",
+        "#7 What is my biggest insecurity, in your view?",
+        "#8 What do you think I am most proud of?",
+        "#9 What do you think I am most afraid of?",
+        "#10 What is my best quality?",
+        "#11 What is my worst quality?",
+        "#12 What do you think I would do if money was not a factor?",
+        "#13 What do you think I would be famous for?",
+        "#14 What do you think I would go to jail for?",
+        "#15 What is my most over-used phrase?",
+        "#16 What is my most under-rated quality?",
+        "#17 What do you think I secretly enjoy that I pretend not to?",
+        "#18 What do you think I secretly hate that I pretend to enjoy?",
+        "#19 What is the biggest risk you think I should take?",
+        "#20 What is the biggest mistake you think I am about to make?",
+        "#21 What do you think I need to hear right now?",
+        "#22 What do you think I need to stop hearing?",
+        "#23 What do you think I am running from?",
+        "#24 What do you think I am running towards?",
+        "#25 What do you think I miss most about my past?",
+        "#26 What do you think I am most looking forward to?",
+        "#27 If I could change one thing about myself, what do you think it would be?",
+        "#28 If I could change one thing about my life, what do you think it would be?",
+        "#29 What do you think I would never forgive?",
+        "#30 What do you think I would always forgive?",
+        "#31 What do you think I am best at that I do not realise?",
+        "#32 What do you think I am worst at that I do not realise?",
+        "#33 What do you think I am pretending not to know?",
+        "#34 What do you think I am pretending not to feel?",
+        "#35 What is one thing about me that would surprise you if it changed?",
+        "#36 When did you first feel like we were friends?",
+        "#37 What is the moment you knew you could trust me?",
+        "#38 What is the moment you doubted it?",
+        "#39 What is the kindest thing I have ever done for you?",
+        "#40 What is the meanest thing I have ever done to you?",
+        "#41 What is the best advice I have ever given you?",
+        "#42 What is the worst advice I have ever given you?",
+        "#43 What is something you have never thanked me for?",
+        "#44 What is something you have never apologised for?",
+        "#45 What is something you want to forgive me for?",
+        "#46 What is something you want to forgive yourself for?",
+        "#47 What is something you want to ask me but have not?",
+        "#48 What is something you want to tell me but have not?",
+        "#49 What is something you want to hear from me?",
+        "#50 What is something you want me to hear from you?",
+        "#51 When have you felt most seen by me?",
+        "#52 When have you felt most unseen by me?",
+        "#53 When have you felt most loved by me?",
+        "#54 When have you felt most hurt by me?",
+        "#55 When have you felt most proud of me?",
+        "#56 When have you felt most embarrassed for me?",
+        "#57 When have you felt most like yourself around me?",
+        "#58 When have you felt most like a stranger around me?",
+        "#59 What is something you know about me that nobody else does?",
+        "#60 What is something you know about me that I do not?",
+        "#61 What is something you wish I knew about you?",
+        "#62 What is something you wish you knew about me?",
+        "#63 What is a secret you want to share with me?",
+        "#64 What is a secret you want me to share with you?",
+        "#65 What is a fear you have about our friendship?",
+        "#66 What is a hope you have for our friendship?",
+        "#67 What is a way I have changed since we met?",
+        "#68 What is a way you have changed since we met?",
+        "#69 What is a way we have changed together?",
+        "#70 What is a way we have changed apart?",
+        "#71 What is the biggest lesson you have learned from me?",
+        "#72 What is the biggest lesson you have learned about me?",
+        "#73 What is the biggest lesson you have learned from us?",
+        "#74 What is the biggest lesson you have learned from yourself?",
+        "#75 What do you want to be remembered for in my life?",
+        "#76 What do you want me to be remembered for in yours?",
+        "#77 What do you want us to be remembered for?",
+        "#78 What is one thing you want more of from me?",
+        "#79 What is one thing you want less of from me?",
+        "#80 What is one thing you want more of for us?",
+        "#81 What is one thing you want less of for us?",
+        "#82 What is one promise you want to make to me?",
+        "#83 What is one promise you want me to make to you?",
+        "#84 What is one thing you want to change about how we relate?",
+        "#85 What is one thing you want to keep exactly as it is?",
+        "#86 What is one thing you want to try with me?",
+        "#87 What is one thing you want to stop doing with me?",
+        "#88 What is one thing you want to start doing with me?",
+        "#89 What is one thing you want to finish with me?",
+        "#90 What is one thing you want to begin again with me?",
+        "#91 What is one thing you never want to end with me?",
+        "#92 What is one thing you never want to start with me?",
+        "#93 What is one thing you wish we had done sooner?",
+        "#94 What is one thing you wish we had done later?",
+        "#95 What is one thing you wish we had never done?",
+        "#96 What is one thing you wish we could do again?",
+        "#97 What is one thing you wish we could do differently?",
+        "#98 What is one thing you wish we could do better?",
+        "#99 What is one thing you wish we could do forever?",
+        "#100 What is the one thing about us you hope never changes?"
       ],
 
       doam: [
@@ -2228,8 +2320,9 @@
 
     const DECKS = {
       naija: { label: "Playful Naija", emoji: "🇳🇬", color: "#00A651" },
-      friends: { label: "Friends Talk", emoji: "🫂", color: "#7C3AED" },
-      doam: { label: "Do It or Drop It", emoji: "🔥", color: "#F97316" },
+      friends: { label: "Banter", emoji: "🍿", color: "#7C3AED" },
+      realtalk: { label: "Heart to Heart", emoji: "❤️", color: "#14B8A6" },
+      doam: { label: "Leave It or Drop It", emoji: "🔥", color: "#F97316" },
       charades: { label: "Charades", emoji: "🎭", color: "#0EA5E9" },
       bibleq: { label: "Bible Questions", emoji: "✝️", color: "#B45309" },
       biblec: { label: "Bible Charades", emoji: "📖", color: "#92400E" }
@@ -2238,17 +2331,19 @@
     const FILTERS = [
       { key: "all", label: "🎲 Random Mix", short: "Random Mix" },
       { key: "naija", label: "🇳🇬 Playful Naija", short: "Playful Naija" },
-      { key: "friends", label: "🫂 Friends Talk", short: "Friends Talk" },
-      { key: "doam", label: "🔥 Do It or Drop It", short: "Do It or Drop It" },
+      { key: "friends", label: "🍿 Banter", short: "Banter" },
+      { key: "realtalk", label: "� Heart to Heart", short: "Heart to Heart" },
+      { key: "doam", label: "🔥 Leave It or Drop It", short: "Leave It or Drop It" },
       { key: "charades", label: "🎭 Charades", short: "Charades" },
       { key: "bibleq", label: "✝️ Bible Questions", short: "Bible Questions" },
       { key: "biblec", label: "📖 Bible Charades", short: "Bible Charades" }
     ];
 
-    /* Decks excluded from Random Mix. Charade-style decks are omitted so
-       Random Mix stays focused on conversational, dare, and Bible trivia
-       prompts. To include one again, remove it from this array. */
-    const RANDOM_MIX_EXCLUDE = ["charades", "biblec"];
+    /* Decks excluded from Random Mix. Charade-style decks and Heart to Heart
+       are omitted so Random Mix stays focused on lighter conversational,
+       dare, and Bible trivia prompts. To include one again, remove it
+       from this array. */
+    const RANDOM_MIX_EXCLUDE = ["charades", "biblec", "realtalk"];
 
     const STORAGE_KEY = "naijaPartyCards.v3";
     const INTRO_KEY = "naijaPartyCards.introSeen";
@@ -2452,12 +2547,12 @@
       {
         emoji: "🎉",
         title: "Welcome to Naija Party Cards",
-        body: "600 prompts across six decks — playful Naija questions, friends-edition debates, dares, charades, Bible trivia, and Bible charades. Pick a game, draw a card, and let the party run itself."
+        body: "700 prompts across seven decks — Playful Naija, Banter, Heart to Heart, Leave It or Drop It, Charades, Bible Questions, and Bible Charades. Pick a game, draw a card, and let the party run itself."
       },
       {
         emoji: "🎲",
         title: "1. Choose your game",
-        body: "On desktop, tap a chip at the top. On mobile and tablet, tap the game selector bar to open the game menu. Choose Playful Naija, Friends Talk, Do It or Drop It, Charades, Bible Questions, or Bible Charades — or leave it on Random Mix."
+        body: "On desktop, tap a chip at the top. On mobile and tablet, tap the game selector bar to open the menu. Choose Playful Naija, Banter, Heart to Heart, Leave It or Drop It, Charades, Bible Questions, or Bible Charades — or leave it on Random Mix for a shuffle of the four conversational decks."
       },
       {
         emoji: "👉",
@@ -2466,7 +2561,7 @@
       },
       {
         emoji: "💪",
-        title: "3. Do It or Drop It",
+        title: "3. Leave It or Drop It",
         body: "Dares and charade cards show two buttons: I DO AM to perform it, or I LEAVE AM to skip. Choosing either fires confetti and moves to the next card automatically. Keyboard: 1 = do, 2 = leave."
       },
       {
@@ -2477,7 +2572,7 @@
       {
         emoji: "🎉",
         title: "5. Play together with Party Mode",
-        body: "Tap Party → Host a Party on one device. Share the 4-letter code, link, or QR code. Everyone who joins sees the same card on their own phone, at the same time. Guests can tap Do It or Drop It and the host's device advances everyone."
+        body: "Tap Party → Host a Party on one device. Share the 4-letter code, link, or QR code. Everyone who joins sees the same card on their own phone, at the same time. Guests can tap Do Am or Leave Am and the host's device advances everyone."
       },
       {
         emoji: "⚙️",
@@ -2552,7 +2647,7 @@
     });
 
     /* =========================================================
-       7. GAME SELECTOR (BOTTOM SHEET) + CHIPS
+       7. GAME SELECTOR + CHIPS
        ========================================================= */
 
     function openDeckSheet() {
@@ -2580,18 +2675,15 @@
     function updateGameSelectButton() {
       const f = FILTERS.find(x => x.key === state.filter);
       if (!f) return;
-      // Prefer the emoji from the label's first token
       const first = f.label.split(" ");
       gameSelectEmoji.textContent = first[0];
       gameSelectLabel.textContent = f.short || first.slice(1).join(" ");
     }
 
     function updateFilterUI() {
-      // Desktop chips
       [...chipsEl.children].forEach(c => {
         c.setAttribute("aria-pressed", String(c.dataset.key === state.filter));
       });
-      // Sheet options
       [...deckSheetList.children].forEach(c => {
         c.setAttribute("aria-checked", String(c.dataset.key === state.filter));
       });
@@ -2603,7 +2695,6 @@
       deckSheetList.innerHTML = "";
 
       FILTERS.forEach(f => {
-        // ----- Desktop chip -----
         const b = document.createElement("button");
         b.className = "chip";
         b.type = "button";
@@ -2613,7 +2704,6 @@
         b.addEventListener("click", () => setFilter(f.key));
         chipsEl.appendChild(b);
 
-        // ----- Sheet option -----
         const opt = document.createElement("button");
         opt.className = "deck-option";
         opt.type = "button";
@@ -3156,7 +3246,6 @@
     revealBtn.addEventListener("click", revealAnswer);
 
     document.addEventListener("keydown", (e) => {
-      // Intro guide has its own keys
       if (!introOverlay.hidden) {
         if (e.key === "ArrowRight" || e.key === "Enter") { e.preventDefault(); introNext.click(); }
         if (e.key === "ArrowLeft") { e.preventDefault(); introBack.click(); }
@@ -3164,7 +3253,6 @@
         return;
       }
 
-      // Deck sheet: close on Escape
       if (deckSheetOpen && e.key === "Escape") {
         e.preventDefault();
         closeDeckSheet();
@@ -3235,7 +3323,7 @@
       const params = new URLSearchParams(location.search);
       const joining = !!(params.get("room") || "").trim();
       let seen = false;
-      try { seen = localStorage.getItem(INTRO_SEEN_KEY || INTRO_KEY) === "1"; } catch (e) { }
+      try { seen = localStorage.getItem(INTRO_KEY) === "1"; } catch (e) { }
       if (!seen && !joining) setTimeout(() => openIntro(0), 450);
     })();
   </script>

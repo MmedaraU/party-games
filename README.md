@@ -4,6 +4,8 @@ A single-file, offline-capable party game for Nigerian parties, friends, and fam
 
 Built as one HTML file with zero build steps, zero backend, and zero accounts. Drop it on any static host, share the link, and play.
 
+> Looking for the couples version? That lives [here](https://github.com/MmedaraU/couple-games) with its own README.
+
 ---
 
 ## Table of Contents
@@ -30,12 +32,13 @@ Built as one HTML file with zero build steps, zero backend, and zero accounts. D
 
 ## Features
 
-- **600 prompts** across six decks — Playful Naija, Friends Talk, Do It or Drop It, Charades, Bible Questions, and Bible Charades.
+- **700 prompts** across seven decks — Playful Naija, Banter, Heart to Heart, Leave It or Drop It, Charades, Bible Questions, and Bible Charades.
 - **Real-time Party Mode** — one host, unlimited guests, all devices see the same card simultaneously.
 - **Room codes + QR codes** — guests join in seconds by typing a 4-character code, scanning a QR, or opening a shared link.
-- **Do It or Drop It** — dare and charade cards let players accept or skip, with confetti and sound feedback.
+- **Do Am / Leave Am** — dare and charade cards let players accept or skip, with confetti and sound feedback.
 - **Bible trivia with reveal** — questions hide their answers behind a synced Reveal Answer button.
 - **Random Mix or targeted decks** — play a shuffle of the four conversational decks, or focus on a single game.
+- **Hamburger game selector on mobile** — full-width button opens a bottom sheet for deck selection on phones and portrait tablets.
 - **Onboarding guide** — a 7-step tour appears on first open and can be reopened anytime.
 - **Birthday personalization** — replace "the birthday celebrant" with the actual name, synced to all devices.
 - **Keyboard-first** — full shortcut support for laptops and TVs.
@@ -72,7 +75,8 @@ Solo mode works fully offline over `file://`.
 ## How to Play
 
 ### Solo / shared-screen play
-1. Pick a deck using the chips at the top, or leave it on **🎲 Random Mix**.
+
+1. Pick a deck using the chips at the top (desktop) or the game selector bar (mobile).
 2. Tap **Next Card**, swipe left on the card, or press **Space / →**.
 3. Read the prompt aloud and let the group answer, debate, or vote.
 4. For dare or charade cards, tap **💪 I DO AM** or **🙅 I LEAVE AM**.
@@ -80,6 +84,7 @@ Solo mode works fully offline over `file://`.
 6. Tap **Reset** (or press **R**) to reshuffle and start over.
 
 ### Party Mode play
+
 - The **host** controls the deck: draws cards, switches games, resets, and changes the birthday name.
 - **Guests** see the same card, in sync. They can also tap **Do Am / Leave Am** — the host's device receives the choice and advances everyone.
 - Guests cannot switch decks or reset the game; those controls are hidden on their devices.
@@ -89,20 +94,21 @@ Solo mode works fully offline over `file://`.
 
 ## Game Decks
 
-| Deck             | Emoji | Count | Style                                                     |
-| ---------------- | ----- | ----- | --------------------------------------------------------- |
-| Playful Naija    | 🇳🇬     | 100   | Would-you-rather, who-in-this-room, finish-the-sentence   |
-| Friends Talk     | 🫂     | 100   | Group debates, hot takes, playful roast prompts           |
-| Do It or Drop It | 🔥     | 100   | Dares, performances, reveals                              |
-| Charades         | 🎭     | 100   | Act-it-out prompts — Nigerian life, animals, jobs, movies |
-| Bible Questions  | ✝️     | 100   | Trivia with hidden answers, including obscure questions   |
-| Bible Charades   | 📖     | 100   | Act-it-out Bible stories, parables, and events            |
-| **Random Mix**   | 🎲     | 400   | The four conversational decks shuffled together           |
+| Deck                | Emoji | Count   | Style                                                      | In Random Mix |
+| ------------------- | ----- | ------- | ---------------------------------------------------------- | ------------- |
+| Playful Naija       | 🇳🇬     | 100     | Would-you-rather, who-in-this-room, finish-the-sentence    | ✅             |
+| Banter              | 🍿     | 100     | Group debates, hot takes, playful roast prompts            | ✅             |
+| Heart to Heart      | ❤️     | 100     | Tiered deep questions — Perception, Connection, Reflection | ❌             |
+| Leave It or Drop It | 🔥     | 100     | Dares, performances, reveals                               | ✅             |
+| Charades            | 🎭     | 100     | Act-it-out prompts — Nigerian life, animals, jobs, movies  | ❌             |
+| Bible Questions     | ✝️     | 100     | Trivia with hidden answers, including obscure questions    | ✅             |
+| Bible Charades      | 📖     | 100     | Act-it-out Bible stories, parables, and events             | ❌             |
+| **Random Mix**      | 🎲     | **400** | The four conversational decks shuffled together            | —             |
 
 ### Card behaviour by type
 
 - **Plain cards** — just a question or prompt, no buttons.
-- **Dare cards** — show **💪 I DO AM** and **🙅 I LEAVE AM**.
+- **Dare cards** (from Leave It or Drop It) — show **💪 I DO AM** and **🙅 I LEAVE AM**.
 - **Charade cards** (from Charades or Bible Charades) — show **💪 I DO AM** and **🙅 I LEAVE AM**.
 - **Bible question cards** — show **👁️ Reveal Answer**; the answer stays hidden until revealed.
 
@@ -110,23 +116,24 @@ Solo mode works fully offline over `file://`.
 
 ## Random Mix Behaviour
 
-Random Mix is deliberately curated — it excludes the two charade decks so the mix stays focused on prompts that work well as conversational, dare, or trivia cards.
+Random Mix is deliberately curated — it excludes the two charade decks and Heart to Heart so the mix stays focused on lighter conversational, dare, and trivia prompts.
 
 ```js
-const RANDOM_MIX_EXCLUDE = ["charades", "biblec"];
+const RANDOM_MIX_EXCLUDE = ["charades", "biblec", "realtalk"];
 ```
 
 **Included in Random Mix:**
 - Playful Naija
-- Friends Talk
-- Do It or Drop It
+- Banter
+- Leave It or Drop It
 - Bible Questions
 
 **Excluded from Random Mix:**
 - Charades
 - Bible Charades
+- Heart to Heart
 
-Both excluded decks are still fully playable via their own chips. To re-include one, remove its key from the `RANDOM_MIX_EXCLUDE` array.
+All excluded decks are still fully playable via their own chips or the mobile deck sheet. To re-include one, remove its key from the `RANDOM_MIX_EXCLUDE` array.
 
 ---
 
@@ -135,6 +142,7 @@ Both excluded decks are still fully playable via their own chips. To re-include 
 Party Mode uses WebRTC (via PeerJS) to connect devices directly. There is no server relaying game data — the host's browser is the source of truth, and guests receive state updates in real time.
 
 ### Hosting
+
 - Tap **🎉 Party → Host a Party**.
 - A 4-character room code is generated (e.g. `K7QP`).
 - The host panel shows:
@@ -146,11 +154,13 @@ Party Mode uses WebRTC (via PeerJS) to connect devices directly. There is no ser
 - Tap **End Party** to close all connections and return to solo mode.
 
 ### Joining
+
 - Open the shared link (auto-joins), or
 - Tap **🎉 Party → Join a Party** and type the 4-character code.
 - Once connected, the guest's screen locks to the host's state.
 
 ### What syncs
+
 - Current card
 - Deck tag and accent colour
 - Drawn / done / skipped counters
@@ -160,6 +170,7 @@ Party Mode uses WebRTC (via PeerJS) to connect devices directly. There is no ser
 - Bible answer reveal state
 
 ### What does *not* sync
+
 - Sound effects (each device plays its own)
 - Confetti (each device animates its own)
 - Local settings (name field, sound toggle — saved per device)
@@ -171,9 +182,9 @@ Party Mode uses WebRTC (via PeerJS) to connect devices directly. There is no ser
 A 7-step guide appears automatically the first time someone opens the app. It walks through:
 
 1. **Welcome** — what the app is
-2. **Choose your game** — the filter chips and the six decks
+2. **Choose your game** — the filter chips and the seven decks
 3. **Draw a card** — button, swipe, and keyboard
-4. **Do It or Drop It** — how dares and charades work
+4. **Do Am / Leave Am** — how dares and charades work
 5. **Bible Questions & Bible Charades** — the reveal mechanic and the charade format
 6. **Party Mode** — host and join with a shared code
 7. **Make it personal** — Settings, name, sound, reset
@@ -203,32 +214,53 @@ The guide is skipped if someone opens the app via a party link (`?room=CODE`) so
 | `A`                     | Reveal Answer (Bible questions)    |
 | `R`                     | Reset the deck                     |
 
-Shortcuts are paused while the onboarding guide is open or while typing in an input field.
+Shortcuts are paused while the onboarding guide is open, while the deck sheet is open, or while typing in an input field.
 
 ---
 
 ## Responsive Design
 
-The layout adapts across screen sizes:
+The layout adapts across screen sizes and input methods.
 
-| Breakpoint                   | Behaviour                                                                          |
-| ---------------------------- | ---------------------------------------------------------------------------------- |
-| **≥ 900px**                  | Full layout, wrap-around chips, generous card padding                              |
-| **≤ 900px**                  | Slightly tighter card text                                                         |
-| **≤ 700px**                  | Chips scroll horizontally with snap points and edge fades                          |
-| **≤ 560px**                  | Brand text hides, icon buttons shrink, choices stack full-width, footer hints hide |
-| **≤ 380px**                  | Extra-compact padding, smaller chips, tighter card                                 |
-| **Landscape ≤ 540px height** | Compressed vertical layout so the card fits on screen                              |
-| **Touch devices**            | Keyboard hints hidden; `touch-action: manipulation` removes tap delay              |
-| **Notched devices**          | Header and footer respect `env(safe-area-inset-*)`                                 |
+### Desktop and large tablets
 
-Other responsive touches:
-- Card question text uses a mobile-tuned `clamp()` so it scales smoothly.
-- QR code shrinks from 170px to 150px on phones.
-- Modal action buttons go full-width on small screens.
-- `justify-content: safe center` keeps long cards from being cut off on short screens.
-- `text-size-adjust: 100%` prevents unwanted iOS text scaling.
-- Inputs stay at 16px to prevent focus-zoom on iOS.
+- **Chips row** at the top — all seven game modes plus Random Mix, wrap-around layout.
+- Full-size card, generous padding, and both footer shortcut hints visible.
+
+### Phones and portrait tablets (≤1024px portrait)
+
+- **Chips row is replaced by a full-width game selector button** with a staggered hamburger icon.
+- Tapping the bar opens a **bottom sheet** listing every deck with its emoji, name, card count, and a checkmark on the current selection.
+- The sheet is split into sections where applicable and closes on backdrop tap, ✕ button, or Escape.
+- Guests in Party Mode cannot open the sheet — a "Host controls the game" toast appears.
+
+### Small phones (≤560px)
+
+- Brand text hides, icon buttons shrink.
+- **Do Am / Leave Am buttons stack full-width.**
+- Next and Reset split 50/50.
+- Footer keyboard hints hide.
+- Modals collapse to single-column actions.
+
+### Very small phones (≤380px)
+
+- Extra-compact padding, smaller chips, tighter card.
+
+### Landscape phones (≤540px height)
+
+- Compressed vertical layout so the card fits on screen.
+- Header and footer hints hide.
+
+### Other responsive touches
+
+| Feature              | Behaviour                                                             |
+| -------------------- | --------------------------------------------------------------------- |
+| **Notched devices**  | Header and footer respect `env(safe-area-inset-*)`                    |
+| **Touch devices**    | Keyboard hints hidden; `touch-action: manipulation` removes tap delay |
+| **iOS text scaling** | `text-size-adjust: 100%` prevents unwanted scaling                    |
+| **iOS focus zoom**   | Inputs stay at 16px to prevent zoom on focus                          |
+| **Reduced motion**   | All animations and transitions disabled                               |
+| **Card centering**   | `justify-content: safe center` prevents long cards from being cut off |
 
 ---
 
@@ -237,37 +269,43 @@ Other responsive touches:
 Because everything lives in a single HTML file, you can host it anywhere static. HTTPS is required for Party Mode (WebRTC).
 
 ### GitHub Pages
+
 ```bash
-# In your repo
 git add index.html
 git commit -m "Add Naija Party Cards"
 git push origin main
 ```
+
 Then enable GitHub Pages in **Settings → Pages** and select the branch.
 
 ### Netlify
+
 - Drag the folder onto [app.netlify.com/drop](https://app.netlify.com/drop), or
 - Connect your repo and set the publish directory to the folder containing `index.html`.
 
 ### Vercel
+
 ```bash
 vercel --prod
 ```
 
 ### Cloudflare Pages
+
 - Create a project, point it at your repo, and set the build output directory.
 
 ### Any shared hosting
+
 - Upload `index.html` to `public_html` or your web root.
 - Ensure HTTPS is enabled (required for Party Mode).
 
 ### Running locally for testing
+
 ```bash
-# From the folder containing index.html
 python3 -m http.server 8080
 # or
 npx serve .
 ```
+
 Then visit `http://localhost:8080`.
 
 ---
@@ -308,7 +346,6 @@ Edit the `DECKS` object:
 ```js
 const DECKS = {
   naija:  { label: "Playful Naija",   emoji: "🇳🇬", color: "#00A651" },
-  bibleq: { label: "Bible Questions", emoji: "✝️", color: "#B45309" },
   // ...
 };
 ```
@@ -334,7 +371,7 @@ Each `key` must match a key in `DECKS`.
 Edit the exclusion list:
 
 ```js
-const RANDOM_MIX_EXCLUDE = ["charades", "biblec"];
+const RANDOM_MIX_EXCLUDE = ["charades", "biblec", "realtalk"];
 ```
 
 Remove a key to include that deck in Random Mix, or add another to exclude it.
@@ -364,10 +401,12 @@ Modify the `INTRO_STEPS` array. Each step has `emoji`, `title`, and `body`.
 ### Bundling dependencies locally (optional)
 
 By default the page loads two external resources:
+
 - **PeerJS** from `unpkg.com`
 - **QR codes** from `api.qrserver.com`
 
 To make the site fully self-contained:
+
 1. Download `peerjs.min.js` and reference it locally.
 2. Replace the QR image with a client-side generator like `qrcode.js`.
 
@@ -390,6 +429,7 @@ This removes dependence on the public PeerJS cloud.
 ## Technical Architecture
 
 ### Stack
+
 - **HTML + CSS + vanilla JavaScript** — no framework, no bundler, no build step.
 - **PeerJS** — WebRTC wrapper for peer discovery and data channels.
 - **Canvas 2D** — confetti animation.
@@ -398,12 +438,15 @@ This removes dependence on the public PeerJS cloud.
 - **QR Server API** — QR code image for the host panel.
 
 ### File structure
+
 ```
 index.html   ← everything (markup, styles, logic, decks)
 ```
 
 ### State model
+
 The host owns:
+
 - `state.queue` — shuffled pool of remaining cards
 - `state.current` — the visible card
 - `state.drawn`, `state.didCount`, `state.leaveCount` — counters
@@ -416,6 +459,7 @@ Guests mirror this via `applyRemoteState()`.
 ### Sync messages
 
 **Host → guests** (`buildStatePayload`):
+
 ```js
 {
   type: "state",
@@ -425,17 +469,20 @@ Guests mirror this via `applyRemoteState()`.
 ```
 
 **Guest → host**:
+
 ```js
 { type: "action", action: "next" | "do" | "leave" }
 ```
 
 ### Lifecycle
+
 1. Host opens a PeerJS connection with ID `naija-party-<CODE>`.
 2. Guests connect to that ID.
 3. On every host change, `broadcastState()` sends the full payload.
 4. On guest actions, the host applies them locally and re-broadcasts.
 
 ### Persistence
+
 - `naijaPartyCards.v3` — name + sound preference (per device).
 - `naijaPartyCards.introSeen` — whether onboarding has been completed.
 
@@ -485,6 +532,9 @@ Party Mode requires HTTPS (or `localhost`).
 **Cards feel repetitive**
 - The queue avoids repeats until it's exhausted, then reshuffles.
 - Switching decks rebuilds the queue from scratch.
+
+**The game selector doesn't show on mobile**
+- It appears when the viewport is ≤1024px **and** the device is in portrait orientation. Rotate back to portrait if you don't see it.
 
 **Party Mode advanced:**
 - Host device must stay awake. Screen-lock may suspend the connection on some phones.
