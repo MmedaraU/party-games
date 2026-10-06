@@ -1,6 +1,21 @@
 # 🎉 Naija Party Cards
 
-A single-file, offline-capable party game for Nigerian parties, friends, and family — with real-time multi-device sync so everyone at the party sees the same card at the same time.
+<p align="center">
+  <img src="img/img-1.png" alt="Naija Party Cards — 700 prompts across seven decks" width="800">
+</p>
+
+<p align="center">
+  <strong>A single-file, offline-capable party game for Nigerian parties, friends, and family.</strong><br>
+  Real-time multi-device sync so everyone at the party sees the same card at the same time.
+</p>
+
+<p align="center">
+  <img src="img/img-2.png" alt="Desktop view showing the chips row and an active card" width="600">
+</p>
+
+<p align="center">
+  <em>Desktop layout with the game chips and an active prompt.</em>
+</p>
 
 Built as one HTML file with zero build steps, zero backend, and zero accounts. Drop it on any static host, share the link, and play.
 
@@ -11,6 +26,7 @@ Built as one HTML file with zero build steps, zero backend, and zero accounts. D
 ## Table of Contents
 
 - [Features](#features)
+- [Screenshots](#screenshots)
 - [Quick Start](#quick-start)
 - [How to Play](#how-to-play)
 - [Game Decks](#game-decks)
@@ -47,6 +63,50 @@ Built as one HTML file with zero build steps, zero backend, and zero accounts. D
 - **Fully responsive** — tuned for phones, tablets, laptops, TVs, and landscape phones.
 - **Zero backend** — pure client-side, deploys anywhere static files are served.
 - **Offline solo play** — the whole game works without internet if you skip Party Mode.
+
+---
+
+## Screenshots
+
+### Desktop and mobile
+
+| Desktop                                         | Mobile                                                  |
+| ----------------------------------------------- | ------------------------------------------------------- |
+| ![Desktop layout with chips row](img/img-2.png) | ![Mobile layout with hamburger selector](img/img-4.png) |
+
+<p align="center">
+  <em>Left: desktop chips row and full-size card. Right: mobile game selector bar with the bottom sheet closed.</em>
+</p>
+
+### Deck selector on mobile
+
+<p align="center">
+  <img src="img/img-4.png" alt="Mobile bottom sheet showing all seven decks with card counts" width="380">
+</p>
+
+<p align="center">
+  <em>The bottom sheet lists every deck with its emoji, name, and card count. Tap to switch instantly.</em>
+</p>
+
+### Party Mode host panel
+
+<p align="center">
+  <img src="img/img-6.png" alt="Host panel showing room code, QR code, shareable link, and guest count" width="420">
+</p>
+
+<p align="center">
+  <em>Share the 4-character code, the link, or the QR. Everyone who joins sees the same card in real time.</em>
+</p>
+
+### Bible Questions with reveal
+
+<p align="center">
+  <img src="img/img-7.png" alt="Bible question card with the Reveal Answer button visible" width="500">
+</p>
+
+<p align="center">
+  <em>Bible trivia cards hide the answer behind a Reveal Answer button that syncs across all devices.</em>
+</p>
 
 ---
 
@@ -94,11 +154,15 @@ Solo mode works fully offline over `file://`.
 
 ## Game Decks
 
+<p align="center">
+  <img src="img/img-2.png" alt="The eight game mode chips on desktop" width="720">
+</p>
+
 | Deck                | Emoji | Count   | Style                                                      | In Random Mix |
 | ------------------- | ----- | ------- | ---------------------------------------------------------- | ------------- |
 | Playful Naija       | 🇳🇬     | 100     | Would-you-rather, who-in-this-room, finish-the-sentence    | ✅             |
-| Banter              | 🍿     | 100     | Group debates, hot takes, playful roast prompts            | ✅             |
-| Heart to Heart      | ❤️     | 100     | Tiered deep questions — Perception, Connection, Reflection | ❌             |
+| **Banter**          | 🍿     | 100     | Group debates, hot takes, playful roast prompts            | ✅             |
+| **Heart to Heart**  | 💗     | 100     | Tiered deep questions — Perception, Connection, Reflection | ❌             |
 | Leave It or Drop It | 🔥     | 100     | Dares, performances, reveals                               | ✅             |
 | Charades            | 🎭     | 100     | Act-it-out prompts — Nigerian life, animals, jobs, movies  | ❌             |
 | Bible Questions     | ✝️     | 100     | Trivia with hidden answers, including obscure questions    | ✅             |
@@ -107,10 +171,11 @@ Solo mode works fully offline over `file://`.
 
 ### Card behaviour by type
 
-- **Plain cards** — just a question or prompt, no buttons.
-- **Dare cards** (from Leave It or Drop It) — show **💪 I DO AM** and **🙅 I LEAVE AM**.
-- **Charade cards** (from Charades or Bible Charades) — show **💪 I DO AM** and **🙅 I LEAVE AM**.
-- **Bible question cards** — show **👁️ Reveal Answer**; the answer stays hidden until revealed.
+| Type           | Example                                       | Buttons shown            |
+| -------------- | --------------------------------------------- | ------------------------ |
+| Plain          | Playful Naija, Banter, Heart to Heart         | None                     |
+| Dare / Charade | Leave It or Drop It, Charades, Bible Charades | 💪 I DO AM · 🙅 I LEAVE AM |
+| Bible Question | Bible Questions                               | 👁️ Reveal Answer          |
 
 ---
 
@@ -138,6 +203,10 @@ All excluded decks are still fully playable via their own chips or the mobile de
 ---
 
 ## Party Mode
+
+<p align="center">
+  <img src="img/img-6.png" alt="Diagram showing the host device broadcasting state to guest devices" width="620">
+</p>
 
 Party Mode uses WebRTC (via PeerJS) to connect devices directly. There is no server relaying game data — the host's browser is the source of truth, and guests receive state updates in real time.
 
@@ -178,6 +247,10 @@ Party Mode uses WebRTC (via PeerJS) to connect devices directly. There is no ser
 ---
 
 ## Onboarding Guide
+
+<p align="center">
+  <img src="img/img-1.png" alt="The onboarding guide showing the welcome slide" width="420">
+</p>
 
 A 7-step guide appears automatically the first time someone opens the app. It walks through:
 
@@ -220,6 +293,10 @@ Shortcuts are paused while the onboarding guide is open, while the deck sheet is
 
 ## Responsive Design
 
+<p align="center">
+  <img src="img/img-8.png" alt="The same card rendered on phone, tablet, and desktop" width="800">
+</p>
+
 The layout adapts across screen sizes and input methods.
 
 ### Desktop and large tablets
@@ -231,7 +308,7 @@ The layout adapts across screen sizes and input methods.
 
 - **Chips row is replaced by a full-width game selector button** with a staggered hamburger icon.
 - Tapping the bar opens a **bottom sheet** listing every deck with its emoji, name, card count, and a checkmark on the current selection.
-- The sheet is split into sections where applicable and closes on backdrop tap, ✕ button, or Escape.
+- The sheet closes on backdrop tap, ✕ button, or Escape.
 - Guests in Party Mode cannot open the sheet — a "Host controls the game" toast appears.
 
 ### Small phones (≤560px)
@@ -440,7 +517,20 @@ This removes dependence on the public PeerJS cloud.
 ### File structure
 
 ```
-index.html   ← everything (markup, styles, logic, decks)
+your-project/
+├── index.html                ← everything (markup, styles, logic, decks)
+├── README.md                 ← this file
+└── assets/
+    ├── party-banner.png
+    ├── party-desktop.png
+    ├── party-mobile.png
+    ├── party-deck-sheet.png
+    ├── party-host-panel.png
+    ├── party-bible-reveal.png
+    ├── party-deck-chips.png
+    ├── party-mode-diagram.png
+    ├── party-onboarding.png
+    └── party-responsive.png
 ```
 
 ### State model
@@ -587,4 +677,6 @@ Prompt content is original and written for this project. If you redistribute, a 
 - Sound effects: synthesized in-browser with the Web Audio API.
 - Confetti: custom canvas animation.
 
-Enjoy the party. 🎉🇳🇬
+<p align="center">
+  Enjoy the party. 🎉🇳🇬
+</p>
