@@ -72,7 +72,7 @@ Built as one HTML file with zero build steps, zero backend, and zero accounts. D
 
 | Desktop                                         | Mobile                                                  |
 | ----------------------------------------------- | ------------------------------------------------------- |
-| ![Desktop layout with chips row](img/img-2.png) | ![Mobile layout with hamburger selector](img/img-4.png) |
+| ![Desktop layout with chips row](img/img-2.png) | ![Mobile layout with hamburger selector](img/img-9.png) |
 
 <p align="center">
   <em>Left: desktop chips row and full-size card. Right: mobile game selector bar with the bottom sheet closed.</em>
