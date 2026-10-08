@@ -51,7 +51,7 @@ Built as one HTML file with zero build steps, zero backend, and zero accounts. D
 - **Room codes + QR codes** — guests join in seconds by typing a 4-character code, scanning a QR, or opening a shared link.
 - **Do Am / Leave Am** — dare and charade cards let players accept or skip, with confetti and sound feedback.
 - **Hints and reveals** — Bible Trivia and Riddles cards hide their answers behind a two-stage reveal: a Hint button, then an Answer button. Both sync across devices, and **only the host can trigger them** in Party Mode.
-- **Scoring decks** — Never Have I Ever and Confessions let every guest vote on their own device, then reveal the tally with live score updates.
+- **Scoring decks** — Never Have I Ever and Confessions let every guest vote on their own device, then reveal the tally with live score updates. If a vote is holding things up, the host can skip the card without scoring anyone.
 - **Mature deck warning** — Confessions carries a **MATURE** badge on the chip and in the sheet, and shows a soft confirmation before loading.
 - **Random Mix or targeted decks** — play a shuffle of the five conversational decks, or focus on a single game.
 - **Hamburger game selector on mobile** — full-width button opens a bottom sheet split into Conversational and Scoring sections.
@@ -293,9 +293,10 @@ Each guest enters their name when joining. Votes sync to the host, who reveals w
 
 Guests see the leaderboard too, so they can check their own score after the host reveals.
 
-### Reset and deck switching
+### Reset, skip, and deck switching
 
 - **Reset** clears the current card and puts everyone back to **5 points**.
+- **Skip this card** discards the current prompt without scoring anyone. It appears only on the host's device (or solo), and only while votes are still coming in. Useful when a guest has stepped away or the prompt isn't landing.
 - **Switching to a different deck** also resets scores, so every scoring session starts fresh.
 - If the host tries to switch away from a scoring deck with votes in progress, a confirmation modal appears to avoid accidental data loss.
 
@@ -413,18 +414,19 @@ The Hangout ships with three theme states, cycled by the theme button in the hea
 
 ## Keyboard Shortcuts
 
-| Key                     | Action                                   |
-| ----------------------- | ---------------------------------------- |
-| `Space` / `→` / `Enter` | Draw next card                           |
-| `1`                     | I DO AM (dare or charade cards)          |
-| `2`                     | I LEAVE AM (dare or charade cards)       |
-| `H`                     | Reveal hint (Bible Trivia and Riddles)   |
-| `A`                     | Reveal answer (Bible Trivia and Riddles) |
-| `R`                     | Reset the deck                           |
+| Key                     | Action                                       |
+| ----------------------- | -------------------------------------------- |
+| `Space` / `→` / `Enter` | Draw next card                               |
+| `1`                     | I DO AM (dare or charade cards)              |
+| `2`                     | I LEAVE AM (dare or charade cards)           |
+| `H`                     | Reveal hint (Bible Trivia and Riddles)       |
+| `A`                     | Reveal answer (Bible Trivia and Riddles)     |
+| `S`                     | Skip this card (scoring decks, host or solo) |
+| `R`                     | Reset the deck                               |
 
 Shortcuts are paused while the onboarding guide is open, while the deck sheet is open, or while typing in an input field.
 
-**Host-only in Party Mode:** `H`, `A`, and `R` do nothing on a guest device. Guests can still use `Space`, `1`, and `2`.
+**Host-only in Party Mode:** `H`, `A`, `S`, and `R` do nothing on a guest device. Guests can still use `Space`, `1`, and `2`.
 
 ---
 
@@ -796,7 +798,8 @@ Party Mode requires HTTPS (or `localhost`).
 
 **Reveal button won't enable on scoring decks**
 - Every connected guest must vote first. Watch the "X of Y voted" counter under the card.
-- If someone has left without voting, switch decks or reset to clear the in-progress votes.
+- If someone has left without voting, tap **⏭️ Skip this card** (or press `S`) to move on without scoring anyone.
+- If you want a clean slate instead, **Reset** clears the card and puts everyone back to 5 points.
 
 **Deck count says 94 instead of 100**
 - Six prompts in Banter mention "the birthday celebrant." Until a name is set in ⚙️ Settings, those prompts are hidden from the queue, so Banter shows 94. Set a name to see the full 100.

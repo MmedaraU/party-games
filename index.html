@@ -824,6 +824,14 @@
       box-shadow: 0 12px 26px -12px rgba(139, 92, 246, .9)
     }
 
+    .btn.skipcard {
+      background: transparent;
+      color: var(--muted);
+      border: 1.5px solid rgba(31, 27, 36, .12);
+      font-size: .9rem;
+      padding: 11px 20px
+    }
+
     .btn.danger {
       background: #F43F5E;
       color: #fff;
@@ -1959,6 +1967,11 @@
       color: #f0ecef;
     }
 
+    [data-theme="dark"] .btn.skipcard {
+      color: #8a7f92;
+      border-color: rgba(255, 255, 255, .12);
+    }
+
     [data-theme="dark"] .btn.leave,
     [data-theme="dark"] .btn.havent {
       background: rgba(255, 255, 255, .06);
@@ -2121,6 +2134,7 @@
 
       <div class="hint-reveal-row" id="hintRevealRow" hidden>
         <button class="btn hint" id="hintBtn">💡 Hint</button>
+        <button class="btn skipcard" id="skipCardBtn" hidden>⏭️ Skip this card</button>
         <button class="btn reveal" id="revealBtn" hidden>👁️ Reveal Answer</button>
       </div>
 
@@ -3377,6 +3391,7 @@
     const hintRevealRow = document.getElementById("hintRevealRow");
     const hintBtn = document.getElementById("hintBtn");
     const revealBtn = document.getElementById("revealBtn");
+    const skipCardBtn = document.getElementById("skipCardBtn");
     const choices = document.getElementById("choices");
     const scoringChoices = document.getElementById("scoringChoices");
     const controls = document.getElementById("controls");
@@ -3966,6 +3981,7 @@
       revealBlock.hidden = true;
       voteStatus.hidden = true;
       hintRevealRow.hidden = true;
+      skipCardBtn.hidden = true;
       choices.hidden = true;
       scoringChoices.hidden = true;
       leaderBtn.hidden = true;
@@ -4013,6 +4029,9 @@
         revealBtn.hidden = true;
       }
 
+      const skipVisible = isScoring && canReveal && state.votePhase === "voting";
+      skipCardBtn.hidden = !skipVisible;
+
       const rowVisible =
         (hasHint && !hv && !isScoring && canReveal) ||
         (hasAnswer && !rv && !isScoring && canReveal) ||
@@ -4035,13 +4054,15 @@
         scoringChoices.hidden = false;
         revealBtn.hidden = !canReveal;
         revealBtn.textContent = "👁️ Reveal Answers";
-        revealBtn.disabled = !(state.guests.length > 0 && state.guests.every(g => g.voted) && state.voters[0].voted);
+        revealBtn.disabled = !(state.guests.length > 0 && state.guests.every(g => g.voted) && state.voters[0].voted) ||
+          state.votePhase === "revealed";
         leaderBtn.hidden = false;
         renderVoteStatus();
       } else {
         const isPerformance = item.deck === "doam" || item.kind === "charade";
         choices.hidden = !isPerformance;
         scoringChoices.hidden = true;
+        skipCardBtn.hidden = true;
         leaderBtn.hidden = true;
         voteStatus.hidden = true;
       }
@@ -4166,6 +4187,23 @@
       revealSound();
       render(state.current, { animate: false, revealed: true, hintRevealed: hintRevealed });
       if (role === "host") broadcastState();
+    }
+
+    function skipScoringCard() {
+      if (role === "guest") return;
+      if (state.actionLocked) return;
+      if (!state.isScoring) return;
+      if (!state.current) return;
+      if (state.votePhase !== "voting") return;
+
+      state.actionLocked = true;
+      skipSound();
+      toast("Card skipped ⏭️");
+
+      setTimeout(() => {
+        state.actionLocked = false;
+        drawCard();
+      }, 200);
     }
 
     function castVote(value) {
@@ -4748,6 +4786,7 @@
     leaveBtn.addEventListener("click", chooseLeave);
     hintBtn.addEventListener("click", revealHint);
     revealBtn.addEventListener("click", revealAnswer);
+    skipCardBtn.addEventListener("click", skipScoringCard);
     haveBtn.addEventListener("click", () => castVote("have"));
     haventBtn.addEventListener("click", () => castVote("havent"));
     leaderBtn.addEventListener("click", showLeaderboard);
@@ -4785,6 +4824,8 @@
         resetGame();
       } else if (e.key.toLowerCase() === "h") {
         if (role !== "guest") revealHint();
+      } else if (e.key.toLowerCase() === "s") {
+        if (role !== "guest" && !skipCardBtn.hidden) skipScoringCard();
       } else if (e.key.toLowerCase() === "a") {
         if (role !== "guest") revealAnswer();
       }
