@@ -50,13 +50,14 @@ Built as one HTML file with zero build steps, zero backend, and zero accounts. D
 - **Real-time Party Mode** — one host, unlimited guests, all devices see the same card simultaneously.
 - **Room codes + QR codes** — guests join in seconds by typing a 4-character code, scanning a QR, or opening a shared link.
 - **Do Am / Leave Am** — dare and charade cards let players accept or skip, with confetti and sound feedback.
-- **Hints and reveals** — Bible Trivia and Riddles cards hide their answers behind a two-stage reveal: a Hint button, then an Answer button. Both sync across devices.
+- **Hints and reveals** — Bible Trivia and Riddles cards hide their answers behind a two-stage reveal: a Hint button, then an Answer button. Both sync across devices, and **only the host can trigger them** in Party Mode.
 - **Scoring decks** — Never Have I Ever and Confessions let every guest vote on their own device, then reveal the tally with live score updates.
+- **Mature deck warning** — Confessions carries a **MATURE** badge on the chip and in the sheet, and shows a soft confirmation before loading.
 - **Random Mix or targeted decks** — play a shuffle of the five conversational decks, or focus on a single game.
 - **Hamburger game selector on mobile** — full-width button opens a bottom sheet split into Conversational and Scoring sections.
 - **Dark mode** — Light, Dark, and System themes, saved per device, with no flash of light content on load.
 - **Onboarding guide** — an 8-step tour appears on first open and can be reopened anytime.
-- **Birthday personalization** — replace "the birthday celebrant" with the actual name, synced to all devices.
+- **Birthday personalization** — replace "the birthday celebrant" with the actual name, synced to all devices. Prompts mentioning the celebrant are **hidden until a name is set**.
 - **Keyboard-first** — Space, arrows, 1, 2, H, A, R, Esc.
 - **Swipe gestures** — draw and skip with a swipe on touch devices.
 - **Sound + confetti** — local per device, so each phone reacts on its own.
@@ -93,7 +94,7 @@ Built as one HTML file with zero build steps, zero backend, and zero accounts. D
 </p>
 
 <p align="center">
-  <em>Tap the bar to open the sheet. Deck options are grouped into Conversational and Scoring sections, with card counts and a scoring badge.</em>
+  <em>Tap the bar to open the sheet. Deck options are grouped into Conversational and Scoring sections, with card counts and scoring or mature badges.</em>
 </p>
 
 ### Hint and reveal
@@ -111,7 +112,7 @@ Built as one HTML file with zero build steps, zero backend, and zero accounts. D
 </p>
 
 <p align="center">
-  <em>Stage 2: tap 👁️ Reveal Answer. Both stages sync across devices in Party Mode.</em>
+  <em>Stage 2: tap 👁️ Reveal Answer. In Party Mode, only the host can trigger either stage — guests see the same hint or answer at the same time, but can't spoil it.</em>
 </p>
 
 ### Never Have I Ever — scoring
@@ -178,14 +179,15 @@ Solo mode works fully offline over `file://`.
 4. For dare or charade cards, tap **💪 I DO AM** or **🙅 I LEAVE AM**.
 5. For Bible Trivia and Riddles, tap **💡 Hint** first if you want a nudge, then **👁️ Reveal Answer**.
 6. For Never Have I Ever and Confessions, tap **✋ I HAVE** or **🙅 I HAVEN'T** — the host reveals when everyone has voted.
-7. Tap **Reset** (or press **R**) to reshuffle and start over.
+7. Tap **Reset** (or press **R**) to reshuffle and start over. This also resets scores on scoring decks.
 
 ### Party Mode play
 
 - The **host** controls the deck: draws cards, switches games, resets, and changes the birthday name.
-- **Guests** see the same card, in sync. They can also tap **Do Am / Leave Am**, **Hint**, **Reveal**, or **vote** — the host's device receives the choice and advances everyone.
+- **Guests** see the same card, in sync. They can tap **Do Am / Leave Am** and **vote** on scoring decks. Their choice is sent to the host's device and advances everyone.
+- **Hint, Reveal Answer, Reveal Answers, and Reset are host-only.** Guests can't spoil trivia answers or scoring reveals before the host is ready.
 - Guests cannot switch decks or reset the game; those controls are hidden on their devices.
-- The host's device must stay open and online for the room to keep working.
+- The host's device must stay open and online for the room to keep working. Closing or refreshing it ends the room.
 
 ---
 
@@ -206,8 +208,10 @@ Solo mode works fully offline over `file://`.
 | Bible Charades      | 📖     | 100     | Act-it-out Bible stories, parables, and events                       | ❌             |
 | Riddles             | 🧩     | 100     | Classic riddles and brain teasers with hints                         | ✅             |
 | Never Have I Ever   | 🫣     | 100     | Friends-edition confessions, finger scoring                          | ❌             |
-| Confessions         | 😏     | 100     | Cheekier friend confessions, finger scoring                          | ❌             |
+| Confessions         | 😏     | 100     | Cheekier friend confessions, finger scoring. **MATURE**              | ❌             |
 | **Random Mix**      | 🎲     | **600** | Playful Deck + Banter + Leave It or Drop It + Bible Trivia + Riddles | —             |
+
+> **A note on counts.** Banter has six prompts that mention "the birthday celebrant." When no birthday name is set in ⚙️ Settings, those six are hidden from the queue, so Banter and Random Mix both show slightly lower "left in deck" numbers. Set a name to unlock the full counts.
 
 ### Card behaviour by type
 
@@ -243,7 +247,7 @@ const RANDOM_MIX_EXCLUDE = ["charades", "biblec", "realtalk", "nhie", "confessio
 | 📖 Bible Charades    | Same action mechanic, and would double-stack the Bible theme |
 | 💗 Heart to Heart    | Deep reflection clashes with the lighter mix                 |
 | 🫣 Never Have I Ever | Vote/reveal scoring mechanic                                 |
-| 😏 Confessions       | Same scoring mechanic                                        |
+| 😏 Confessions       | Same scoring mechanic, and carries mature content            |
 
 All excluded decks are still fully playable via their own chips or the mobile deck sheet. To re-include one, remove its key from the `RANDOM_MIX_EXCLUDE` array.
 
@@ -258,9 +262,11 @@ Bible Trivia and Riddles cards have a two-stage reveal:
 
 Both stages sync across all devices in Party Mode. Either button can be tapped in any order — you can reveal the answer without showing the hint, or show the hint without revealing.
 
+**Only the host can trigger Hint or Reveal Answer.** Guests see the hint text and the answer once the host reveals them, but cannot spoil the moment themselves.
+
 The hint button only appears on cards that have a `hint` field. Every Bible Trivia entry and every Riddles entry has one.
 
-**Keyboard:** `H` for hint, `A` for reveal.
+**Keyboard:** `H` for hint, `A` for reveal (host and solo only).
 
 ---
 
@@ -284,6 +290,14 @@ The two voting buttons appear on the card. Whoever is holding the device votes f
 ### Party Mode
 
 Each guest enters their name when joining. Votes sync to the host, who reveals when everyone is ready. The **🏆 Scores** button shows the leaderboard with a **Reset Scores** option.
+
+Guests see the leaderboard too, so they can check their own score after the host reveals.
+
+### Reset and deck switching
+
+- **Reset** clears the current card and puts everyone back to **5 points**.
+- **Switching to a different deck** also resets scores, so every scoring session starts fresh.
+- If the host tries to switch away from a scoring deck with votes in progress, a confirmation modal appears to avoid accidental data loss.
 
 ---
 
@@ -312,6 +326,10 @@ Party Mode uses WebRTC (via PeerJS) to connect devices directly. There is no ser
 - Open the shared link (auto-joins), or
 - Tap **🎉 Party → Join a Party**, enter a 4-character code and your name.
 - Once connected, the guest's screen locks to the host's state.
+
+### Guest reconnection
+
+If a guest refreshes, the site recognises them by a persistent client ID and replaces their old session rather than adding a duplicate. Duplicate names get numbered automatically ("Ada 2").
 
 ### What syncs
 
@@ -406,6 +424,8 @@ The Hangout ships with three theme states, cycled by the theme button in the hea
 
 Shortcuts are paused while the onboarding guide is open, while the deck sheet is open, or while typing in an input field.
 
+**Host-only in Party Mode:** `H`, `A`, and `R` do nothing on a guest device. Guests can still use `Space`, `1`, and `2`.
+
 ---
 
 ## Responsive Design
@@ -422,7 +442,7 @@ Shortcuts are paused while the onboarding guide is open, while the deck sheet is
 ### Phones and portrait tablets (≤1024px portrait)
 
 - **Chips row is replaced by a full-width game selector button** with a staggered hamburger icon.
-- Tapping the bar opens a **bottom sheet** split into **Conversational** and **Scoring** sections, with card counts and a scoring badge.
+- Tapping the bar opens a **bottom sheet** split into **Conversational** and **Scoring** sections, with card counts and scoring or mature badges.
 - The sheet closes on backdrop tap, ✕ button, or Escape.
 - Guests in Party Mode cannot open the sheet — a "Host controls the game" toast appears.
 
@@ -539,11 +559,12 @@ Edit the `DECKS` object:
 ```js
 const DECKS = {
   naija: { label: "Playful Deck", emoji: "🎉", color: "#F97316" },
+  confessions: { label: "Confessions", emoji: "😏", color: "#F43F5E", scoring: true, startScore: 5, mature: true },
   // ...
 };
 ```
 
-The `color` value becomes the accent stripe on the card.
+The `color` value becomes the accent stripe on the card. Add `mature: true` to show a MATURE badge and confirmation modal. Add `scoring: true` and `startScore` for scoring decks.
 
 ### Change or reorder the game chips
 
@@ -554,10 +575,11 @@ const FILTERS = [
   { key: "all", label: "🎲 Random Mix", short: "Random Mix" },
   { key: "naija", label: "🎉 Playful Deck", short: "Playful Deck" },
   // ...
+  { key: "confessions", label: "😏 Confessions", short: "Confessions", mature: true }
 ];
 ```
 
-Each `key` must match a key in `DECKS`.
+Each `key` must match a key in `DECKS`. Add `mature: true` to show the MATURE badge on the chip.
 
 ### Change which decks appear in Random Mix
 
@@ -649,7 +671,7 @@ This removes dependence on the public PeerJS cloud.
 - **PeerJS** — WebRTC wrapper for peer discovery and data channels.
 - **Canvas 2D** — confetti animation.
 - **Web Audio API** — synthesized sounds (no audio files).
-- **LocalStorage** — theme, settings, and onboarding persistence.
+- **LocalStorage** — theme, settings, onboarding persistence, and guest client ID.
 - **QR Server API** — QR code image for the host panel.
 
 ### File structure
@@ -658,7 +680,7 @@ This removes dependence on the public PeerJS cloud.
 your-project/
 ├── index.html                ← everything (markup, styles, logic, decks)
 ├── README.md                 ← this file
-└── assets/
+└── img/
     ├── img-1.png
     ├── img-2.png
     ├── ... (see Image Reference)
@@ -676,6 +698,8 @@ The host owns:
 - `state.guests` — array of guest objects with votes and scores
 - `state.voters` — array of local voter objects (solo + host)
 - `state.votePhase` — `"voting"` or `"revealed"`
+- `state.isScoring` — whether the current deck uses scoring
+- `state.actionLocked` — brief lockout after Do/Leave to prevent double-draws
 - `partyName` — birthday name
 - `revealed` — answer visibility
 - `hintRevealed` — hint visibility
@@ -699,24 +723,25 @@ Guests mirror this via `applyRemoteState()`.
 **Guest → host**:
 
 ```js
-{ type: "join", name: "Ada" }
+{ type: "join", name: "Ada", clientId: "c1a2b3" }
 { type: "action", action: "next" | "do" | "leave" | "vote", value?: "have" | "havent" }
 ```
 
 ### Lifecycle
 
 1. Host opens a PeerJS connection with ID `hangout-<CODE>`.
-2. Guests connect, then send a `join` message with their name.
+2. Guests connect, then send a `join` message with their name and a persistent client ID.
 3. On every host change, `broadcastState()` sends the full payload.
 4. On guest actions, the host applies them locally and re-broadcasts.
 
 ### Persistence
 
-| Key                      | What                                  |
-| ------------------------ | ------------------------------------- |
-| `hangoutCards.v1`        | Name + sound preference (per device)  |
-| `hangoutCards.introSeen` | Whether onboarding has been completed |
-| `hangoutCards.theme`     | `"light"`, `"dark"`, or `"auto"`      |
+| Key                      | What                                       |
+| ------------------------ | ------------------------------------------ |
+| `hangoutCards.v1`        | Name + sound preference (per device)       |
+| `hangoutCards.introSeen` | Whether onboarding has been completed      |
+| `hangoutCards.theme`     | `"light"`, `"dark"`, or `"auto"`           |
+| `hangoutCards.clientId`  | Persistent guest identity for rejoin dedup |
 
 Rooms are ephemeral. There is no server-side state.
 
@@ -767,9 +792,14 @@ Party Mode requires HTTPS (or `localhost`).
 
 **Hint button doesn't show**
 - Only Bible Trivia and Riddles cards have hints. Other decks go straight to the prompt.
+- In Party Mode, Hint is host-only. Guest devices show no hint button.
 
 **Reveal button won't enable on scoring decks**
 - Every connected guest must vote first. Watch the "X of Y voted" counter under the card.
+- If someone has left without voting, switch decks or reset to clear the in-progress votes.
+
+**Deck count says 94 instead of 100**
+- Six prompts in Banter mention "the birthday celebrant." Until a name is set in ⚙️ Settings, those prompts are hidden from the queue, so Banter shows 94. Set a name to see the full 100.
 
 **Dark mode flashes light on load**
 - LocalStorage may be disabled, in which case the fallback is light.
@@ -783,19 +813,19 @@ Party Mode requires HTTPS (or `localhost`).
 
 **Party Mode advanced:**
 - Host device must stay awake. Screen-lock may suspend the connection on some phones.
-- Guests who refresh will attempt to rejoin automatically if the URL still contains `?room=CODE`.
+- Guests who refresh will attempt to rejoin automatically if the URL still contains `?room=CODE`, and the host will replace their old session rather than creating a duplicate.
 
 ---
 
 ## Known Limitations
 
 - **Host-dependent** — closing the host tab ends the room; there is no server to recover state.
-- **No reconnection logic** — dropped guests must rejoin manually.
 - **No persistence** — refreshing the host starts a new room.
 - **No authentication** — 4-character codes are guessable; suitable for private hangouts, not sensitive data.
 - **Public PeerJS cloud** — subject to rate limits and occasional downtime.
 - **Confetti and sound are local** — each device animates and beeps independently.
 - **Theme is not synced** — each device picks its own Light/Dark/System.
+- **Birthday prompts hidden without a name** — six Banter prompts mention "the birthday celebrant" and are filtered out until a name is set.
 
 ---
 
@@ -818,7 +848,7 @@ Ideas for future versions:
 
 ## Image Reference
 
-Every image is a PNG. Filenames follow the order they appear in this README.
+Every image is a PNG. Filenames follow the order they appear in this README. All files live in an `img/` folder next to `README.md`.
 
 | Filename     | Where it appears           | What it should show                                            | Suggested size |
 | ------------ | -------------------------- | -------------------------------------------------------------- | -------------- |
@@ -835,8 +865,6 @@ Every image is a PNG. Filenames follow the order they appear in this README.
 | `img-11.png` | Party Mode                 | Host → guests diagram                                          | 1200×600       |
 | `img-12.png` | Onboarding                 | Onboarding slide 1                                             | 900×1200       |
 | `img-13.png` | Responsive Design          | Same card on phone, tablet, desktop                            | 1600×800       |
-
-Place all thirteen files in the same folder as `README.md`, or in an `assets/` subfolder — then adjust the `src` paths in the markdown if you use a subfolder.
 
 Until you add them, GitHub will show broken image icons — but the README reads fine without them. If you'd rather not have visible broken links during development, comment out the image blocks with `<!-- -->` and uncomment them once the files are in place.
 

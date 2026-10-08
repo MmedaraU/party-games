@@ -275,6 +275,17 @@
       box-shadow: 0 8px 20px -8px rgba(255, 122, 92, .7)
     }
 
+    .chip[data-mature="true"] {
+      border-color: rgba(244, 63, 94, .4);
+      color: #BE123C
+    }
+
+    .chip[data-mature="true"][aria-pressed="true"] {
+      background: #F43F5E;
+      color: #fff;
+      border-color: #F43F5E
+    }
+
     .chip:active {
       transform: scale(.95)
     }
@@ -530,7 +541,10 @@
     .deck-option-label {
       white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellipsis
+      text-overflow: ellipsis;
+      display: flex;
+      align-items: center;
+      gap: 6px
     }
 
     .deck-option-count {
@@ -571,8 +585,19 @@
       color: #fff;
       padding: 2px 6px;
       border-radius: 4px;
-      line-height: 1.2;
-      margin-left: 6px
+      line-height: 1.2
+    }
+
+    .badge-mature {
+      display: inline-block;
+      font-size: .56rem;
+      font-weight: 900;
+      letter-spacing: .08em;
+      background: #F43F5E;
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      line-height: 1.2
     }
 
     main {
@@ -649,7 +674,9 @@
       opacity: .95;
       display: inline-flex;
       align-items: center;
-      gap: 8px
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center
     }
 
     .q {
@@ -797,6 +824,14 @@
       box-shadow: 0 12px 26px -12px rgba(139, 92, 246, .9)
     }
 
+    .btn.danger {
+      background: #F43F5E;
+      color: #fff;
+      font-size: .95rem;
+      padding: 12px 22px;
+      box-shadow: 0 12px 26px -12px rgba(244, 63, 94, .85)
+    }
+
     .choices {
       display: flex;
       gap: 12px;
@@ -922,14 +957,15 @@
       left: 50%;
       bottom: 26px;
       transform: translate(-50%, 20px);
-      background: var(--ink);
+      background: #2b2635;
       color: #fff;
       font-weight: 700;
       font-size: .88rem;
       padding: 12px 20px;
       border-radius: 999px;
       z-index: 1400;
-      box-shadow: 0 18px 40px -14px rgba(31, 27, 36, .55);
+      border: 1px solid rgba(255, 255, 255, .12);
+      box-shadow: 0 18px 40px -14px rgba(0, 0, 0, .55);
       opacity: 0;
       pointer-events: none;
       transition: opacity .25s, transform .25s;
@@ -965,7 +1001,8 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
-      box-shadow: 0 40px 80px -30px rgba(31, 27, 36, .5)
+      box-shadow: 0 40px 80px -30px rgba(31, 27, 36, .5);
+      outline: none
     }
 
     .modal h2 {
@@ -973,6 +1010,13 @@
       font-size: 1.2rem;
       letter-spacing: -.02em;
       color: var(--ink)
+    }
+
+    .modal h2.danger {
+      color: #BE123C;
+      display: flex;
+      align-items: center;
+      gap: 8px
     }
 
     .modal p {
@@ -1184,7 +1228,8 @@
       gap: 16px;
       text-align: center;
       box-shadow: 0 40px 90px -30px rgba(31, 27, 36, .45);
-      animation: introPop .35s cubic-bezier(.2, .9, .3, 1.15)
+      animation: introPop .35s cubic-bezier(.2, .9, .3, 1.15);
+      outline: none
     }
 
     @keyframes introPop {
@@ -1689,7 +1734,7 @@
         padding: 8px 16px calc(8px + env(safe-area-inset-bottom))
       }
 
-      footer .keys {
+      footer.keys {
         display: none
       }
     }
@@ -1744,15 +1789,20 @@
     }
 
     [data-theme="dark"] .role {
-      background: rgba(255, 122, 92, .18);
-      border-color: rgba(255, 122, 92, .5);
-      color: #FFB199;
+      background: rgba(255, 122, 92, .32);
+      border-color: rgba(255, 122, 92, .7);
+      color: #FFE0D5;
     }
 
     [data-theme="dark"] .role.guest {
-      background: rgba(139, 92, 246, .18);
-      border-color: rgba(139, 92, 246, .5);
-      color: #C4B5FD;
+      background: rgba(139, 92, 246, .32);
+      border-color: rgba(139, 92, 246, .7);
+      color: #E5D8FF;
+    }
+
+    [data-theme="dark"] .role .live {
+      background: #4ADE80;
+      box-shadow: 0 0 0 3px rgba(74, 222, 128, .18), 0 0 12px rgba(74, 222, 128, .7);
     }
 
     [data-theme="dark"] .settings {
@@ -1779,6 +1829,17 @@
       color: #fff;
       border-color: var(--coral);
       box-shadow: 0 8px 20px -8px rgba(255, 122, 92, .7);
+    }
+
+    [data-theme="dark"] .chip[data-mature="true"] {
+      border-color: rgba(244, 63, 94, .5);
+      color: #FCA5A5;
+    }
+
+    [data-theme="dark"] .chip[data-mature="true"][aria-pressed="true"] {
+      background: #F43F5E;
+      color: #fff;
+      border-color: #F43F5E;
     }
 
     [data-theme="dark"] .game-select {
@@ -1929,6 +1990,10 @@
       color: #f0ecef;
     }
 
+    [data-theme="dark"] .modal h2.danger {
+      color: #FCA5A5;
+    }
+
     [data-theme="dark"] .modal p {
       color: #b8b0bd;
     }
@@ -2030,7 +2095,7 @@
     </label>
     <label class="row"><input type="checkbox" id="soundChk" checked> Sound effects</label>
     <p class="hint">The name you type replaces "the birthday celebrant" in any prompt. When hosting, guests see the same
-      name.</p>
+      name. Prompts about the birthday celebrant are hidden until a name is set.</p>
   </div>
 
   <nav class="chips" id="chips" aria-label="Game modes"></nav>
@@ -2046,7 +2111,7 @@
   <main>
     <section class="card" id="card" style="--accent:#FF7A5C">
       <div class="tag" id="tag">Ready</div>
-      <p class="q intro" id="question">Tap <b>Next Card</b> to draw your first prompt.</p>
+      <p class="q intro" id="question" aria-live="polite">Tap <b>Next Card</b> to draw your first prompt.</p>
 
       <p class="hint-text" id="hintText" hidden></p>
 
@@ -2084,10 +2149,10 @@
     <span class="keys">Space / → = next · 1 = do · 2 = leave · H = hint · A = reveal · R = reset</span>
   </footer>
 
-  <div class="toast" id="toast"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <div class="overlay" id="overlay" hidden>
-    <div class="modal" id="modal"></div>
+    <div class="modal" id="modal" role="dialog" aria-modal="true" tabindex="-1"></div>
   </div>
 
   <div class="deck-sheet" id="deckSheet" aria-hidden="true">
@@ -2103,7 +2168,7 @@
   </div>
 
   <div class="intro-overlay" id="introOverlay" hidden>
-    <div class="intro-card">
+    <div class="intro-card" id="introCard" role="dialog" aria-modal="true" tabindex="-1">
       <div class="intro-emoji" id="introEmoji">🎈</div>
       <h2 id="introTitle">Welcome</h2>
       <p id="introBody"></p>
@@ -2945,7 +3010,8 @@
         "Act out: Elisha and the floating axe head",
         "Act out: Elijah fed by ravens",
         "Act out: The widow's oil multiplying",
-        "Act out: Naaman dipping in the Jordan seven times"
+        "Act out: Naaman dipping in the Jordan seven times",
+        "Act out: Elijah taken up in a chariot of fire"
       ],
 
       nhie: [
@@ -3272,7 +3338,7 @@
       biblec: { label: "Bible Charades", emoji: "📖", color: "#92400E" },
       riddles: { label: "Riddles", emoji: "🧩", color: "#0EA5E9" },
       nhie: { label: "Never Have I Ever", emoji: "🫣", color: "#3B82F6", scoring: true, startScore: 5 },
-      confessions: { label: "Confessions", emoji: "😏", color: "#F43F5E", scoring: true, startScore: 5 }
+      confessions: { label: "Confessions", emoji: "😏", color: "#F43F5E", scoring: true, startScore: 5, mature: true }
     };
 
     const FILTERS = [
@@ -3286,7 +3352,7 @@
       { key: "biblec", label: "📖 Bible Charades", short: "Bible Charades" },
       { key: "riddles", label: "🧩 Riddles", short: "Riddles" },
       { key: "nhie", label: "🫣 Never Have I Ever", short: "Never Have I Ever" },
-      { key: "confessions", label: "😏 Confessions", short: "Confessions" }
+      { key: "confessions", label: "😏 Confessions", short: "Confessions", mature: true }
     ];
 
     const RANDOM_MIX_EXCLUDE = ["charades", "biblec", "realtalk", "nhie", "confessions"];
@@ -3294,6 +3360,7 @@
     const STORAGE_KEY = "hangoutCards.v1";
     const INTRO_KEY = "hangoutCards.introSeen";
     const THEME_KEY = "hangoutCards.theme";
+    const CLIENT_ID_KEY = "hangoutCards.clientId";
     const PEER_PREFIX = "hangout-";
     const CODE_CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
@@ -3345,6 +3412,7 @@
     const deckSheetList = document.getElementById("deckSheetList");
 
     const introOverlay = document.getElementById("introOverlay");
+    const introCard = document.getElementById("introCard");
     const introEmoji = document.getElementById("introEmoji");
     const introTitle = document.getElementById("introTitle");
     const introBody = document.getElementById("introBody");
@@ -3367,7 +3435,8 @@
       guests: [],
       voters: [{ id: "you", name: "You", score: 5, voted: false, vote: null }],
       votePhase: "voting",
-      isScoring: false
+      isScoring: false,
+      actionLocked: false
     };
 
     let role = "solo";
@@ -3385,6 +3454,17 @@
     let introIndex = 0;
     let deckSheetOpen = false;
 
+    let clientId = "";
+    try {
+      clientId = localStorage.getItem(CLIENT_ID_KEY) || "";
+      if (!clientId) {
+        clientId = "c" + Math.random().toString(36).slice(2, 10);
+        localStorage.setItem(CLIENT_ID_KEY, clientId);
+      }
+    } catch (e) {
+      clientId = "c" + Math.random().toString(36).slice(2, 10);
+    }
+
     /* =========================================================
        5. HELPERS
        ========================================================= */
@@ -3398,10 +3478,18 @@
       return a;
     }
 
+    function hasNameSet() {
+      return !!(partyName || "").trim();
+    }
+
     function personalize(text) {
       const n = (partyName || "").trim();
       if (!n) return text;
       return text.replace(/the birthday celebrant/gi, n).replace(/birthday celebrant/gi, n);
+    }
+
+    function isBirthdayPrompt(text) {
+      return /birthday celebrant/i.test(text);
     }
 
     function normalizeItem(raw, deck) {
@@ -3558,7 +3646,48 @@
     });
 
     /* =========================================================
-       7. ONBOARDING
+       7. FOCUS TRAP
+       ========================================================= */
+
+    let previousFocus = null;
+    let activeTrapRoot = null;
+
+    function getFocusable(root) {
+      return root.querySelectorAll(
+        'button:not([disabled]):not([hidden]), [href], input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+    }
+
+    function onTrapKeydown(e) {
+      if (e.key !== "Tab" || !activeTrapRoot) return;
+      const focusables = Array.from(getFocusable(activeTrapRoot)).filter(el => el.offsetParent !== null || el === document.activeElement);
+      if (focusables.length === 0) { e.preventDefault(); return; }
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+
+    function openTrap(root) {
+      previousFocus = document.activeElement;
+      activeTrapRoot = root;
+      document.addEventListener("keydown", onTrapKeydown, true);
+      const focusables = getFocusable(root);
+      const target = focusables[0] || root;
+      setTimeout(() => target.focus(), 30);
+    }
+
+    function closeTrap() {
+      document.removeEventListener("keydown", onTrapKeydown, true);
+      activeTrapRoot = null;
+      if (previousFocus && typeof previousFocus.focus === "function") {
+        try { previousFocus.focus(); } catch (e) { }
+      }
+      previousFocus = null;
+    }
+
+    /* =========================================================
+       8. ONBOARDING
        ========================================================= */
 
     const INTRO_STEPS = [
@@ -3585,7 +3714,7 @@
       {
         emoji: "💡",
         title: "4. Hints and answers",
-        body: "Bible Trivia and Riddles cards have a Hint button — tap it for a nudge before you Reveal the answer. Keyboard: H = hint, A = reveal."
+        body: "Bible Trivia and Riddles cards have a Hint button — tap it for a nudge before you Reveal the answer. Keyboard: H = hint, A = reveal. In Party Mode, only the host can reveal."
       },
       {
         emoji: "🫣",
@@ -3635,10 +3764,12 @@
       introIndex = typeof start === "number" ? start : 0;
       renderIntro();
       introOverlay.hidden = false;
+      openTrap(introCard);
     }
 
     function closeIntro() {
       introOverlay.hidden = true;
+      closeTrap();
       try { localStorage.setItem(INTRO_KEY, "1"); } catch (e) { }
     }
 
@@ -3670,7 +3801,7 @@
     });
 
     /* =========================================================
-       8. GAME SELECTOR
+       9. GAME SELECTOR
        ========================================================= */
 
     function openDeckSheet() {
@@ -3744,6 +3875,7 @@
         b.className = "chip";
         b.type = "button";
         b.dataset.key = f.key;
+        if (f.mature) b.dataset.mature = "true";
         b.textContent = f.label;
         b.setAttribute("aria-pressed", String(state.filter === f.key));
         b.addEventListener("click", () => setFilter(f.key));
@@ -3767,6 +3899,7 @@
       <span class="deck-option-body">
         <span class="deck-option-label">
           ${shortLabel}
+          ${f.mature ? '<span class="badge-mature">MATURE</span>' : ''}
           ${isScoring ? '<span class="badge-score">SCORING</span>' : ''}
         </span>
         <span class="deck-option-count">${count} card${count === 1 ? "" : "s"}</span>
@@ -3784,7 +3917,7 @@
     }
 
     /* =========================================================
-       9. RENDERING
+       10. RENDERING
        ========================================================= */
 
     function buildQueue() {
@@ -3796,7 +3929,12 @@
       }
       let pool = [];
       keys.forEach(k => {
-        RAW[k].forEach(raw => pool.push(normalizeItem(raw, k)));
+        RAW[k].forEach(raw => {
+          const item = normalizeItem(raw, k);
+          // Hide birthday-celebrant prompts until a name is set
+          if (isBirthdayPrompt(item.text) && !hasNameSet()) return;
+          pool.push(item);
+        });
       });
       state.queue = shuffle(pool);
     }
@@ -3839,7 +3977,8 @@
       const deck = DECKS[item.deck];
 
       cardEl.style.setProperty("--accent", deck.color);
-      tagEl.textContent = `${deck.emoji}  ${deck.label}`;
+      const badge = deck.mature ? ' <span class="badge-mature">MATURE</span>' : '';
+      tagEl.innerHTML = `${deck.emoji}  ${deck.label}${badge}`;
       qEl.className = "q";
       qEl.textContent = personalize(item.text);
 
@@ -3850,6 +3989,7 @@
       const hasHint = !!item.hint;
       const rv = !!opts.revealed;
       const hv = !!opts.hintRevealed;
+      const canReveal = (role !== "guest");
 
       if (hasHint && hv) {
         hintText.textContent = "💡 " + item.hint;
@@ -3859,21 +3999,25 @@
         hintText.textContent = "";
       }
 
-      if (hasHint && !hv && !isScoring) {
+      if (hasHint && !hv && !isScoring && canReveal) {
         hintBtn.hidden = false;
         hintBtn.disabled = false;
       } else {
         hintBtn.hidden = true;
       }
 
-      if (hasAnswer && !isScoring) {
+      if (hasAnswer && !isScoring && canReveal) {
         revealBtn.hidden = rv;
         revealBtn.textContent = "👁️ Reveal Answer";
-      } else {
+      } else if (!isScoring) {
         revealBtn.hidden = true;
       }
 
-      hintRevealRow.hidden = !((hasHint && !hv && !isScoring) || (hasAnswer && !rv && !isScoring));
+      const rowVisible =
+        (hasHint && !hv && !isScoring && canReveal) ||
+        (hasAnswer && !rv && !isScoring && canReveal) ||
+        (isScoring && canReveal);
+      hintRevealRow.hidden = !rowVisible;
 
       if (hasAnswer && rv && !isScoring) {
         revealBlock.hidden = false;
@@ -3889,7 +4033,7 @@
       if (isScoring) {
         choices.hidden = true;
         scoringChoices.hidden = false;
-        revealBtn.hidden = false;
+        revealBtn.hidden = !canReveal;
         revealBtn.textContent = "👁️ Reveal Answers";
         revealBtn.disabled = !(state.guests.length > 0 && state.guests.every(g => g.voted) && state.voters[0].voted);
         leaderBtn.hidden = false;
@@ -3929,12 +4073,17 @@
     }
 
     /* =========================================================
-       10. GAME LOGIC
+       11. GAME LOGIC
        ========================================================= */
 
     function drawCard() {
+      if (state.actionLocked) return;
       if (role === "guest") { sendToHost({ type: "action", action: "next" }); return; }
-      if (state.queue.length === 0) { buildQueue(); toast("Deck reshuffled 🔄"); }
+      if (state.queue.length === 0) {
+        buildQueue();
+        if (state.queue.length === 0) { toast("No prompts available"); return; }
+        toast("Deck reshuffled 🔄");
+      }
       const item = state.queue.pop();
       state.current = item;
       state.drawn++;
@@ -3950,27 +4099,38 @@
     }
 
     function chooseDo() {
+      if (state.actionLocked) return;
       if (role === "guest") { sendToHost({ type: "action", action: "do" }); toast("Sent to host 💪"); return; }
       if (!state.current) return;
+      state.actionLocked = true;
       state.didCount++;
       doSound();
       burst(80);
       toast("Respect! 💪");
       broadcastState();
-      setTimeout(drawCard, 180);
+      setTimeout(() => {
+        state.actionLocked = false;
+        drawCard();
+      }, 220);
     }
 
     function chooseLeave() {
+      if (state.actionLocked) return;
       if (role === "guest") { sendToHost({ type: "action", action: "leave" }); toast("Sent to host 🙅"); return; }
       if (!state.current) return;
+      state.actionLocked = true;
       state.leaveCount++;
       skipSound();
       toast("We saw that 🙅");
       broadcastState();
-      setTimeout(drawCard, 160);
+      setTimeout(() => {
+        state.actionLocked = false;
+        drawCard();
+      }, 200);
     }
 
     function revealHint() {
+      if (role === "guest") return;
       if (!state.current || !state.current.hint) return;
       if (hintRevealed) return;
       hintRevealed = true;
@@ -3980,11 +4140,11 @@
     }
 
     function revealAnswer() {
+      if (role === "guest") return;
       if (!state.current) return;
 
       if (state.isScoring) {
         if (state.votePhase === "revealed") return;
-        const start = DECKS[state.current.deck].startScore || 5;
         const allVoters = role === "solo"
           ? state.voters
           : [state.voters[0], ...state.guests];
@@ -4071,15 +4231,16 @@
       revealed = false;
       hintRevealed = false;
       state.votePhase = "voting";
-      state.voters.forEach(v => { v.voted = false; v.vote = null; });
-      state.guests.forEach(g => { g.voted = false; g.vote = null; });
+      state.actionLocked = false;
+      state.voters.forEach(v => { v.voted = false; v.vote = null; v.score = 5; });
+      state.guests.forEach(g => { g.voted = false; g.vote = null; g.score = 5; });
       buildQueue();
       showWelcome();
-      toast("Deck reset 🔄");
+      toast("Deck reset — scores cleared 🔄");
       broadcastState();
     }
 
-    function setFilter(key) {
+    function applyFilter(key) {
       if (role === "guest") return;
       if (state.filter === key) return;
       state.filter = key;
@@ -4091,8 +4252,9 @@
       revealed = false;
       hintRevealed = false;
       state.votePhase = "voting";
-      state.voters.forEach(v => { v.voted = false; v.vote = null; });
-      state.guests.forEach(g => { g.voted = false; g.vote = null; });
+      state.actionLocked = false;
+      state.voters.forEach(v => { v.voted = false; v.vote = null; v.score = 5; });
+      state.guests.forEach(g => { g.voted = false; g.vote = null; g.score = 5; });
 
       updateFilterUI();
       tone(600, 0.05);
@@ -4100,8 +4262,57 @@
       broadcastState();
     }
 
+    function setFilter(key) {
+      if (role === "guest") return;
+      if (state.filter === key) return;
+
+      // Confirm when leaving a scoring deck with active votes
+      const leavingScoring = state.isScoring || (DECKS[state.filter] && DECKS[state.filter].scoring);
+      const hasVotes = state.voters.some(v => v.voted) || state.guests.some(g => g.voted);
+      if (leavingScoring && hasVotes && state.votePhase !== "revealed") {
+        openModal(`
+      <h2>Switch decks?</h2>
+      <p>There are votes in progress on this card. Switching now will discard them and <b>reset all scores</b>.</p>
+      <div class="modal-actions">
+        <button class="btn ghost" id="mStay">Stay</button>
+        <button class="btn danger" id="mSwitch">Switch anyway</button>
+      </div>
+    `);
+        document.getElementById("mStay").onclick = closeModal;
+        document.getElementById("mSwitch").onclick = () => {
+          closeModal();
+          proceedFilter(key);
+        };
+        return;
+      }
+
+      // Soft confirmation for mature decks
+      if (DECKS[key] && DECKS[key].mature) {
+        openModal(`
+      <h2 class="danger">😏 Mature content</h2>
+      <p>Confessions is cheekier than the rest of the site. It works best with close friends at an adults-only hangout.</p>
+      <div class="modal-actions">
+        <button class="btn ghost" id="mCancel">Cancel</button>
+        <button class="btn danger" id="mGo">Continue</button>
+      </div>
+    `);
+        document.getElementById("mCancel").onclick = closeModal;
+        document.getElementById("mGo").onclick = () => {
+          closeModal();
+          proceedFilter(key);
+        };
+        return;
+      }
+
+      proceedFilter(key);
+    }
+
+    function proceedFilter(key) {
+      applyFilter(key);
+    }
+
     /* =========================================================
-       11. SYNC LAYER
+       12. SYNC LAYER
        ========================================================= */
 
     function makeCode() {
@@ -4143,6 +4354,7 @@
     function applyRemoteState(p) {
       const sameCard = state.current && p.card &&
         state.current.text === p.card.text && state.current.deck === p.card.deck;
+      const filterChanged = p.filter !== state.filter;
 
       state.current = p.card;
       state.drawn = p.drawn;
@@ -4157,9 +4369,12 @@
 
       if (typeof p.name === "string") { partyName = p.name; nameInput.value = p.name; }
 
-      if (p.filter !== state.filter) {
+      if (filterChanged) {
         state.filter = p.filter;
         updateFilterUI();
+        if (p.filter && DECKS[p.filter]) {
+          toast("Deck: " + DECKS[p.filter].label);
+        }
       }
 
       if (p.card) {
@@ -4171,7 +4386,7 @@
     }
 
     /* =========================================================
-       12. PARTY MODE UI
+       13. PARTY MODE UI
        ========================================================= */
 
     function updateRolePill() {
@@ -4207,8 +4422,16 @@
       updateRolePill();
     }
 
-    function openModal(html) { modal.innerHTML = html; overlay.hidden = false; }
-    function closeModal() { overlay.hidden = true; modal.innerHTML = ""; }
+    function openModal(html) {
+      modal.innerHTML = html;
+      overlay.hidden = false;
+      openTrap(modal);
+    }
+    function closeModal() {
+      overlay.hidden = true;
+      modal.innerHTML = "";
+      closeTrap();
+    }
 
     function showPartyMenu() {
       if (role === "host") { showHostPanel(); return; }
@@ -4295,6 +4518,15 @@
       if (prefill && prefill.length === 4) setTimeout(() => document.getElementById("mGo").click(), 250);
     }
 
+    function makeUniqueGuestName(raw) {
+      const base = (raw || "Guest").slice(0, 12);
+      const existing = new Set(state.guests.map(g => g.name.toLowerCase()));
+      if (!existing.has(base.toLowerCase())) return base;
+      let i = 2;
+      while (existing.has((base + " " + i).toLowerCase())) i++;
+      return base + " " + i;
+    }
+
     function startHosting() {
       if (typeof Peer === "undefined") { toast("Sync library failed to load"); return; }
       role = "host";
@@ -4320,16 +4552,33 @@
           try { conn.send(buildStatePayload()); } catch (e) { }
           updateRolePill();
           refreshHostPanelCount();
-          toast("A guest joined 👋");
           tone(700, 0.07);
         });
         conn.on("data", (data) => {
           if (!data || typeof data !== "object") return;
 
           if (data.type === "join") {
-            const name = (data.name || "Guest").slice(0, 12);
+            const cid = data.clientId || "";
+            // Dedup by clientId — replace any existing entry for the same client
+            if (cid) {
+              const existing = state.guests.find(g => g.clientId === cid);
+              if (existing) {
+                existing.conn = conn;
+                existing.name = makeUniqueGuestName(data.name);
+                existing.voted = false;
+                existing.vote = null;
+                existing.conn.on("close", () => dropGuest(conn));
+                existing.conn.on("error", () => dropGuest(conn));
+                toast(existing.name + " reconnected 👋");
+                broadcastState();
+                refreshHostPanelCount();
+                return;
+              }
+            }
+            const name = makeUniqueGuestName(data.name);
             state.guests.push({
               id: "g" + Math.random().toString(36).slice(2, 8),
+              clientId: cid,
               name, score: 5, voted: false, vote: null, conn
             });
             toast(name + " joined 👋");
@@ -4353,15 +4602,15 @@
             }
           }
         });
-        const drop = () => {
-          guestConns = guestConns.filter(c => c !== conn);
-          state.guests = state.guests.filter(g => g.conn !== conn);
+        function dropGuest(c) {
+          guestConns = guestConns.filter(x => x !== c);
+          state.guests = state.guests.filter(g => g.conn !== c);
           updateRolePill();
           refreshHostPanelCount();
           broadcastState();
-        };
-        conn.on("close", drop);
-        conn.on("error", drop);
+        }
+        conn.on("close", () => dropGuest(conn));
+        conn.on("error", () => dropGuest(conn));
       });
 
       peer.on("error", (err) => {
@@ -4402,7 +4651,7 @@
           closeModal();
           toast("Joined room " + code + " 🎉");
           tone(700, 0.08);
-          sendToHost({ type: "join", name: name || "Guest" });
+          sendToHost({ type: "join", name: name || "Guest", clientId: clientId });
         });
         hostConn.on("data", (data) => {
           if (!data || typeof data !== "object") return;
@@ -4449,7 +4698,7 @@
     }
 
     /* =========================================================
-       13. SETTINGS
+       14. SETTINGS
        ========================================================= */
 
     function saveSettings() {
@@ -4469,6 +4718,8 @@
       if (role === "guest") return;
       partyName = nameInput.value;
       saveSettings();
+      // Rebuild queue so birthday prompts appear/disappear
+      buildQueue();
       if (state.current) render(state.current, { animate: false, revealed: revealed, hintRevealed: hintRevealed });
       broadcastState();
     });
@@ -4488,7 +4739,7 @@
     partyBtn.addEventListener("click", showPartyMenu);
 
     /* =========================================================
-       14. EVENTS
+       15. EVENTS
        ========================================================= */
 
     nextBtn.addEventListener("click", drawCard);
@@ -4506,6 +4757,12 @@
         if (e.key === "ArrowRight" || e.key === "Enter") { e.preventDefault(); introNext.click(); }
         if (e.key === "ArrowLeft") { e.preventDefault(); introBack.click(); }
         if (e.key === "Escape") { e.preventDefault(); closeIntro(); }
+        return;
+      }
+
+      if (!overlay.hidden && e.key === "Escape") {
+        e.preventDefault();
+        closeModal();
         return;
       }
 
@@ -4527,9 +4784,9 @@
       } else if (e.key.toLowerCase() === "r") {
         resetGame();
       } else if (e.key.toLowerCase() === "h") {
-        revealHint();
+        if (role !== "guest") revealHint();
       } else if (e.key.toLowerCase() === "a") {
-        revealAnswer();
+        if (role !== "guest") revealAnswer();
       }
     });
 
@@ -4552,8 +4809,17 @@
 
     overlay.addEventListener("click", (e) => { if (e.target === overlay) closeModal(); });
 
+    // Host refresh warning
+    window.addEventListener("beforeunload", (e) => {
+      if (role === "host" && guestConns.some(c => c.open)) {
+        e.preventDefault();
+        e.returnValue = "You're hosting a room. Leave anyway?";
+        return e.returnValue;
+      }
+    });
+
     /* =========================================================
-       15. BOOT
+       16. BOOT
        ========================================================= */
 
     loadTheme();
