@@ -4,8 +4,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#07160f">
-  <title>Naija Party Cards 🎉</title>
+  <meta name="theme-color" content="#fff8f0">
+  <title>The Hangout 🎈</title>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("hangoutCards.theme") || "auto";
+        var effective = t === "auto"
+          ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+          : t;
+        document.documentElement.dataset.theme = effective;
+      } catch (e) {
+        document.documentElement.dataset.theme = "light";
+      }
+    })();
+  </script>
   <style>
     *,
     *::before,
@@ -18,8 +31,14 @@
     }
 
     :root {
-      --green: #00A651;
-      --gold: #FFC72C
+      --coral: #FF7A5C;
+      --violet: #8B5CF6;
+      --teal: #14B8A6;
+      --yellow: #F59E0B;
+      --pink: #EC4899;
+      --ink: #1F1B24;
+      --ink-soft: #5A4E62;
+      --muted: #8A7D8F;
     }
 
     html {
@@ -31,8 +50,8 @@
     body {
       margin: 0;
       font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-      background: #07160f;
-      color: #eaf5ee;
+      background: #fff8f0;
+      color: var(--ink);
       min-height: 100dvh;
       display: flex;
       flex-direction: column;
@@ -46,9 +65,9 @@
       inset: 0;
       z-index: -1;
       pointer-events: none;
-      background: radial-gradient(60vw 60vw at 12% -5%, rgba(0, 166, 81, .40), transparent 62%),
-        radial-gradient(50vw 50vw at 95% 5%, rgba(255, 199, 44, .18), transparent 60%),
-        radial-gradient(70vw 60vw at 50% 115%, rgba(0, 166, 81, .28), transparent 62%)
+      background: radial-gradient(60vw 60vw at 10% -5%, rgba(255, 122, 92, .22), transparent 60%),
+        radial-gradient(50vw 50vw at 95% 8%, rgba(139, 92, 246, .18), transparent 60%),
+        radial-gradient(70vw 60vw at 50% 115%, rgba(20, 184, 166, .14), transparent 62%)
     }
 
     .top {
@@ -74,8 +93,8 @@
       height: 12px;
       border-radius: 50%;
       flex: none;
-      background: var(--gold);
-      box-shadow: 0 0 0 5px rgba(255, 199, 44, .16), 0 0 22px rgba(255, 199, 44, .65)
+      background: var(--coral);
+      box-shadow: 0 0 0 5px rgba(255, 122, 92, .18), 0 0 22px rgba(255, 122, 92, .45)
     }
 
     .top h1 {
@@ -85,13 +104,14 @@
       font-weight: 800;
       white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellipsis
+      text-overflow: ellipsis;
+      color: var(--ink)
     }
 
     .icon-btn {
-      background: rgba(255, 255, 255, .07);
-      border: 1px solid rgba(255, 255, 255, .16);
-      color: #dff3e6;
+      background: rgba(255, 255, 255, .85);
+      border: 1px solid rgba(31, 27, 36, .10);
+      color: var(--ink);
       min-width: 42px;
       height: 42px;
       padding: 0 12px;
@@ -104,8 +124,9 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: transform .15s, background .2s;
-      touch-action: manipulation
+      transition: transform .15s, background .2s, box-shadow .15s;
+      touch-action: manipulation;
+      box-shadow: 0 2px 6px rgba(31, 27, 36, .06)
     }
 
     .icon-btn:active {
@@ -113,8 +134,9 @@
     }
 
     .icon-btn[aria-pressed="true"] {
-      background: #fff;
-      color: #0b1a12
+      background: var(--coral);
+      color: #fff;
+      border-color: var(--coral)
     }
 
     .icon-btn.wide {
@@ -125,9 +147,9 @@
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      background: rgba(0, 166, 81, .18);
-      border: 1px solid rgba(0, 166, 81, .5);
-      color: #9ff0c4;
+      background: rgba(255, 122, 92, .14);
+      border: 1px solid rgba(255, 122, 92, .4);
+      color: #C2410C;
       font-size: .74rem;
       font-weight: 800;
       letter-spacing: .06em;
@@ -138,16 +160,16 @@
     }
 
     .role.guest {
-      background: rgba(124, 58, 237, .2);
-      border-color: rgba(124, 58, 237, .55);
-      color: #d6bcff
+      background: rgba(139, 92, 246, .14);
+      border-color: rgba(139, 92, 246, .45);
+      color: #6D28D9
     }
 
     .role .live {
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: #4ade80;
+      background: #22C55E;
       animation: pulse 1.6s infinite
     }
 
@@ -167,14 +189,14 @@
       max-width: 1000px;
       width: calc(100% - 32px);
       margin: 0 auto 12px;
-      background: rgba(255, 255, 255, .06);
-      border: 1px solid rgba(255, 255, 255, .14);
+      background: #fff;
+      border: 1px solid rgba(31, 27, 36, .08);
       border-radius: 18px;
       padding: 16px;
       display: flex;
       flex-direction: column;
       gap: 12px;
-      backdrop-filter: blur(8px)
+      box-shadow: 0 8px 30px -18px rgba(31, 27, 36, .25)
     }
 
     .settings label {
@@ -182,14 +204,14 @@
       flex-direction: column;
       gap: 6px;
       font-size: .85rem;
-      font-weight: 600;
-      color: #bfe0cc
+      font-weight: 700;
+      color: var(--ink-soft)
     }
 
     .settings input[type=text] {
-      background: rgba(0, 0, 0, .35);
-      border: 1px solid rgba(255, 255, 255, .2);
-      color: #fff;
+      background: #fff;
+      border: 1.5px solid rgba(31, 27, 36, .12);
+      color: var(--ink);
       padding: 11px 14px;
       border-radius: 12px;
       font: inherit;
@@ -198,7 +220,7 @@
     }
 
     .settings input[type=text]:focus {
-      border-color: var(--gold)
+      border-color: var(--coral)
     }
 
     .settings input[type=text]:disabled {
@@ -215,7 +237,7 @@
     .settings .hint {
       margin: 0;
       font-size: .76rem;
-      color: #8fb8a2;
+      color: var(--muted);
       line-height: 1.45
     }
 
@@ -231,9 +253,9 @@
     }
 
     .chip {
-      border: 1px solid rgba(255, 255, 255, .18);
-      background: rgba(255, 255, 255, .06);
-      color: #dff3e6;
+      border: 1.5px solid rgba(31, 27, 36, .10);
+      background: #fff;
+      color: var(--ink);
       padding: 9px 16px;
       border-radius: 999px;
       font: inherit;
@@ -241,14 +263,16 @@
       font-weight: 700;
       cursor: pointer;
       white-space: nowrap;
-      transition: transform .15s, background .2s, color .2s, border-color .2s;
-      touch-action: manipulation
+      transition: transform .15s, background .2s, color .2s, border-color .2s, box-shadow .15s;
+      touch-action: manipulation;
+      box-shadow: 0 2px 6px rgba(31, 27, 36, .05)
     }
 
     .chip[aria-pressed="true"] {
-      background: #fff;
-      color: #0b1a12;
-      border-color: #fff
+      background: var(--coral);
+      color: #fff;
+      border-color: var(--coral);
+      box-shadow: 0 8px 20px -8px rgba(255, 122, 92, .7)
     }
 
     .chip:active {
@@ -256,7 +280,7 @@
     }
 
     .chip:disabled {
-      opacity: .4;
+      opacity: .45;
       cursor: not-allowed
     }
 
@@ -268,22 +292,23 @@
       max-width: 1000px;
       margin: 0 auto 16px;
       padding: 13px 16px;
-      background: rgba(255, 255, 255, .06);
-      border: 1px solid rgba(255, 255, 255, .18);
+      background: #fff;
+      border: 1.5px solid rgba(31, 27, 36, .10);
       border-radius: 14px;
-      color: #eaf5ee;
+      color: var(--ink);
       font: inherit;
       font-size: .95rem;
       font-weight: 700;
       cursor: pointer;
       text-align: left;
       touch-action: manipulation;
-      transition: background .2s, transform .15s;
+      transition: background .2s, transform .15s, box-shadow .15s;
+      box-shadow: 0 4px 14px -8px rgba(31, 27, 36, .18)
     }
 
     .game-select:active {
       transform: scale(.99);
-      background: rgba(255, 255, 255, .09)
+      background: #FFF4EC
     }
 
     .game-select:disabled {
@@ -292,7 +317,7 @@
     }
 
     .game-select:focus-visible {
-      outline: 3px solid #FFC72C;
+      outline: 3px solid var(--coral);
       outline-offset: 3px
     }
 
@@ -314,7 +339,7 @@
       font-weight: 800;
       letter-spacing: .12em;
       text-transform: uppercase;
-      color: #7fa992;
+      color: var(--muted);
       flex: none
     }
 
@@ -361,7 +386,7 @@
     .deck-sheet-backdrop {
       position: absolute;
       inset: 0;
-      background: rgba(3, 10, 6, .72);
+      background: rgba(31, 27, 36, .55);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px)
     }
@@ -370,8 +395,8 @@
       position: relative;
       width: 100%;
       max-width: 560px;
-      background: #0e1f16;
-      border: 1px solid rgba(255, 255, 255, .14);
+      background: #fff;
+      border: 1px solid rgba(31, 27, 36, .1);
       border-bottom: 0;
       border-radius: 24px 24px 0 0;
       padding: 12px 14px calc(18px + env(safe-area-inset-bottom));
@@ -380,7 +405,7 @@
       gap: 6px;
       transform: translateY(100%);
       transition: transform .32s cubic-bezier(.2, .9, .3, 1.1);
-      box-shadow: 0 -30px 70px -25px rgba(0, 0, 0, .95);
+      box-shadow: 0 -30px 70px -25px rgba(31, 27, 36, .4);
       max-height: 86dvh;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch
@@ -394,7 +419,7 @@
       width: 44px;
       height: 4px;
       border-radius: 2px;
-      background: rgba(255, 255, 255, .22);
+      background: rgba(31, 27, 36, .15);
       margin: 2px auto 8px;
       flex: none
     }
@@ -412,13 +437,13 @@
       font-size: 1rem;
       font-weight: 800;
       letter-spacing: -.01em;
-      color: #fff
+      color: var(--ink)
     }
 
     .deck-sheet-close {
-      background: rgba(255, 255, 255, .08);
-      border: 1px solid rgba(255, 255, 255, .16);
-      color: #dff3e6;
+      background: rgba(31, 27, 36, .06);
+      border: 1px solid rgba(31, 27, 36, .10);
+      color: var(--ink);
       width: 36px;
       height: 36px;
       border-radius: 10px;
@@ -441,15 +466,24 @@
       gap: 4px
     }
 
+    .deck-sheet-section {
+      padding: 14px 12px 6px;
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted)
+    }
+
     .deck-option {
       display: flex;
       align-items: center;
       gap: 12px;
       padding: 13px 12px;
       background: transparent;
-      border: 1px solid transparent;
+      border: 1.5px solid transparent;
       border-radius: 12px;
-      color: #eaf5ee;
+      color: var(--ink);
       font: inherit;
       font-size: .95rem;
       font-weight: 700;
@@ -461,12 +495,12 @@
     }
 
     .deck-option:active {
-      background: rgba(255, 255, 255, .06)
+      background: rgba(255, 122, 92, .08)
     }
 
     .deck-option[aria-checked="true"] {
-      background: rgba(0, 166, 81, .15);
-      border-color: rgba(0, 166, 81, .55)
+      background: rgba(255, 122, 92, .10);
+      border-color: var(--coral)
     }
 
     .deck-option:disabled {
@@ -475,7 +509,7 @@
     }
 
     .deck-option:focus-visible {
-      outline: 3px solid #FFC72C;
+      outline: 3px solid var(--coral);
       outline-offset: 2px
     }
 
@@ -502,7 +536,7 @@
     .deck-option-count {
       font-size: .72rem;
       font-weight: 600;
-      color: #7fa992;
+      color: var(--muted);
       letter-spacing: .02em
     }
 
@@ -510,8 +544,8 @@
       width: 22px;
       height: 22px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, .08);
-      border: 1.5px solid rgba(255, 255, 255, .2);
+      background: rgba(31, 27, 36, .06);
+      border: 1.5px solid rgba(31, 27, 36, .15);
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -523,9 +557,22 @@
     }
 
     .deck-option[aria-checked="true"] .deck-option-check {
-      background: var(--green);
-      border-color: var(--green);
+      background: var(--coral);
+      border-color: var(--coral);
       color: #fff
+    }
+
+    .badge-score {
+      display: inline-block;
+      font-size: .56rem;
+      font-weight: 900;
+      letter-spacing: .08em;
+      background: var(--violet);
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      line-height: 1.2;
+      margin-left: 6px
     }
 
     main {
@@ -545,8 +592,8 @@
     .card {
       position: relative;
       width: 100%;
-      background: linear-gradient(180deg, #fffdf8, #fbf3e2);
-      color: #12171e;
+      background: #fff;
+      color: var(--ink);
       border-radius: 28px;
       padding: clamp(26px, 4.5vw, 52px) clamp(20px, 4vw, 48px);
       min-height: clamp(230px, 40vh, 400px);
@@ -556,7 +603,7 @@
       align-items: center;
       text-align: center;
       gap: clamp(14px, 2.5vw, 22px);
-      box-shadow: 0 34px 60px -26px rgba(0, 0, 0, .85), 0 0 0 1px rgba(255, 255, 255, .07);
+      box-shadow: 0 24px 50px -22px rgba(31, 27, 36, .3), 0 0 0 1px rgba(31, 27, 36, .05);
       overflow: hidden
     }
 
@@ -564,8 +611,8 @@
       content: "";
       position: absolute;
       inset: 0 0 auto 0;
-      height: 9px;
-      background: var(--accent, #00A651)
+      height: 8px;
+      background: var(--accent, var(--coral))
     }
 
     .card::after {
@@ -573,7 +620,7 @@
       position: absolute;
       inset: auto -40px -70px -40px;
       height: 150px;
-      background: radial-gradient(closest-side, color-mix(in srgb, var(--accent, #00A651) 22%, transparent), transparent);
+      background: radial-gradient(closest-side, color-mix(in srgb, var(--accent, var(--coral)) 18%, transparent), transparent);
       pointer-events: none
     }
 
@@ -598,8 +645,11 @@
       font-weight: 800;
       letter-spacing: .16em;
       text-transform: uppercase;
-      color: var(--accent, #00A651);
-      opacity: .95
+      color: var(--accent, var(--coral));
+      opacity: .95;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px
     }
 
     .q {
@@ -609,27 +659,78 @@
       font-weight: 800;
       letter-spacing: -.022em;
       max-width: 24ch;
-      text-wrap: balance
+      text-wrap: balance;
+      color: var(--ink)
     }
 
     .q.intro {
       font-size: clamp(1.1rem, 3.4vw, 1.6rem);
       font-weight: 700;
-      color: #3d4a55;
+      color: var(--ink-soft);
       max-width: 26ch
     }
 
-    .answer {
+    .hint-text {
       margin: 0;
-      font-size: clamp(1rem, 3vw, 1.45rem);
-      font-weight: 700;
-      color: #0d6b3f;
-      background: #e8f7ee;
-      border: 1px solid #b6e2c8;
+      font-size: clamp(.92rem, 2.8vw, 1.1rem);
+      font-weight: 600;
+      color: #1D4ED8;
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
       border-radius: 14px;
-      padding: 12px 20px;
-      max-width: 30ch;
-      line-height: 1.35
+      padding: 10px 16px;
+      max-width: 32ch;
+      line-height: 1.45;
+      text-align: center
+    }
+
+    .reveal-block {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      max-width: 340px;
+      z-index: 1
+    }
+
+    .reveal-group {
+      background: #F9F6FB;
+      border: 1px solid rgba(31, 27, 36, .08);
+      border-radius: 14px;
+      padding: 12px 14px
+    }
+
+    .reveal-label {
+      font-size: .68rem;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 6px
+    }
+
+    .reveal-list {
+      font-size: .92rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.5;
+      word-break: break-word
+    }
+
+    .reveal-empty {
+      font-size: .85rem;
+      color: var(--muted);
+      font-style: italic;
+      font-weight: 600
+    }
+
+    .hint-reveal-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      z-index: 1
     }
 
     .btn {
@@ -651,37 +752,49 @@
     }
 
     .btn:focus-visible {
-      outline: 3px solid #FFC72C;
+      outline: 3px solid var(--coral);
       outline-offset: 3px
     }
 
     .btn:disabled {
-      opacity: .4;
+      opacity: .45;
       cursor: not-allowed;
       transform: none
     }
 
     .btn.primary {
-      background: linear-gradient(180deg, #00c25f, #00913f);
+      background: var(--coral);
       color: #fff;
-      box-shadow: 0 14px 30px -12px rgba(0, 194, 95, .95);
+      box-shadow: 0 14px 30px -12px rgba(255, 122, 92, .9);
       font-size: 1.05rem;
       padding: 17px 34px
     }
 
+    .btn.primary:hover:not(:disabled) {
+      background: #FF6647
+    }
+
     .btn.ghost {
-      background: transparent;
-      color: #b9d6c6;
-      border: 1px solid rgba(255, 255, 255, .2);
+      background: #fff;
+      color: var(--ink-soft);
+      border: 1.5px solid rgba(31, 27, 36, .12);
       padding: 17px 24px
     }
 
+    .btn.hint {
+      background: #EFF6FF;
+      color: #1D4ED8;
+      border: 1.5px solid #BFDBFE;
+      font-size: .95rem;
+      padding: 12px 22px
+    }
+
     .btn.reveal {
-      background: linear-gradient(180deg, #7c3aed, #5b21b6);
+      background: var(--violet);
       color: #fff;
       font-size: .95rem;
       padding: 12px 22px;
-      box-shadow: 0 12px 26px -12px rgba(124, 58, 237, .9)
+      box-shadow: 0 12px 26px -12px rgba(139, 92, 246, .9)
     }
 
     .choices {
@@ -695,20 +808,66 @@
 
     .choices .btn {
       flex: 1 1 190px;
-      max-width: 260px;
+      max-width: 280px;
       font-size: 1.02rem
     }
 
     .btn.do {
-      background: linear-gradient(180deg, #ff8f45, #f2600c);
+      background: linear-gradient(180deg, #FF8F6B, #F25E36);
       color: #fff;
-      box-shadow: 0 14px 30px -14px rgba(242, 96, 12, 1)
+      box-shadow: 0 14px 30px -14px rgba(242, 94, 54, .85)
     }
 
     .btn.leave {
-      background: #eef2ef;
-      color: #28352e;
-      border: 1px solid #dde5e0
+      background: #F7F2FA;
+      color: var(--ink);
+      border: 1.5px solid rgba(31, 27, 36, .08)
+    }
+
+    .btn.have {
+      background: linear-gradient(180deg, #60A5FA, #3B82F6);
+      color: #fff;
+      box-shadow: 0 14px 30px -14px rgba(59, 130, 246, .85)
+    }
+
+    .btn.havent {
+      background: #F7F2FA;
+      color: var(--ink);
+      border: 1.5px solid rgba(31, 27, 36, .08)
+    }
+
+    .vote-status {
+      margin: 0;
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--ink-soft);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap
+    }
+
+    .vote-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(59, 130, 246, .10);
+      color: #1D4ED8;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: .78rem;
+      font-weight: 800
+    }
+
+    .vote-pill.ha {
+      background: rgba(244, 63, 94, .10);
+      color: #BE123C
+    }
+
+    .vote-pill.wait {
+      background: rgba(139, 92, 246, .10);
+      color: #6D28D9
     }
 
     .controls {
@@ -721,11 +880,11 @@
 
     .waiting {
       font-size: .85rem;
-      color: #9fc4b1;
+      color: var(--ink-soft);
       font-weight: 600;
       text-align: center;
-      background: rgba(255, 255, 255, .06);
-      border: 1px dashed rgba(255, 255, 255, .2);
+      background: #fff;
+      border: 1.5px dashed rgba(31, 27, 36, .15);
       padding: 14px 20px;
       border-radius: 14px
     }
@@ -737,19 +896,19 @@
       gap: 6px;
       padding: 14px 18px calc(18px + env(safe-area-inset-bottom));
       font-size: .78rem;
-      color: #8fb8a2;
+      color: var(--muted);
       text-align: center
     }
 
     footer .keys {
-      opacity: .6;
+      opacity: .75;
       font-size: .72rem
     }
 
     footer .helplink {
       background: none;
       border: 0;
-      color: var(--gold);
+      color: var(--coral);
       font: inherit;
       font-weight: 700;
       cursor: pointer;
@@ -763,14 +922,14 @@
       left: 50%;
       bottom: 26px;
       transform: translate(-50%, 20px);
-      background: #fff;
-      color: #0b1a12;
+      background: var(--ink);
+      color: #fff;
       font-weight: 700;
       font-size: .88rem;
       padding: 12px 20px;
       border-radius: 999px;
       z-index: 1400;
-      box-shadow: 0 18px 40px -14px rgba(0, 0, 0, .8);
+      box-shadow: 0 18px 40px -14px rgba(31, 27, 36, .55);
       opacity: 0;
       pointer-events: none;
       transition: opacity .25s, transform .25s;
@@ -787,7 +946,7 @@
       position: fixed;
       inset: 0;
       z-index: 1100;
-      background: rgba(3, 10, 6, .82);
+      background: rgba(31, 27, 36, .5);
       backdrop-filter: blur(6px);
       display: flex;
       align-items: center;
@@ -797,8 +956,8 @@
     }
 
     .modal {
-      background: #0e1f16;
-      border: 1px solid rgba(255, 255, 255, .14);
+      background: #fff;
+      border: 1px solid rgba(31, 27, 36, .08);
       border-radius: 24px;
       padding: 26px 22px;
       max-width: 430px;
@@ -806,19 +965,20 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
-      box-shadow: 0 40px 80px -30px rgba(0, 0, 0, .9)
+      box-shadow: 0 40px 80px -30px rgba(31, 27, 36, .5)
     }
 
     .modal h2 {
       margin: 0;
       font-size: 1.2rem;
-      letter-spacing: -.02em
+      letter-spacing: -.02em;
+      color: var(--ink)
     }
 
     .modal p {
       margin: 0;
       font-size: .86rem;
-      color: #9fc4b1;
+      color: var(--ink-soft);
       line-height: 1.5
     }
 
@@ -828,9 +988,8 @@
       font-weight: 800;
       letter-spacing: .22em;
       text-align: center;
-      color: var(--gold);
-      padding: 14px 0;
-      text-shadow: 0 0 30px rgba(255, 199, 44, .5)
+      color: var(--coral);
+      padding: 14px 0
     }
 
     .modal .code-input {
@@ -840,9 +999,9 @@
       letter-spacing: .3em;
       text-align: center;
       text-transform: uppercase;
-      background: rgba(0, 0, 0, .4);
-      border: 1px solid rgba(255, 255, 255, .22);
-      color: #fff;
+      background: #fff;
+      border: 1.5px solid rgba(31, 27, 36, .15);
+      color: var(--ink);
       padding: 14px;
       border-radius: 14px;
       outline: none;
@@ -850,16 +1009,32 @@
     }
 
     .modal .code-input:focus {
-      border-color: var(--gold)
+      border-color: var(--coral)
+    }
+
+    .modal .name-input {
+      background: #fff;
+      border: 1.5px solid rgba(31, 27, 36, .15);
+      color: var(--ink);
+      padding: 13px 14px;
+      border-radius: 14px;
+      font: inherit;
+      font-size: 16px;
+      outline: none;
+      width: 100%
+    }
+
+    .modal .name-input:focus {
+      border-color: var(--coral)
     }
 
     .modal .link-box {
-      background: rgba(0, 0, 0, .35);
-      border: 1px solid rgba(255, 255, 255, .15);
+      background: #F9F6FB;
+      border: 1px solid rgba(31, 27, 36, .08);
       border-radius: 12px;
       padding: 11px 13px;
       font-size: .76rem;
-      color: #9fc4b1;
+      color: var(--ink-soft);
       word-break: break-all;
       font-family: ui-monospace, monospace
     }
@@ -870,7 +1045,8 @@
       background: #fff;
       border-radius: 16px;
       padding: 12px;
-      align-self: center
+      align-self: center;
+      border: 1px solid rgba(31, 27, 36, .08)
     }
 
     .modal .qr img {
@@ -883,7 +1059,7 @@
     .modal .guest-count {
       text-align: center;
       font-size: .82rem;
-      color: #9fc4b1;
+      color: var(--ink-soft);
       font-weight: 700
     }
 
@@ -904,27 +1080,79 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: #facc15;
+      background: #F59E0B;
       margin-right: 7px;
       vertical-align: middle;
       animation: pulse 1.2s infinite
     }
 
     .status-dot.ok {
-      background: #4ade80;
+      background: #22C55E;
       animation: none
     }
 
     .status-dot.err {
-      background: #f87171;
+      background: #EF4444;
       animation: none
+    }
+
+    .leaderboard {
+      display: flex;
+      flex-direction: column;
+      gap: 8px
+    }
+
+    .lb-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      background: #F9F6FB;
+      border-radius: 12px;
+      font-size: .92rem;
+      font-weight: 700;
+      color: var(--ink)
+    }
+
+    .lb-row.winner {
+      background: linear-gradient(90deg, rgba(255, 122, 92, .14), rgba(139, 92, 246, .14));
+      border: 1px solid rgba(255, 122, 92, .35)
+    }
+
+    .lb-name {
+      flex: 1;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .lb-score {
+      font-family: ui-monospace, monospace;
+      font-size: 1.05rem;
+      font-weight: 900;
+      background: var(--ink);
+      color: #fff;
+      border-radius: 8px;
+      padding: 2px 10px;
+      min-width: 36px;
+      text-align: center
+    }
+
+    .lb-rank {
+      font-size: .72rem;
+      font-weight: 900;
+      color: var(--muted);
+      margin-right: 4px;
+      min-width: 20px
     }
 
     .intro-overlay {
       position: fixed;
       inset: 0;
       z-index: 1300;
-      background: rgba(3, 10, 6, .92);
+      background: rgba(31, 27, 36, .55);
       backdrop-filter: blur(9px);
       display: flex;
       align-items: center;
@@ -945,8 +1173,8 @@
     }
 
     .intro-card {
-      background: #0e1f16;
-      border: 1px solid rgba(255, 255, 255, .14);
+      background: #fff;
+      border: 1px solid rgba(31, 27, 36, .08);
       border-radius: 26px;
       padding: 30px 24px;
       max-width: 460px;
@@ -955,7 +1183,7 @@
       flex-direction: column;
       gap: 16px;
       text-align: center;
-      box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .95);
+      box-shadow: 0 40px 90px -30px rgba(31, 27, 36, .45);
       animation: introPop .35s cubic-bezier(.2, .9, .3, 1.15)
     }
 
@@ -993,7 +1221,7 @@
       margin: 0;
       font-size: 1.25rem;
       letter-spacing: -.02em;
-      color: #fff;
+      color: var(--ink);
       line-height: 1.3
     }
 
@@ -1001,7 +1229,7 @@
       margin: 0;
       font-size: .92rem;
       line-height: 1.6;
-      color: #9fc4b1
+      color: var(--ink-soft)
     }
 
     .intro-dots {
@@ -1016,7 +1244,7 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, .22);
+      background: rgba(31, 27, 36, .18);
       cursor: pointer;
       transition: all .25s;
       border: 0;
@@ -1024,7 +1252,7 @@
     }
 
     .intro-dot.active {
-      background: var(--gold);
+      background: var(--coral);
       width: 24px;
       border-radius: 4px
     }
@@ -1043,15 +1271,15 @@
 
     .intro-tip {
       font-size: .76rem;
-      color: #7fa992;
-      border-top: 1px solid rgba(255, 255, 255, .09);
+      color: var(--muted);
+      border-top: 1px solid rgba(31, 27, 36, .08);
       padding-top: 12px;
       line-height: 1.55;
       text-align: left
     }
 
     .intro-tip b {
-      color: #bfe0cc
+      color: var(--ink-soft)
     }
 
     #confetti {
@@ -1082,7 +1310,7 @@
         scroll-snap-type: x proximity;
         scroll-padding-inline: 14px;
         -webkit-mask-image: linear-gradient(90deg, transparent, #000 12px, #000 calc(100% - 12px), transparent);
-        mask-image: linear-gradient(90deg, transparent, #000 12px, #000 calc(100% - 12px), transparent);
+        mask-image: linear-gradient(90deg, transparent, #000 12px, #000 calc(100% - 12px), transparent)
       }
 
       .chips::-webkit-scrollbar {
@@ -1150,14 +1378,6 @@
         padding: 14px
       }
 
-      .settings label {
-        font-size: .82rem
-      }
-
-      .settings .hint {
-        font-size: .74rem
-      }
-
       .game-select {
         width: calc(100% - 24px);
         margin: 0 auto 14px;
@@ -1191,9 +1411,9 @@
         font-size: clamp(1rem, 4vw, 1.25rem)
       }
 
-      .answer {
-        font-size: clamp(.95rem, 3.6vw, 1.2rem);
-        padding: 10px 16px
+      .hint-text {
+        font-size: .9rem;
+        padding: 9px 14px
       }
 
       .btn {
@@ -1207,6 +1427,7 @@
         font-size: 1rem
       }
 
+      .btn.hint,
       .btn.reveal {
         padding: 11px 18px;
         font-size: .88rem
@@ -1217,6 +1438,11 @@
         max-width: none;
         font-size: 1rem;
         padding: 16px 20px
+      }
+
+      .hint-reveal-row .btn {
+        flex: 1 1 calc(50% - 5px);
+        max-width: none
       }
 
       .controls {
@@ -1403,11 +1629,6 @@
         padding: 14px 22px;
         font-size: .95rem
       }
-
-      .answer {
-        font-size: .92rem;
-        padding: 9px 12px
-      }
     }
 
     @media (hover: none) and (pointer: coarse) {
@@ -1490,6 +1711,299 @@
         transition-duration: .01ms !important
       }
     }
+
+    /* ============ DARK MODE ============ */
+    [data-theme="dark"] {
+      --ink: #f0ecef;
+      --ink-soft: #b8b0bd;
+      --muted: #8a7f92;
+    }
+
+    [data-theme="dark"] body {
+      background: #15131a;
+      color: #f0ecef;
+    }
+
+    [data-theme="dark"] body::before {
+      background:
+        radial-gradient(60vw 60vw at 10% -5%, rgba(255, 122, 92, .18), transparent 60%),
+        radial-gradient(50vw 50vw at 95% 8%, rgba(139, 92, 246, .15), transparent 60%),
+        radial-gradient(70vw 60vw at 50% 115%, rgba(20, 184, 166, .12), transparent 62%);
+    }
+
+    [data-theme="dark"] .icon-btn {
+      background: rgba(255, 255, 255, .08);
+      border-color: rgba(255, 255, 255, .12);
+      color: #f0ecef;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .3);
+    }
+
+    [data-theme="dark"] .icon-btn[aria-pressed="true"] {
+      background: var(--coral);
+      color: #fff;
+    }
+
+    [data-theme="dark"] .role {
+      background: rgba(255, 122, 92, .18);
+      border-color: rgba(255, 122, 92, .5);
+      color: #FFB199;
+    }
+
+    [data-theme="dark"] .role.guest {
+      background: rgba(139, 92, 246, .18);
+      border-color: rgba(139, 92, 246, .5);
+      color: #C4B5FD;
+    }
+
+    [data-theme="dark"] .settings {
+      background: #221e2a;
+      border-color: rgba(255, 255, 255, .08);
+      box-shadow: 0 8px 30px -18px rgba(0, 0, 0, .6);
+    }
+
+    [data-theme="dark"] .settings input[type=text] {
+      background: rgba(255, 255, 255, .05);
+      border-color: rgba(255, 255, 255, .12);
+      color: #f0ecef;
+    }
+
+    [data-theme="dark"] .chip {
+      background: rgba(255, 255, 255, .05);
+      border-color: rgba(255, 255, 255, .10);
+      color: #f0ecef;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
+    }
+
+    [data-theme="dark"] .chip[aria-pressed="true"] {
+      background: var(--coral);
+      color: #fff;
+      border-color: var(--coral);
+      box-shadow: 0 8px 20px -8px rgba(255, 122, 92, .7);
+    }
+
+    [data-theme="dark"] .game-select {
+      background: #221e2a;
+      border-color: rgba(255, 255, 255, .10);
+      color: #f0ecef;
+    }
+
+    [data-theme="dark"] .game-select:active {
+      background: #2b2635;
+    }
+
+    [data-theme="dark"] .game-select-hint {
+      color: #8a7f92;
+    }
+
+    [data-theme="dark"] .deck-sheet-backdrop {
+      background: rgba(0, 0, 0, .75);
+    }
+
+    [data-theme="dark"] .deck-sheet-panel {
+      background: #221e2a;
+      border-color: rgba(255, 255, 255, .08);
+      box-shadow: 0 -30px 70px -25px rgba(0, 0, 0, .9);
+    }
+
+    [data-theme="dark"] .deck-sheet-grabber {
+      background: rgba(255, 255, 255, .20);
+    }
+
+    [data-theme="dark"] .deck-sheet-title {
+      color: #f0ecef;
+    }
+
+    [data-theme="dark"] .deck-sheet-close {
+      background: rgba(255, 255, 255, .08);
+      border-color: rgba(255, 255, 255, .12);
+      color: #f0ecef;
+    }
+
+    [data-theme="dark"] .deck-sheet-section {
+      color: #8a7f92;
+    }
+
+    [data-theme="dark"] .deck-option {
+      color: #f0ecef;
+    }
+
+    [data-theme="dark"] .deck-option:active {
+      background: rgba(255, 255, 255, .05);
+    }
+
+    [data-theme="dark"] .deck-option[aria-checked="true"] {
+      background: rgba(255, 122, 92, .15);
+      border-color: var(--coral);
+    }
+
+    [data-theme="dark"] .deck-option-count {
+      color: #8a7f92;
+    }
+
+    [data-theme="dark"] .deck-option-check {
+      background: rgba(255, 255, 255, .08);
+      border-color: rgba(255, 255, 255, .15);
+    }
+
+    [data-theme="dark"] .card {
+      background: #221e2a;
+      box-shadow: 0 24px 50px -22px rgba(0, 0, 0, .8), 0 0 0 1px rgba(255, 255, 255, .05);
+    }
+
+    [data-theme="dark"] .card::after {
+      background: radial-gradient(closest-side, color-mix(in srgb, var(--accent, var(--coral)) 30%, transparent), transparent);
+    }
+
+    [data-theme="dark"] .q.intro {
+      color: #b8b0bd;
+    }
+
+    [data-theme="dark"] .hint-text {
+      background: rgba(59, 130, 246, .14);
+      border-color: rgba(59, 130, 246, .35);
+      color: #93c5fd;
+    }
+
+    [data-theme="dark"] .reveal-group {
+      background: rgba(255, 255, 255, .05);
+      border-color: rgba(255, 255, 255, .08);
+    }
+
+    [data-theme="dark"] .reveal-label {
+      color: #b8b0bd;
+    }
+
+    [data-theme="dark"] .reveal-list {
+      color: #f0ecef;
+    }
+
+    [data-theme="dark"] .vote-pill {
+      background: rgba(59, 130, 246, .15);
+      color: #93c5fd;
+    }
+
+    [data-theme="dark"] .vote-pill.ha {
+      background: rgba(244, 63, 94, .15);
+      color: #FCA5A5;
+    }
+
+    [data-theme="dark"] .vote-pill.wait {
+      background: rgba(139, 92, 246, .15);
+      color: #C4B5FD;
+    }
+
+    [data-theme="dark"] .btn.ghost {
+      background: rgba(255, 255, 255, .06);
+      border-color: rgba(255, 255, 255, .14);
+      color: #f0ecef;
+    }
+
+    [data-theme="dark"] .btn.leave,
+    [data-theme="dark"] .btn.havent {
+      background: rgba(255, 255, 255, .06);
+      border-color: rgba(255, 255, 255, .12);
+      color: #f0ecef;
+    }
+
+    [data-theme="dark"] .waiting {
+      background: #221e2a;
+      border-color: rgba(255, 255, 255, .12);
+      color: #b8b0bd;
+    }
+
+    [data-theme="dark"] footer {
+      color: #8a7f92;
+    }
+
+    [data-theme="dark"] .overlay {
+      background: rgba(0, 0, 0, .75);
+    }
+
+    [data-theme="dark"] .modal {
+      background: #221e2a;
+      border-color: rgba(255, 255, 255, .08);
+      box-shadow: 0 40px 80px -30px rgba(0, 0, 0, .85);
+    }
+
+    [data-theme="dark"] .modal h2 {
+      color: #f0ecef;
+    }
+
+    [data-theme="dark"] .modal p {
+      color: #b8b0bd;
+    }
+
+    [data-theme="dark"] .modal .code-input,
+    [data-theme="dark"] .modal .name-input {
+      background: rgba(255, 255, 255, .05);
+      border-color: rgba(255, 255, 255, .15);
+      color: #f0ecef;
+    }
+
+    [data-theme="dark"] .modal .link-box {
+      background: rgba(255, 255, 255, .05);
+      border-color: rgba(255, 255, 255, .08);
+      color: #b8b0bd;
+    }
+
+    [data-theme="dark"] .modal .qr {
+      background: #f0ecef;
+      border-color: rgba(255, 255, 255, .10);
+    }
+
+    [data-theme="dark"] .modal .guest-count {
+      color: #b8b0bd;
+    }
+
+    [data-theme="dark"] .lb-row {
+      background: rgba(255, 255, 255, .05);
+      color: #f0ecef;
+    }
+
+    [data-theme="dark"] .lb-row.winner {
+      background: linear-gradient(90deg, rgba(255, 122, 92, .20), rgba(139, 92, 246, .20));
+      border-color: rgba(255, 122, 92, .4);
+    }
+
+    [data-theme="dark"] .lb-score {
+      background: #f0ecef;
+      color: #15131a;
+    }
+
+    [data-theme="dark"] .lb-rank {
+      color: #8a7f92;
+    }
+
+    [data-theme="dark"] .intro-overlay {
+      background: rgba(0, 0, 0, .78);
+    }
+
+    [data-theme="dark"] .intro-card {
+      background: #221e2a;
+      border-color: rgba(255, 255, 255, .08);
+      box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .9);
+    }
+
+    [data-theme="dark"] .intro-card h2 {
+      color: #f0ecef;
+    }
+
+    [data-theme="dark"] .intro-card p {
+      color: #b8b0bd;
+    }
+
+    [data-theme="dark"] .intro-dot {
+      background: rgba(255, 255, 255, .20);
+    }
+
+    [data-theme="dark"] .intro-tip {
+      border-color: rgba(255, 255, 255, .08);
+      color: #8a7f92;
+    }
+
+    [data-theme="dark"] .intro-tip b {
+      color: #b8b0bd;
+    }
   </style>
 </head>
 
@@ -1500,9 +2014,10 @@
   <header class="top">
     <div class="brand">
       <span class="dot"></span>
-      <h1 id="partyTitle">🎉 Naija Party Cards</h1>
+      <h1>🎈 The Hangout</h1>
     </div>
     <span class="role" id="rolePill" hidden></span>
+    <button class="icon-btn" id="themeBtn" title="Theme" aria-label="Toggle theme">☀️</button>
     <button class="icon-btn" id="helpBtn" title="How to play" aria-label="How to play">❓</button>
     <button class="icon-btn wide" id="partyBtn" title="Party mode">🎉 Party</button>
     <button class="icon-btn" id="gear" title="Settings" aria-label="Settings">⚙️</button>
@@ -1514,8 +2029,8 @@
       <input type="text" id="nameInput" placeholder="e.g. Tunde" maxlength="18" autocomplete="off">
     </label>
     <label class="row"><input type="checkbox" id="soundChk" checked> Sound effects</label>
-    <p class="hint">The name you type replaces “the birthday celebrant” in any prompt that mentions them. When hosting,
-      guests see the same name.</p>
+    <p class="hint">The name you type replaces "the birthday celebrant" in any prompt. When hosting, guests see the same
+      name.</p>
   </div>
 
   <nav class="chips" id="chips" aria-label="Game modes"></nav>
@@ -1529,19 +2044,35 @@
   </button>
 
   <main>
-    <section class="card" id="card" style="--accent:#00A651">
+    <section class="card" id="card" style="--accent:#FF7A5C">
       <div class="tag" id="tag">Ready</div>
       <p class="q intro" id="question">Tap <b>Next Card</b> to draw your first prompt.</p>
-      <p class="answer" id="answer" hidden></p>
-      <button class="btn reveal" id="revealBtn" hidden>👁️ Reveal Answer</button>
+
+      <p class="hint-text" id="hintText" hidden></p>
+
+      <div class="reveal-block" id="revealBlock" hidden></div>
+
+      <p class="vote-status" id="voteStatus" hidden></p>
+
+      <div class="hint-reveal-row" id="hintRevealRow" hidden>
+        <button class="btn hint" id="hintBtn">💡 Hint</button>
+        <button class="btn reveal" id="revealBtn" hidden>👁️ Reveal Answer</button>
+      </div>
+
       <div class="choices" id="choices" hidden>
         <button class="btn do" id="doBtn">💪 I DO AM</button>
         <button class="btn leave" id="leaveBtn">🙅 I LEAVE AM</button>
+      </div>
+
+      <div class="choices" id="scoringChoices" hidden>
+        <button class="btn have" id="haveBtn">✋ I HAVE</button>
+        <button class="btn havent" id="haventBtn">🙅 I HAVEN'T</button>
       </div>
     </section>
 
     <div class="controls" id="controls">
       <button class="btn primary" id="nextBtn">Next Card →</button>
+      <button class="btn ghost" id="leaderBtn" hidden>🏆 Scores</button>
       <button class="btn ghost" id="resetBtn">Reset</button>
     </div>
     <div class="waiting" id="waitingNote" hidden>Waiting for the host to draw the next card…</div>
@@ -1550,7 +2081,7 @@
   <footer>
     <span id="stats">0 cards drawn</span>
     <button class="helplink" id="helpLink">How to play ❓</button>
-    <span class="keys">Space / → = next · 1 = do am · 2 = leave am · A = reveal · R = reset</span>
+    <span class="keys">Space / → = next · 1 = do · 2 = leave · H = hint · A = reveal · R = reset</span>
   </footer>
 
   <div class="toast" id="toast"></div>
@@ -1573,7 +2104,7 @@
 
   <div class="intro-overlay" id="introOverlay" hidden>
     <div class="intro-card">
-      <div class="intro-emoji" id="introEmoji">🎉</div>
+      <div class="intro-emoji" id="introEmoji">🎈</div>
       <h2 id="introTitle">Welcome</h2>
       <p id="introBody"></p>
       <div class="intro-dots" id="introDots"></div>
@@ -1588,7 +2119,7 @@
   <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
   <script>
     /* =========================================================
-       1. THE DECKS  (700 prompts total)
+       1. THE DECKS  (1,100 prompts total)
        ========================================================= */
 
     const RAW = {
@@ -2109,106 +2640,210 @@
       ],
 
       bibleq: [
-        { text: "Who built the ark?", answer: "Noah" },
-        { text: "How many days did it take God to create the world?", answer: "Six" },
-        { text: "How many disciples did Jesus have?", answer: "Twelve" },
-        { text: "Who betrayed Jesus?", answer: "Judas Iscariot" },
-        { text: "Who was the mother of Jesus?", answer: "Mary" },
-        { text: "Who was the first man?", answer: "Adam" },
-        { text: "Who was the first woman?", answer: "Eve" },
-        { text: "Which book of the Bible comes first?", answer: "Genesis" },
-        { text: "Who led the Israelites out of Egypt?", answer: "Moses" },
-        { text: "What did God create on the first day?", answer: "Light" },
-        { text: "Who was thrown into the lions' den?", answer: "Daniel" },
-        { text: "How many books are in the Bible?", answer: "66" },
-        { text: "Who wrote most of the Psalms?", answer: "David" },
-        { text: "What was Jesus's first miracle?", answer: "Turning water into wine" },
-        { text: "Who baptized Jesus?", answer: "John the Baptist" },
-        { text: "Which apostle walked on water with Jesus?", answer: "Peter" },
-        { text: "What is the shortest verse in the Bible?", answer: "Jesus wept (John 11:35)" },
-        { text: "Who was the strongest man in the Bible?", answer: "Samson" },
-        { text: "Who was the wisest man?", answer: "Solomon" },
-        { text: "What sea did Moses part?", answer: "The Red Sea" },
-        { text: "Who was the father of many nations?", answer: "Abraham" },
-        { text: "What did Jesus say is the greatest commandment?", answer: "Love God and love your neighbor" },
-        { text: "Who is the author of the book of Acts?", answer: "Luke" },
-        { text: "How many days was Lazarus dead before Jesus raised him?", answer: "Four" },
-        { text: "What is the first book of the New Testament?", answer: "Matthew" },
-        { text: "Who was the first Christian martyr?", answer: "Stephen" },
-        { text: "Which disciple doubted Jesus's resurrection?", answer: "Thomas" },
-        { text: "Where was Jesus born?", answer: "Bethlehem" },
-        { text: "Who were the first two brothers in the Bible?", answer: "Cain and Abel" },
-        { text: "What did the Israelites eat in the wilderness?", answer: "Manna" },
-        { text: "Who interpreted Pharaoh's dreams?", answer: "Joseph" },
-        { text: "How many plagues struck Egypt?", answer: "Ten" },
-        { text: "Who was the mother of Isaac?", answer: "Sarah" },
-        { text: "What was Paul's name before his conversion?", answer: "Saul" },
-        { text: "Which cities did God destroy with fire and brimstone?", answer: "Sodom and Gomorrah" },
-        { text: "Who was the first king of Israel?", answer: "Saul" },
-        { text: "Which king wrote many of the Proverbs?", answer: "Solomon" },
-        { text: "Who was thrown into a fiery furnace?", answer: "Shadrach, Meshach, and Abednego" },
-        { text: "What garden did Jesus pray in before his arrest?", answer: "Gethsemane" },
-        { text: "Who denied Jesus three times?", answer: "Peter" },
-        { text: "What did Jesus ride into Jerusalem?", answer: "A donkey" },
-        { text: "How many loaves and fish fed the 5,000?", answer: "Five loaves and two fish" },
-        { text: "Who was the tax collector that climbed a tree?", answer: "Zacchaeus" },
-        { text: "What did Jesus turn water into?", answer: "Wine" },
-        { text: "Which apostle was a doctor?", answer: "Luke" },
-        { text: "How many days was Jonah in the fish?", answer: "Three" },
-        { text: "Who was the wife of Abraham?", answer: "Sarah" },
-        { text: "What mountain did Moses receive the Ten Commandments on?", answer: "Mount Sinai" },
-        { text: "Who was the first person to see the risen Jesus?", answer: "Mary Magdalene" },
-        { text: "What is the last book of the Bible?", answer: "Revelation" },
-        { text: "Who was the Roman governor who sentenced Jesus?", answer: "Pontius Pilate" },
-        { text: "What did Jesus do at the Last Supper?", answer: "Instituted Communion and washed the disciples' feet" },
-        { text: "How many people were on Noah's ark?", answer: "Eight" },
-        { text: "What animal spoke to Balaam?", answer: "A donkey" },
-        { text: "Who was the first high priest of Israel?", answer: "Aaron" },
-        { text: "What did Paul do before following Christ?", answer: "Persecuted Christians" },
-        { text: "How long did the Israelites wander in the wilderness?", answer: "Forty years" },
-        { text: "Who was the father of John the Baptist?", answer: "Zechariah" },
-        { text: "What was the name of Jesus's earthly father?", answer: "Joseph" },
-        { text: "How many people did Jesus raise from the dead?", answer: "Three" },
-        { text: "What did Jesus say to the storm?", answer: "Peace, be still" },
-        { text: "Which prophet was taken up in a whirlwind?", answer: "Elijah" },
-        { text: "Who wrote the book of Revelation?", answer: "John" },
-        { text: "What is the first listed fruit of the Spirit?", answer: "Love" },
-        { text: "Where were disciples first called Christians?", answer: "Antioch" },
-        { text: "What did the Holy Spirit appear as at Pentecost?", answer: "Tongues of fire" },
-        { text: "Who replaced Judas as an apostle?", answer: "Matthias" },
-        { text: "What did Jesus say about the poor?", answer: "You will always have the poor with you" },
-        { text: "How many days did Jesus appear after his resurrection?", answer: "Forty" },
-        { text: "What is the greatest gift according to 1 Corinthians 13?", answer: "Love" },
-        { text: "Which book of the Bible does not mention God by name?", answer: "Esther" },
-        { text: "Who was the queen who saved the Jews from destruction?", answer: "Esther" },
-        { text: "Which prophet married a woman named Gomer?", answer: "Hosea" },
-        { text: "What was the name of Abraham's nephew who lived in Sodom?", answer: "Lot" },
-        { text: "Which prophet saw the valley of dry bones come to life?", answer: "Ezekiel" },
-        { text: "What mountain did Elijah face the prophets of Baal on?", answer: "Mount Carmel" },
-        { text: "Who was the female judge and prophetess of Israel?", answer: "Deborah" },
-        { text: "What was the name of Ruth's mother-in-law?", answer: "Naomi" },
-        { text: "Which king of Judah saw the sun move backward as a sign?", answer: "Hezekiah" },
-        { text: "What was the writing on the wall at Belshazzar's feast?", answer: "Mene, Mene, Tekel, Upharsin" },
-        { text: "Who interpreted the writing on the wall?", answer: "Daniel" },
-        { text: "On which island did John receive the vision of Revelation?", answer: "Patmos" },
-        { text: "Which two books of the Bible are named after women?", answer: "Ruth and Esther" },
-        { text: "How many sons did Jacob have?", answer: "Twelve" },
-        { text: "What was Paul's trade before his ministry?", answer: "Tentmaker" },
-        { text: "Who was the first apostle to be martyred?", answer: "James, brother of John" },
-        { text: "What was the name of the servant girl who recognized Peter's voice?", answer: "Rhoda" },
-        { text: "How many chapters are in the book of Psalms?", answer: "150" },
-        { text: "What is the longest chapter in the Bible?", answer: "Psalm 119" },
-        { text: "Who was the last judge of Israel?", answer: "Samuel" },
-        { text: "How many stones did David pick up before fighting Goliath?", answer: "Five" },
-        { text: "What was the name of Moses' brother?", answer: "Aaron" },
-        { text: "What was the name of Moses' sister?", answer: "Miriam" },
-        { text: "Which prophet was fed by ravens in the wilderness?", answer: "Elijah" },
-        { text: "What was the name of the widow whose oil multiplied?", answer: "The widow of Zarephath" },
-        { text: "What was the name of Joshua's father?", answer: "Nun" },
-        { text: "Who was the mother of John the Baptist?", answer: "Elizabeth" },
-        { text: "What was the name of the first person Jesus called to be his disciple?", answer: "Peter (Simon)" },
-        { text: "How many years did Solomon's temple take to build?", answer: "Seven" },
-        { text: "What was the name of the servant of Abraham who found a wife for Isaac?", answer: "Eliezer" }
+        { text: "Who built the ark?", answer: "Noah", hint: "He also planted a vineyard afterward." },
+        { text: "How many days did it take God to create the world?", answer: "Six", hint: "On the seventh, He rested." },
+        { text: "How many disciples did Jesus have?", answer: "Twelve", hint: "One of them betrayed Him." },
+        { text: "Who betrayed Jesus?", answer: "Judas Iscariot", hint: "He did it with a kiss, for thirty pieces of silver." },
+        { text: "Who was the mother of Jesus?", answer: "Mary", hint: "An angel named Gabriel visited her." },
+        { text: "Who was the first man?", answer: "Adam", hint: "His wife was made from his rib." },
+        { text: "Who was the first woman?", answer: "Eve", hint: "A serpent spoke to her." },
+        { text: "Which book of the Bible comes first?", answer: "Genesis", hint: "Its name means 'beginning.'" },
+        { text: "Who led the Israelites out of Egypt?", answer: "Moses", hint: "He parted the Red Sea with his staff." },
+        { text: "What did God create on the first day?", answer: "Light", hint: "He said, 'Let there be…'" },
+        { text: "Who was thrown into the lions' den?", answer: "Daniel", hint: "He survived the night without a scratch." },
+        { text: "How many books are in the Bible?", answer: "66", hint: "Thirty-nine in the Old, twenty-seven in the New." },
+        { text: "Who wrote most of the Psalms?", answer: "David", hint: "He was a shepherd before he was a king." },
+        { text: "What was Jesus's first miracle?", answer: "Turning water into wine", hint: "It happened at a wedding in Cana." },
+        { text: "Who baptized Jesus?", answer: "John the Baptist", hint: "He ate locusts and wild honey." },
+        { text: "Which apostle walked on water with Jesus?", answer: "Peter", hint: "He sank when he took his eyes off Jesus." },
+        { text: "What is the shortest verse in the Bible?", answer: "Jesus wept (John 11:35)", hint: "It is only two words long." },
+        { text: "Who was the strongest man in the Bible?", answer: "Samson", hint: "His strength was in his hair." },
+        { text: "Who was the wisest man?", answer: "Solomon", hint: "He asked God for wisdom instead of wealth." },
+        { text: "What sea did Moses part?", answer: "The Red Sea", hint: "Pharaoh's army drowned in it." },
+        { text: "Who was the father of many nations?", answer: "Abraham", hint: "His wife Sarah laughed at the promise." },
+        { text: "What did Jesus say is the greatest commandment?", answer: "Love God and love your neighbor", hint: "It has two parts." },
+        { text: "Who is the author of the book of Acts?", answer: "Luke", hint: "He was also a doctor." },
+        { text: "How many days was Lazarus dead before Jesus raised him?", answer: "Four", hint: "Martha warned Jesus about the smell." },
+        { text: "What is the first book of the New Testament?", answer: "Matthew", hint: "It opens with a genealogy." },
+        { text: "Who was the first Christian martyr?", answer: "Stephen", hint: "Saul watched his stoning." },
+        { text: "Which disciple doubted Jesus's resurrection?", answer: "Thomas", hint: "He wanted to see the wounds." },
+        { text: "Where was Jesus born?", answer: "Bethlehem", hint: "Its name means 'house of bread.'" },
+        { text: "Who were the first two brothers in the Bible?", answer: "Cain and Abel", hint: "One killed the other." },
+        { text: "What did the Israelites eat in the wilderness?", answer: "Manna", hint: "It tasted like honey wafers." },
+        { text: "Who interpreted Pharaoh's dreams?", answer: "Joseph", hint: "He wore a coat of many colors." },
+        { text: "How many plagues struck Egypt?", answer: "Ten", hint: "The last was the death of the firstborn." },
+        { text: "Who was the mother of Isaac?", answer: "Sarah", hint: "She laughed when she heard the news." },
+        { text: "What was Paul's name before his conversion?", answer: "Saul", hint: "He was blinded on the road to Damascus." },
+        { text: "Which cities did God destroy with fire and brimstone?", answer: "Sodom and Gomorrah", hint: "Lot's wife looked back." },
+        { text: "Who was the first king of Israel?", answer: "Saul", hint: "He was from the tribe of Benjamin." },
+        { text: "Which king wrote many of the Proverbs?", answer: "Solomon", hint: "He also wrote Ecclesiastes." },
+        { text: "Who was thrown into a fiery furnace?", answer: "Shadrach, Meshach, and Abednego", hint: "A fourth figure walked with them." },
+        { text: "What garden did Jesus pray in before his arrest?", answer: "Gethsemane", hint: "Its name means 'oil press.'" },
+        { text: "Who denied Jesus three times?", answer: "Peter", hint: "A rooster crowed after the third denial." },
+        { text: "What did Jesus ride into Jerusalem?", answer: "A donkey", hint: "It fulfilled a prophecy from Zechariah." },
+        { text: "How many loaves and fish fed the 5,000?", answer: "Five loaves and two fish", hint: "A boy offered them." },
+        { text: "Who was the tax collector that climbed a tree?", answer: "Zacchaeus", hint: "He was short." },
+        { text: "What did Jesus turn water into?", answer: "Wine", hint: "It was His first miracle." },
+        { text: "Which apostle was a doctor?", answer: "Luke", hint: "He wrote the third Gospel." },
+        { text: "How many days was Jonah in the fish?", answer: "Three", hint: "Jesus compared it to His own burial." },
+        { text: "Who was the wife of Abraham?", answer: "Sarah", hint: "Her name was originally Sarai." },
+        { text: "What mountain did Moses receive the Ten Commandments on?", answer: "Mount Sinai", hint: "It burned with fire and smoke." },
+        { text: "Who was the first person to see the risen Jesus?", answer: "Mary Magdalene", hint: "She went to the tomb early on Sunday." },
+        { text: "What is the last book of the Bible?", answer: "Revelation", hint: "It was written on the island of Patmos." },
+        { text: "Who was the Roman governor who sentenced Jesus?", answer: "Pontius Pilate", hint: "He washed his hands before the crowd." },
+        { text: "What did Jesus do at the Last Supper?", answer: "Instituted Communion and washed the disciples' feet", hint: "He also predicted His betrayal." },
+        { text: "How many people were on Noah's ark?", answer: "Eight", hint: "Noah, his wife, three sons, and their wives." },
+        { text: "What animal spoke to Balaam?", answer: "A donkey", hint: "It saw an angel Balaam couldn't see." },
+        { text: "Who was the first high priest of Israel?", answer: "Aaron", hint: "His staff budded and produced almonds." },
+        { text: "What did Paul do before following Christ?", answer: "Persecuted Christians", hint: "He approved of Stephen's death." },
+        { text: "How long did the Israelites wander in the wilderness?", answer: "Forty years", hint: "A whole generation died before entering the Promised Land." },
+        { text: "Who was the father of John the Baptist?", answer: "Zechariah", hint: "He was struck mute for doubting." },
+        { text: "What was the name of Jesus's earthly father?", answer: "Joseph", hint: "He was a carpenter." },
+        { text: "How many people did Jesus raise from the dead?", answer: "Three", hint: "Lazarus was one of them." },
+        { text: "What did Jesus say to the storm?", answer: "Peace, be still", hint: "The wind and waves obeyed." },
+        { text: "Which prophet was taken up in a whirlwind?", answer: "Elijah", hint: "Elisha asked for a double portion of his spirit." },
+        { text: "Who wrote the book of Revelation?", answer: "John", hint: "He was on the island of Patmos." },
+        { text: "What is the first listed fruit of the Spirit?", answer: "Love", hint: "It's from Galatians 5." },
+        { text: "Where were disciples first called Christians?", answer: "Antioch", hint: "It was in Syria." },
+        { text: "What did the Holy Spirit appear as at Pentecost?", answer: "Tongues of fire", hint: "There was also a sound like rushing wind." },
+        { text: "Who replaced Judas as an apostle?", answer: "Matthias", hint: "The apostles cast lots." },
+        { text: "What did Jesus say about the poor?", answer: "You will always have the poor with you", hint: "He said it when Judas complained about the perfume." },
+        { text: "How many days did Jesus appear after his resurrection?", answer: "Forty", hint: "He ascended after this period." },
+        { text: "What is the greatest gift according to 1 Corinthians 13?", answer: "Love", hint: "Faith and hope are also mentioned." },
+        { text: "Which book of the Bible does not mention God by name?", answer: "Esther", hint: "It's about a queen." },
+        { text: "Who was the queen who saved the Jews from destruction?", answer: "Esther", hint: "Her cousin was Mordecai." },
+        { text: "Which prophet married a woman named Gomer?", answer: "Hosea", hint: "His marriage mirrored God's love for Israel." },
+        { text: "What was the name of Abraham's nephew who lived in Sodom?", answer: "Lot", hint: "His wife looked back." },
+        { text: "Which prophet saw the valley of dry bones come to life?", answer: "Ezekiel", hint: "It became a vast army." },
+        { text: "What mountain did Elijah face the prophets of Baal on?", answer: "Mount Carmel", hint: "Fire fell from heaven." },
+        { text: "Who was the female judge and prophetess of Israel?", answer: "Deborah", hint: "She led Israel in battle against Sisera." },
+        { text: "What was the name of Ruth's mother-in-law?", answer: "Naomi", hint: "She asked to be called Mara." },
+        { text: "Which king of Judah saw the sun move backward as a sign?", answer: "Hezekiah", hint: "He added fifteen years to his life." },
+        { text: "What was the writing on the wall at Belshazzar's feast?", answer: "Mene, Mene, Tekel, Upharsin", hint: "It was interpreted by Daniel." },
+        { text: "Who interpreted the writing on the wall?", answer: "Daniel", hint: "He was also thrown into the lions' den." },
+        { text: "On which island did John receive the vision of Revelation?", answer: "Patmos", hint: "It's a Greek island." },
+        { text: "Which two books of the Bible are named after women?", answer: "Ruth and Esther", hint: "One is a Moabite, one is a queen." },
+        { text: "How many sons did Jacob have?", answer: "Twelve", hint: "They became the twelve tribes." },
+        { text: "What was Paul's trade before his ministry?", answer: "Tentmaker", hint: "He worked with his hands." },
+        { text: "Who was the first apostle to be martyred?", answer: "James, brother of John", hint: "Herod Agrippa killed him." },
+        { text: "What was the name of the servant girl who recognized Peter's voice?", answer: "Rhoda", hint: "She was so excited she forgot to open the door." },
+        { text: "How many chapters are in the book of Psalms?", answer: "150", hint: "Psalm 119 is the longest." },
+        { text: "What is the longest chapter in the Bible?", answer: "Psalm 119", hint: "It's about God's law." },
+        { text: "Who was the last judge of Israel?", answer: "Samuel", hint: "He anointed Saul and David." },
+        { text: "How many stones did David pick up before fighting Goliath?", answer: "Five", hint: "He only needed one." },
+        { text: "What was the name of Moses' brother?", answer: "Aaron", hint: "He was the first high priest." },
+        { text: "What was the name of Moses' sister?", answer: "Miriam", hint: "She led the women in song after the sea parted." },
+        { text: "Which prophet was fed by ravens in the wilderness?", answer: "Elijah", hint: "He was also taken up in a whirlwind." },
+        { text: "What was the name of the widow whose oil multiplied?", answer: "The widow of Zarephath", hint: "Elijah stayed with her." },
+        { text: "What was the name of Joshua's father?", answer: "Nun", hint: "His name sounds like 'none.'" },
+        { text: "Who was the mother of John the Baptist?", answer: "Elizabeth", hint: "She was old when she gave birth." },
+        { text: "What was the name of the first person Jesus called to be his disciple?", answer: "Peter (Simon)", hint: "His brother was Andrew." },
+        { text: "How many years did Solomon's temple take to build?", answer: "Seven", hint: "It was finished in the eleventh year of his reign." },
+        { text: "What was the name of the servant of Abraham who found a wife for Isaac?", answer: "Eliezer", hint: "He prayed at the well for a sign." },
+        { text: "I was born in a stable, visited by shepherds and wise men, and my birth is celebrated every December. Who am I?", answer: "Jesus", hint: "I am the reason for Christmas." },
+        { text: "I am the food that fell from the sky for forty years, and I tasted like honey wafers. What am I?", answer: "Manna", hint: "The Israelites ate me in the wilderness." },
+        { text: "I am the shortest verse in the Bible — only two words long. What am I?", answer: "Jesus wept (John 11:35)", hint: "It happens at Lazarus' tomb." },
+        { text: "I built a boat the size of a football field, and I had never seen rain. Who am I?", answer: "Noah", hint: "I saved my family and a lot of animals." },
+        { text: "I was a shepherd boy with a sling and five smooth stones, and I brought down a giant. Who am I?", answer: "David", hint: "I later became king of Israel." },
+        { text: "I walked on water toward Jesus and then sank. Who am I?", answer: "Peter", hint: "I denied Jesus three times before a rooster crowed." },
+        { text: "My strength was in my hair, and when it was cut, I lost everything. Who am I?", answer: "Samson", hint: "I pushed down the pillars of a Philistine temple." },
+        { text: "I ran from God's command and was swallowed by a great fish. Who am I?", answer: "Jonah", hint: "Three days in the belly, then Nineveh." },
+        { text: "I spent one night in a den of lions and walked out alive. Who am I?", answer: "Daniel", hint: "I also interpreted dreams for kings." },
+        { text: "I was the first man ever created, formed from dust. Who am I?", answer: "Adam", hint: "My wife was made from my rib." },
+        { text: "I was the first woman, and I took the fruit that changed everything. Who am I?", answer: "Eve", hint: "A serpent spoke to me." },
+        { text: "I am the place Jesus was born, small and humble. Where am I?", answer: "Bethlehem", hint: "Shepherds came to visit me first." },
+        { text: "I am the sea that split in two so Israel could walk through. What am I?", answer: "The Red Sea", hint: "Pharaoh's army drowned in me." },
+        { text: "I am the mountain where Moses received the Ten Commandments. Where am I?", answer: "Mount Sinai", hint: "I burned with fire and smoke." },
+        { text: "I stood over nine feet tall and mocked Israel's army for forty days. Who am I?", answer: "Goliath", hint: "A stone from a sling brought me down." },
+        { text: "I betrayed Jesus with a kiss for thirty pieces of silver. Who am I?", answer: "Judas Iscariot", hint: "I was one of the twelve." },
+        { text: "I was the first person to see the risen Jesus. Who am I?", answer: "Mary Magdalene", hint: "I went to the tomb early on Sunday." },
+        { text: "I baptized Jesus in the Jordan River. Who am I?", answer: "John the Baptist", hint: "I ate locusts and wild honey." },
+        { text: "I am the mother of Jesus, and an angel visited me. Who am I?", answer: "Mary", hint: "Gabriel brought me the news." },
+        { text: "My coat of many colors made my brothers so jealous they sold me. Who am I?", answer: "Joseph", hint: "I interpreted Pharaoh's dreams in Egypt." },
+        { text: "I was a bush that burned but was not consumed, and I spoke to Moses. What am I?", answer: "The burning bush", hint: "Moses removed his sandals before me." },
+        { text: "I am the first book of the Bible. What am I?", answer: "Genesis", hint: "My name means 'beginning.'" },
+        { text: "I am the last book of the Bible. What am I?", answer: "Revelation", hint: "I was written on the island of Patmos." },
+        { text: "I led Israel out of Egypt and parted the sea with my staff. Who am I?", answer: "Moses", hint: "I received the Ten Commandments." },
+        { text: "I am the queen who saved the Jews from destruction, and my story is celebrated at Purim. Who am I?", answer: "Esther", hint: "My cousin Mordecai raised me." },
+        { text: "I hid two Israelite spies in Jericho and hung a scarlet cord from my window. Who am I?", answer: "Rahab", hint: "I was later part of Jesus' family line." },
+        { text: "I wrestled with an angel all night and walked away with a new name. Who am I?", answer: "Jacob", hint: "My new name was Israel." },
+        { text: "I am the number of days it took God to create the world. What am I?", answer: "Six", hint: "On the seventh, God rested." },
+        { text: "I am the number of disciples Jesus chose. What am I?", answer: "Twelve", hint: "One of us betrayed him." },
+        { text: "I am the number of plagues that struck Egypt. What am I?", answer: "Ten", hint: "The last one was the death of the firstborn." },
+        { text: "I wrote most of the Psalms. Who am I?", answer: "David", hint: "I was a shepherd, a king, and a musician." },
+        { text: "I am the wisest man who ever lived — I asked God for wisdom, not wealth. Who am I?", answer: "Solomon", hint: "I built the first temple in Jerusalem." },
+        { text: "We were three men thrown into a fiery furnace and walked out without a burn. Who are we?", answer: "Shadrach, Meshach, and Abednego", hint: "A fourth figure, like a son of the gods, walked with us." },
+        { text: "I doubted Jesus rose from the dead until I saw his wounds. Who am I?", answer: "Thomas", hint: "I am also called Didymus." },
+        { text: "I was a short tax collector who climbed a sycamore tree to see Jesus. Who am I?", answer: "Zacchaeus", hint: "Jesus ate at my house that day." },
+        { text: "I was the Roman governor who sentenced Jesus to death, then washed my hands. Who am I?", answer: "Pontius Pilate", hint: "I asked the crowd which prisoner to release." },
+        { text: "I was the prophet taken up to heaven in a whirlwind, and I was fed by ravens. Who am I?", answer: "Elijah", hint: "I faced the prophets of Baal on Mount Carmel." },
+        { text: "I am the mountain where fire fell from heaven to prove God's power. Where am I?", answer: "Mount Carmel", hint: "Elijah prayed on me for rain." },
+        { text: "I married a woman named Gomer, and my marriage became a picture of God's love for Israel. Who am I?", answer: "Hosea", hint: "I was a prophet in the northern kingdom." },
+        { text: "I saw a valley of dry bones come to life in a vision. Who am I?", answer: "Ezekiel", hint: "My vision was of a vast army." },
+        { text: "I wrote the book of Revelation on the island of Patmos. Who am I?", answer: "John", hint: "I was the disciple Jesus loved." },
+        { text: "I was the first Christian to be martyred, and Saul watched my stoning. Who am I?", answer: "Stephen", hint: "I saw heaven open as I died." },
+        { text: "I was blinded by a light on the road to Damascus and became one of the greatest apostles. Who am I?", answer: "Paul (Saul)", hint: "I wrote most of the New Testament letters." },
+        { text: "I ran alongside an Ethiopian's chariot and baptized him. Who am I?", answer: "Philip", hint: "I explained Isaiah to him." },
+        { text: "I was old when I gave birth to John the Baptist. Who am I?", answer: "Elizabeth", hint: "My husband was struck mute for doubting." },
+        { text: "I was struck mute for doubting the angel's news about my son. Who am I?", answer: "Zechariah", hint: "My son was John the Baptist." },
+        { text: "My name means 'father of many nations,' and my wife Sarah laughed at God's promise. Who am I?", answer: "Abraham", hint: "God tested me with Isaac on Mount Moriah." },
+        { text: "I am the rock that gave water in the desert when Moses struck me. What am I?", answer: "The rock at Horeb", hint: "Water flowed out for the thirsty people." },
+        { text: "I was the first murder victim in history, and my brother killed me out of jealousy. Who am I?", answer: "Abel", hint: "My offering pleased God; my brother's did not." },
+        { text: "I lived 969 years — the longest of anyone in the Bible. Who am I?", answer: "Methuselah", hint: "My name is often used to mean 'very old.'" },
+        { text: "We tried to build a tower to heaven, and God confused our language. Where were we?", answer: "The Tower of Babel", hint: "Our city was called Babel." },
+        { text: "I looked back at a burning city and turned into a pillar of salt. Who am I?", answer: "Lot's wife", hint: "I was told not to look back." },
+        { text: "I am the son Abraham was asked to sacrifice on Mount Moriah. Who am I?", answer: "Isaac", hint: "A ram was sacrificed in my place." },
+        { text: "I laughed when I heard I would have a child in my old age. Who am I?", answer: "Sarah", hint: "My son's name means 'he laughs.'" },
+        { text: "I sold my birthright for a bowl of stew. Who am I?", answer: "Esau", hint: "I was the elder twin, and I was hairy." },
+        { text: "I worked fourteen years to marry the woman I loved, and I was tricked into marrying her sister first. Who am I?", answer: "Jacob", hint: "I later wrestled with an angel." },
+        { text: "I am the sister Jacob did not plan to marry, but I became the mother of Judah and Levi. Who am I?", answer: "Leah", hint: "My younger sister was Rachel." },
+        { text: "I was the well-loved wife of Jacob, and I died giving birth to Benjamin. Who am I?", answer: "Rachel", hint: "Jacob worked fourteen years for me." },
+        { text: "I am the little brother my older brothers sold into slavery, and I later saved them from famine. Who am I?", answer: "Joseph", hint: "I wore a coat of many colors." },
+        { text: "I dreamed of my son's family bowing to him, and I thought it impossible. Who am I?", answer: "Jacob (Israel)", hint: "I mourned Joseph as dead for years." },
+        { text: "I ruled Egypt and had dreams I could not understand until Joseph interpreted them. Who am I?", answer: "Pharaoh", hint: "I put Joseph in charge of all Egypt." },
+        { text: "I am the sister of Moses, and I led the women in song after crossing the sea. Who am I?", answer: "Miriam", hint: "I was a prophetess." },
+        { text: "I was Moses' spokesman, and I became the first high priest of Israel. Who am I?", answer: "Aaron", hint: "My staff budded and produced almonds." },
+        { text: "I am the man Moses sent to spy out the Promised Land, and I came back with a good report. Who am I?", answer: "Caleb", hint: "My partner was Joshua." },
+        { text: "I led Israel into the Promised Land after Moses died. Who am I?", answer: "Joshua", hint: "The walls of Jericho fell at my command." },
+        { text: "I tested God with a fleece of wool twice, and He answered both times. Who am I?", answer: "Gideon", hint: "I defeated the Midianites with 300 men." },
+        { text: "I am the woman who betrayed Samson by cutting his hair. Who am I?", answer: "Delilah", hint: "I was paid silver by the Philistines." },
+        { text: "I am the Moabite woman who said, 'Where you go, I will go.' Who am I?", answer: "Ruth", hint: "I became the great-grandmother of David." },
+        { text: "I am the mother-in-law of Ruth, and I told her to lie at Boaz's feet. Who am I?", answer: "Naomi", hint: "My name means 'pleasant,' but I asked to be called Mara." },
+        { text: "I am the wealthy landowner who married Ruth. Who am I?", answer: "Boaz", hint: "I was a relative of Naomi's late husband." },
+        { text: "I heard God call my name in the night when I was a boy. Who am I?", answer: "Samuel", hint: "I anointed both Saul and David as king." },
+        { text: "I was Israel's first king, and I stood head and shoulders above everyone else. Who am I?", answer: "Saul", hint: "I was from the tribe of Benjamin." },
+        { text: "I was David's best friend, and my father was King Saul. Who am I?", answer: "Jonathan", hint: "David mourned me greatly." },
+        { text: "I was the wife David took from Uriah, and I became the mother of Solomon. Who am I?", answer: "Bathsheba", hint: "My first husband was killed in battle." },
+        { text: "I was David's son who rebelled against him and was caught by his hair in a tree. Who am I?", answer: "Absalom", hint: "I was known for my long hair." },
+        { text: "I was the prophet who confronted David about his sin with Bathsheba. Who am I?", answer: "Nathan", hint: "I told David a parable about a little lamb." },
+        { text: "I was a queen who killed God's prophets and threatened Elijah's life. Who am I?", answer: "Jezebel", hint: "My husband was King Ahab." },
+        { text: "I am the prophet who followed Elijah and asked for a double portion of his spirit. Who am I?", answer: "Elisha", hint: "I made an axe head float and healed Naaman." },
+        { text: "I was the Syrian commander healed of leprosy after dipping seven times in the Jordan. Who am I?", answer: "Naaman", hint: "Elisha told me to wash in the river." },
+        { text: "I was the king of Judah who saw the sun move backward as a sign I would be healed. Who am I?", answer: "Hezekiah", hint: "I added fifteen years to my life." },
+        { text: "I am the prophet who said, 'Before I formed you in the womb, I knew you.' Who am I?", answer: "Jeremiah", hint: "I wrote Lamentations." },
+        { text: "I am the prophet who saw the Lord on a throne, high and lifted up, and cried, 'Here am I; send me.' Who am I?", answer: "Isaiah", hint: "I prophesied about a virgin bearing a son." },
+        { text: "I am the prophet who said God requires justice, mercy, and a humble walk. Who am I?", answer: "Micah", hint: "I predicted Bethlehem as the Messiah's birthplace." },
+        { text: "I rebuilt the walls of Jerusalem in fifty-two days despite opposition. Who am I?", answer: "Nehemiah", hint: "I was cupbearer to the Persian king." },
+        { text: "I was the priest and scribe who read the Law to Israel after the exile. Who am I?", answer: "Ezra", hint: "I led the second return from Babylon." },
+        { text: "I was the Persian king who decreed that the Jews could return to rebuild the temple. Who am I?", answer: "Cyrus", hint: "Isaiah named me 150 years before I was born." },
+        { text: "I saw a hand writing on the wall at my feast, and Daniel interpreted it. Who am I?", answer: "Belshazzar", hint: "That night my kingdom fell." },
+        { text: "I was Esther's cousin who raised her and refused to bow to Haman. Who am I?", answer: "Mordecai", hint: "Haman built a gallows for me and died on it himself." },
+        { text: "I plotted to destroy all the Jews, and my own pride brought me down. Who am I?", answer: "Haman", hint: "Esther exposed my plan to the king." },
+        { text: "I was the disciple who brought my brother Peter to Jesus. Who am I?", answer: "Andrew", hint: "I was a fisherman from Bethsaida." },
+        { text: "I was a tax collector and wrote the first Gospel. Who am I?", answer: "Matthew", hint: "I also went by Levi." },
+        { text: "I was a Pharisee who came to Jesus at night with questions. Who am I?", answer: "Nicodemus", hint: "Jesus told me I must be born again." },
+        { text: "I am the disciple who replaced Judas as the twelfth apostle. Who am I?", answer: "Matthias", hint: "The apostles cast lots to choose me." },
+        { text: "I was dead four days and Jesus called me out of the tomb. Who am I?", answer: "Lazarus", hint: "My sisters were Mary and Martha." },
+        { text: "I am the sister of Lazarus who sat at Jesus' feet and listened. Who am I?", answer: "Mary of Bethany", hint: "I anointed Jesus' feet with expensive perfume." },
+        { text: "I am the sister of Lazarus who was busy serving and complained to Jesus. Who am I?", answer: "Martha", hint: "Jesus said Mary had chosen the better part." },
+        { text: "I was the criminal released by Pilate instead of Jesus. Who am I?", answer: "Barabbas", hint: "I was a murderer, and the crowd chose me." },
+        { text: "I was the high priest who condemned Jesus and tore my robes. Who am I?", answer: "Caiaphas", hint: "I said it was better for one man to die for the people." },
+        { text: "I was the rich man who asked Pilate for Jesus' body and buried Him in my tomb. Who am I?", answer: "Joseph of Arimathea", hint: "My tomb was new and never used." },
+        { text: "I was a Roman centurion who feared God, and Peter baptized me and my household. Who am I?", answer: "Cornelius", hint: "An angel told me to send for Peter." },
+        { text: "I am the businesswoman who sold purple cloth and opened my home to Paul. Who am I?", answer: "Lydia", hint: "I was baptized in Philippi by the river." },
+        { text: "I sang hymns with Paul in a Philippian prison, and an earthquake opened our chains. Who am I?", answer: "Silas", hint: "The jailer was saved that night." },
+        { text: "I am the young man Paul called 'my true son in the faith.' Who am I?", answer: "Timothy", hint: "I led the church at Ephesus." },
+        { text: "My wife and I lied to the Holy Spirit about how much we gave, and we both fell dead. Who am I?", answer: "Ananias", hint: "My wife's name was Sapphira." }
       ],
 
       biblec: [
@@ -2311,6 +2946,315 @@
         "Act out: Elijah fed by ravens",
         "Act out: The widow's oil multiplying",
         "Act out: Naaman dipping in the Jordan seven times"
+      ],
+
+      nhie: [
+        "Never have I ever sent a text and immediately regretted it.",
+        "Never have I ever forgotten someone's name right after being introduced.",
+        "Never have I ever pretended to know a song I'd never heard.",
+        "Never have I ever laughed at a joke I didn't understand.",
+        "Never have I ever faked a smile when I didn't feel like it.",
+        "Never have I ever used 'I was busy' as an excuse when I wasn't.",
+        "Never have I ever said 'let's link up' and never planned to.",
+        "Never have I ever said 'we should do this more often' without meaning it.",
+        "Never have I ever ignored a message for days on purpose.",
+        "Never have I ever reread a message ten times before sending it.",
+        "Never have I ever typed out a whole reply and then deleted it.",
+        "Never have I ever screenshotted a conversation to send to someone else.",
+        "Never have I ever talked about someone in a group chat they weren't in.",
+        "Never have I ever accidentally sent a message to the wrong person.",
+        "Never have I ever said 'I'm 5 minutes away' while still at home.",
+        "Never have I ever said 'I'm on my way' when I hadn't left yet.",
+        "Never have I ever fallen asleep mid-conversation.",
+        "Never have I ever pretended to be on a call to avoid someone.",
+        "Never have I ever walked past someone I owed money.",
+        "Never have I ever avoided someone I saw in public.",
+        "Never have I ever hidden a snack so I wouldn't have to share.",
+        "Never have I ever eaten food I was saving for someone else.",
+        "Never have I ever eaten something off the floor and pretended I didn't.",
+        "Never have I ever spilled something and quietly cleaned it up without telling anyone.",
+        "Never have I ever re-gifted a present.",
+        "Never have I ever pretended to like a gift I didn't.",
+        "Never have I ever used a fake excuse to leave a party early.",
+        "Never have I ever pretended to enjoy a party I wanted to leave.",
+        "Never have I ever shown up somewhere just because someone I liked was going.",
+        "Never have I ever changed my outfit three times before going out.",
+        "Never have I ever taken a photo of someone without them knowing.",
+        "Never have I ever googled myself.",
+        "Never have I ever checked someone's profile more than once in a day.",
+        "Never have I ever deleted a post because it didn't get enough likes.",
+        "Never have I ever posted something just for one person to see.",
+        "Never have I ever pretended to be offline.",
+        "Never have I ever pretended to be out of data.",
+        "Never have I ever used someone else's Wi-Fi without asking.",
+        "Never have I ever borrowed something and never returned it.",
+        "Never have I ever kept something that wasn't mine by mistake.",
+        "Never have I ever used a sibling's or friend's belonging without asking.",
+        "Never have I ever broken something and blamed someone else.",
+        "Never have I ever lost something and blamed someone else.",
+        "Never have I ever made a promise I knew I couldn't keep.",
+        "Never have I ever told a story that wasn't fully true.",
+        "Never have I ever exaggerated a story to sound more interesting.",
+        "Never have I ever added a detail to a story that never happened.",
+        "Never have I ever told the same story twice and changed details.",
+        "Never have I ever told a lie that snowballed.",
+        "Never have I ever been caught in a lie.",
+        "Never have I ever gotten away with something I shouldn't have.",
+        "Never have I ever cheated in a board game.",
+        "Never have I ever cheated in a card game.",
+        "Never have I ever moved the pieces when nobody was looking.",
+        "Never have I ever hidden my hand in a game to win.",
+        "Never have I ever pretended to lose to make someone feel better.",
+        "Never have I ever let someone win and never told them.",
+        "Never have I ever said 'I don't care' about something I cared about.",
+        "Never have I ever said 'I'm fine' when I wasn't.",
+        "Never have I ever said 'it's not a big deal' about something that was.",
+        "Never have I ever pretended to be okay with something I wasn't.",
+        "Never have I ever agreed to something I didn't want to do.",
+        "Never have I ever said 'no' and felt guilty about it for days.",
+        "Never have I ever said 'yes' when I meant 'no.'",
+        "Never have I ever cancelled plans and blamed something that wasn't the reason.",
+        "Never have I ever pretended to be sick to get out of something.",
+        "Never have I ever used the weather as an excuse when it wasn't the reason.",
+        "Never have I ever avoided a phone call on purpose.",
+        "Never have I ever let a call go to voicemail and texted instead.",
+        "Never have I ever pretended not to hear someone calling my name.",
+        "Never have I ever pretended not to see someone's message.",
+        "Never have I ever left someone on read on purpose.",
+        "Never have I ever left someone on read and then replied a week later.",
+        "Never have I ever told a friend 'I'll be there in 10' and taken an hour.",
+        "Never have I ever forgotten a close friend's birthday.",
+        "Never have I ever forgotten to reply to a birthday message.",
+        "Never have I ever promised to call and never did.",
+        "Never have I ever said 'I'll pray about it' and then didn't.",
+        "Never have I ever told someone I was praying for them and then didn't.",
+        "Never have I ever cried over something silly.",
+        "Never have I ever cried over a movie.",
+        "Never have I ever cried over a song.",
+        "Never have I ever cried at a wedding.",
+        "Never have I ever cried at a cartoon.",
+        "Never have I ever laughed so hard I couldn't breathe.",
+        "Never have I ever laughed at the wrong moment.",
+        "Never have I ever laughed at someone's misfortune.",
+        "Never have I ever envied a friend's success.",
+        "Never have I ever wished I had someone else's life for a day.",
+        "Never have I ever compared myself to someone on social media.",
+        "Never have I ever scrolled someone's page back years.",
+        "Never have I ever opened someone's profile picture to see it full-size.",
+        "Never have I ever clicked 'like' on an old post by mistake.",
+        "Never have I ever accidentally liked an ex's photo at 2 a.m.",
+        "Never have I ever had a crush I never told anyone about.",
+        "Never have I ever written something to someone and never sent it.",
+        "Never have I ever rehearsed a conversation in my head before having it.",
+        "Never have I ever had a dream about someone in this room.",
+        "Never have I ever forgotten a dream I wanted to remember.",
+        "Never have I ever made a wish that came true."
+      ],
+
+      confessions: [
+        "Never have I ever sent a text I immediately regretted.",
+        "Never have I ever ghosted someone.",
+        "Never have I ever stalked an ex on social media.",
+        "Never have I ever pretended to like a gift I hated.",
+        "Never have I ever lied about where I was going.",
+        "Never have I ever made out with someone in a public place.",
+        "Never have I ever had a crush on a friend's partner.",
+        "Never have I ever hooked up with someone I shouldn't have.",
+        "Never have I ever told a white lie to get out of a date.",
+        "Never have I ever flirted with someone just to see if I still had it.",
+        "Never have I ever kissed someone and pretended it didn't happen.",
+        "Never have I ever lied about my number of exes.",
+        "Never have I ever flirted with someone for free drinks.",
+        "Never have I ever dated two people at once.",
+        "Never have I ever been someone's side piece.",
+        "Never have I ever had someone be my side piece.",
+        "Never have I ever said 'I love you' first and regretted it.",
+        "Never have I ever told someone I was over them when I wasn't.",
+        "Never have I ever gone through someone's phone.",
+        "Never have I ever had my phone gone through.",
+        "Never have I ever lied about who I was texting.",
+        "Never have I ever used someone for something.",
+        "Never have I ever been used by someone.",
+        "Never have I ever pretended to be busy for someone I didn't like.",
+        "Never have I ever kept someone on the hook.",
+        "Never have I ever been kept on the hook.",
+        "Never have I ever flirted with a waiter or waitress for better service.",
+        "Never have I ever sent a risky photo.",
+        "Never have I ever received a risky photo.",
+        "Never have I ever kept a risky photo.",
+        "Never have I ever deleted a risky photo in panic.",
+        "Never have I ever sent a message to the wrong person.",
+        "Never have I ever had a message sent to the wrong person by someone else.",
+        "Never have I ever pretended not to see someone in public.",
+        "Never have I ever walked past someone I owed money.",
+        "Never have I ever pretended to be asleep to avoid a conversation.",
+        "Never have I ever faked being sick to avoid seeing someone.",
+        "Never have I ever hidden a relationship from my family.",
+        "Never have I ever hidden a friendship from a partner.",
+        "Never have I ever lied about my whereabouts to a partner.",
+        "Never have I ever checked someone's location without them knowing.",
+        "Never have I ever pretended not to care and then checked anyway.",
+        "Never have I ever slid into someone's DMs.",
+        "Never have I ever been slid into.",
+        "Never have I ever replied to a DM I should have ignored.",
+        "Never have I ever ignored a DM I wanted to reply to.",
+        "Never have I ever had a thing for someone older.",
+        "Never have I ever had a thing for someone much younger.",
+        "Never have I ever had a thing for someone in this room.",
+        "Never have I ever had a dream about someone in this room.",
+        "Never have I ever lied about how many people I've kissed.",
+        "Never have I ever exaggerated a story to sound more interesting.",
+        "Never have I ever lied about my age to get into something.",
+        "Never have I ever snuck into a place I wasn't supposed to be.",
+        "Never have I ever left a party with someone I came with someone else.",
+        "Never have I ever been someone's secret.",
+        "Never have I ever kept someone a secret.",
+        "Never have I ever said 'it's not what it looks like' when it was.",
+        "Never have I ever been caught doing something I shouldn't have.",
+        "Never have I ever gotten away with something I shouldn't have.",
+        "Never have I ever lied about my relationship status.",
+        "Never have I ever been lied to about a relationship status.",
+        "Never have I ever used the 'it's complicated' excuse.",
+        "Never have I ever had a situationship.",
+        "Never have I ever ended a situationship badly.",
+        "Never have I ever cried over someone who wasn't worth it.",
+        "Never have I ever cried over someone who was.",
+        "Never have I ever texted an ex after midnight.",
+        "Never have I ever gotten a text from an ex after midnight.",
+        "Never have I ever replied to that text.",
+        "Never have I ever ignored that text and then replied a week later.",
+        "Never have I ever told a friend 'you deserve better' while secretly liking their partner.",
+        "Never have I ever flirted with a friend's ex.",
+        "Never have I ever had a friend flirt with my ex.",
+        "Never have I ever been the other person and not known.",
+        "Never have I ever known and stayed.",
+        "Never have I ever lied to a friend to protect a secret.",
+        "Never have I ever lied to a friend to protect myself.",
+        "Never have I ever told a secret I was asked to keep.",
+        "Never have I ever kept a secret that should have been told.",
+        "Never have I ever faked a friendship for a benefit.",
+        "Never have I ever ended a friendship and never explained why.",
+        "Never have I ever been ghosted and never got closure.",
+        "Never have I ever ghosted someone and never explained why.",
+        "Never have I ever pretended to be okay with something I wasn't.",
+        "Never have I ever agreed to something I didn't want.",
+        "Never have I ever said 'no' and felt guilty for days.",
+        "Never have I ever said 'yes' when I meant 'no.'",
+        "Never have I ever regretted a decision the moment I made it.",
+        "Never have I ever made a decision I'm still proud of.",
+        "Never have I ever done something in this room I've never told anyone.",
+        "Never have I ever done something that would surprise this room.",
+        "Never have I ever done something that would surprise my family.",
+        "Never have I ever done something that would surprise myself.",
+        "Never have I ever done something that would change how someone sees me.",
+        "Never have I ever done something that changed how I see myself.",
+        "Never have I ever looked back on something and laughed.",
+        "Never have I ever looked back on something and cried.",
+        "Never have I ever looked back on something and wished I could do it again.",
+        "Never have I ever looked back on something and known I'd do it the same way."
+      ],
+
+      riddles: [
+        { text: "What has hands but cannot clap?", answer: "A clock", hint: "It's always telling you something." },
+        { text: "What gets wetter the more it dries?", answer: "A towel", hint: "You use it after a shower." },
+        { text: "What has many keys but cannot open a single door?", answer: "A piano", hint: "You'd find it in a music room." },
+        { text: "What goes up but never comes down?", answer: "Your age", hint: "It happens to everyone, every year." },
+        { text: "What has a thumb and four fingers but is not alive?", answer: "A glove", hint: "You wear it on your hand." },
+        { text: "What has a neck but no head?", answer: "A bottle", hint: "You drink from it." },
+        { text: "What has teeth but cannot bite?", answer: "A comb", hint: "You use it on your hair." },
+        { text: "What has eyes but cannot see?", answer: "A needle", hint: "It's used for sewing." },
+        { text: "What has ears but cannot hear?", answer: "Corn", hint: "You can eat it, and it pops." },
+        { text: "What speaks without a mouth and hears without ears?", answer: "An echo", hint: "You hear it in a canyon or a big empty room." },
+        { text: "The more you take, the more you leave behind. What are they?", answer: "Footsteps", hint: "You make them when you walk." },
+        { text: "What can travel around the world while staying in a corner?", answer: "A stamp", hint: "It goes on envelopes." },
+        { text: "What has a head and a tail but no body?", answer: "A coin", hint: "You flip it." },
+        { text: "What has four legs but cannot walk?", answer: "A table", hint: "You eat on it." },
+        { text: "What has a bed but never sleeps?", answer: "A river", hint: "Water flows through it." },
+        { text: "What can you catch but not throw?", answer: "A cold", hint: "It's a sickness." },
+        { text: "What gets bigger the more you take away?", answer: "A hole", hint: "Digging makes it larger." },
+        { text: "What has words but never speaks?", answer: "A book", hint: "You read it." },
+        { text: "What is full of holes but still holds water?", answer: "A sponge", hint: "You use it to clean." },
+        { text: "What runs but never walks?", answer: "Water", hint: "It's in a tap." },
+        { text: "What has a ring but no finger?", answer: "A telephone", hint: "You hear it before answering." },
+        { text: "What has a wheel but no car?", answer: "A bicycle", hint: "You ride it." },
+        { text: "What has a foot but no leg?", answer: "A ruler", hint: "It measures things." },
+        { text: "What has a face and two hands but no arms or legs?", answer: "A clock", hint: "Look at a wrist or a wall." },
+        { text: "What has a bark but no bite?", answer: "A tree", hint: "It's in a forest." },
+        { text: "What has a tongue but cannot taste?", answer: "A shoe", hint: "You wear it on your foot." },
+        { text: "What has a roof but no walls?", answer: "An umbrella", hint: "You use it when it rains." },
+        { text: "What has a handle but no door?", answer: "A cup", hint: "You drink from it." },
+        { text: "What has a strap but no belt?", answer: "A watch", hint: "You wear it on your wrist." },
+        { text: "What has a spine but no bones?", answer: "A book", hint: "You read it." },
+        { text: "What has a wing but cannot fly?", answer: "A theatre", hint: "Actors perform there." },
+        { text: "What has a shell but no nut?", answer: "An egg", hint: "You can eat it for breakfast." },
+        { text: "What has a crown but no king?", answer: "A pineapple", hint: "It's a tropical fruit." },
+        { text: "What has a screen but no door?", answer: "A phone", hint: "You scroll on it." },
+        { text: "What has a bell but never rings?", answer: "A bicycle", hint: "You ride it." },
+        { text: "What has a hundred legs but cannot stand, and a long neck but no head?", answer: "A broom", hint: "You use it for sweeping." },
+        { text: "What can fill a room but takes up no space?", answer: "Light", hint: "It comes from a bulb." },
+        { text: "What is seen in the middle of March and April but not at the beginning or end of either?", answer: "The letter R", hint: "It's not a physical thing — look at the words." },
+        { text: "I am tall when I am young and short when I am old. What am I?", answer: "A candle", hint: "It burns." },
+        { text: "What has a thousand needles but cannot sew?", answer: "A porcupine", hint: "It's an animal." },
+        { text: "I have cities but no houses, forests but no trees, and water but no fish. What am I?", answer: "A map", hint: "You use it for directions." },
+        { text: "What has a hundred eyes but cannot see?", answer: "A storm", hint: "It's weather-related." },
+        { text: "What gets sharper the more you use it?", answer: "Your brain", hint: "It's part of you." },
+        { text: "What is lighter than a feather but the strongest person cannot hold it for long?", answer: "Breath", hint: "You do it every few seconds." },
+        { text: "What has a mouth but cannot eat?", answer: "A river", hint: "Water flows through it." },
+        { text: "What has a tail but no head?", answer: "A kite", hint: "It flies in the sky." },
+        { text: "What can be cracked, made, told, and played?", answer: "A joke", hint: "It makes people laugh." },
+        { text: "What belongs to you but others use it more than you do?", answer: "Your name", hint: "You hear it when people call you." },
+        { text: "What begins with T, ends with T, and has T in it?", answer: "A teapot", hint: "You pour drinks from it." },
+        { text: "What begins with E, ends with E, but has only one letter in it?", answer: "An envelope", hint: "You mail things in it." },
+        { text: "What is black when you buy it, red when you use it, and grey when you throw it out?", answer: "Charcoal", hint: "You use it for a barbecue." },
+        { text: "What is white when it is dirty and black when it is clean?", answer: "A chalkboard", hint: "A teacher uses it." },
+        { text: "What can you hold in your left hand but never in your right hand?", answer: "Your right elbow", hint: "It's part of your body." },
+        { text: "What can you keep after giving it to someone?", answer: "Your word", hint: "You can break it, or keep it." },
+        { text: "What is at the end of a rainbow?", answer: "The letter W", hint: "It's not physical — look at the word." },
+        { text: "What is at the end of everything?", answer: "The letter G", hint: "Look at the word 'everything'." },
+        { text: "What has one horn but cannot fight?", answer: "A unicorn", hint: "Mythical creature." },
+        { text: "What goes up and down but never moves?", answer: "Stairs", hint: "You climb it." },
+        { text: "What has a head, a tail, is brown, and has no legs?", answer: "A penny", hint: "It's money." },
+        { text: "What can you put in a bucket to make it lighter?", answer: "A hole", hint: "You'd drill it." },
+        { text: "What comes once in a minute, twice in a moment, but never in a thousand years?", answer: "The letter M", hint: "Count the letter in the words." },
+        { text: "What word is spelled the same way forwards and backwards?", answer: "NOON", hint: "It's a time of day." },
+        { text: "What is always coming but never arrives?", answer: "Tomorrow", hint: "It's a day." },
+        { text: "What question can you never answer yes to?", answer: "Are you asleep?", hint: "It's about your state right now." },
+        { text: "What can you serve but never eat?", answer: "A tennis ball", hint: "It's used in a sport." },
+        { text: "What can you break even if you never touch it?", answer: "A promise", hint: "You make it to someone." },
+        { text: "What has no beginning, end, or middle?", answer: "A circle", hint: "It's a shape." },
+        { text: "What goes through cities and fields but never moves?", answer: "A road", hint: "You drive on it." },
+        { text: "I have keys but no locks, space but no room, and you can enter but cannot go outside. What am I?", answer: "A keyboard", hint: "You type on it." },
+        { text: "What is harder to catch the faster you run?", answer: "Your breath", hint: "Exercise makes it hard." },
+        { text: "What starts with P, ends with E, and has thousands of letters?", answer: "A post office", hint: "It's a place." },
+        { text: "What has wings but cannot fly?", answer: "A building", hint: "It's part of a structure." },
+        { text: "What has a mouth but no face?", answer: "A cave", hint: "You explore it." },
+        { text: "What can you hold without touching it?", answer: "A conversation", hint: "Two people do it." },
+        { text: "What can be given but not bought?", answer: "A compliment", hint: "A nice thing to say." },
+        { text: "What grows smaller the more you use it?", answer: "A bar of soap", hint: "It's in the bathroom." },
+        { text: "What is always old and always new?", answer: "Time", hint: "It never stops." },
+        { text: "What is always right in front of you but cannot be seen?", answer: "The future", hint: "It hasn't happened yet." },
+        { text: "What is so fragile that saying its name breaks it?", answer: "Silence", hint: "It's quiet." },
+        { text: "I have a heart that does not beat. What am I?", answer: "An artichoke", hint: "You can eat it." },
+        { text: "What has a thousand teeth but cannot eat?", answer: "A saw", hint: "It cuts wood." },
+        { text: "What can you swallow but never eat?", answer: "Your pride", hint: "It's an emotion." },
+        { text: "What can you open but never close once opened?", answer: "An egg", hint: "It's in your fridge." },
+        { text: "What can you count but never reach?", answer: "The stars", hint: "They're in the sky." },
+        { text: "What has a tongue but never speaks?", answer: "A flame", hint: "It's part of a fire." },
+        { text: "What has a head and a foot but no body?", answer: "A bed", hint: "You sleep on it." },
+        { text: "What can you lose in a second but take forever to build?", answer: "Trust", hint: "It's between people." },
+        { text: "What can never be taken back once it is given?", answer: "A spoken word", hint: "You can't unsay it." },
+        { text: "What can be broken and mended and broken again?", answer: "A heart", hint: "It's in your chest." },
+        { text: "What can be kept but never held?", answer: "A secret", hint: "You share it or you don't." },
+        { text: "What can be held but never kept?", answer: "A breath", hint: "You do it to stay alive." },
+        { text: "What can be felt but never seen?", answer: "The wind", hint: "It moves the leaves." },
+        { text: "What can be said but never spoken?", answer: "A thought", hint: "It's in your mind." },
+        { text: "What can be imagined but never built?", answer: "A perfect world", hint: "It's a dream." },
+        { text: "What comes down but never goes up?", answer: "Rain", hint: "It falls from clouds." },
+        { text: "What goes up when rain comes down?", answer: "An umbrella", hint: "You hold it." },
+        { text: "What has one foot but no legs?", answer: "A snail", hint: "It's slow." },
+        { text: "What runs around a house but never moves?", answer: "A fence", hint: "It's outside." },
+        { text: "What has many cells but is not a prison?", answer: "A honeycomb", hint: "Bees make it." },
+        { text: "What has a hundred stories but no rooms?", answer: "A library", hint: "It's full of books." }
       ]
     };
 
@@ -2319,35 +3263,38 @@
        ========================================================= */
 
     const DECKS = {
-      naija: { label: "Playful Naija", emoji: "🇳🇬", color: "#00A651" },
-      friends: { label: "Banter", emoji: "🍿", color: "#7C3AED" },
-      realtalk: { label: "Heart to Heart", emoji: "❤️", color: "#14B8A6" },
-      doam: { label: "Leave It or Drop It", emoji: "🔥", color: "#F97316" },
-      charades: { label: "Charades", emoji: "🎭", color: "#0EA5E9" },
-      bibleq: { label: "Bible Questions", emoji: "✝️", color: "#B45309" },
-      biblec: { label: "Bible Charades", emoji: "📖", color: "#92400E" }
+      naija: { label: "Playful Deck", emoji: "🎉", color: "#F97316" },
+      friends: { label: "Banter", emoji: "🍿", color: "#8B5CF6" },
+      realtalk: { label: "Heart to Heart", emoji: "💗", color: "#EC4899" },
+      doam: { label: "Leave It or Drop It", emoji: "🔥", color: "#EF4444" },
+      charades: { label: "Charades", emoji: "🎭", color: "#14B8A6" },
+      bibleq: { label: "Bible Trivia", emoji: "✝️", color: "#D97706" },
+      biblec: { label: "Bible Charades", emoji: "📖", color: "#92400E" },
+      riddles: { label: "Riddles", emoji: "🧩", color: "#0EA5E9" },
+      nhie: { label: "Never Have I Ever", emoji: "🫣", color: "#3B82F6", scoring: true, startScore: 5 },
+      confessions: { label: "Confessions", emoji: "😏", color: "#F43F5E", scoring: true, startScore: 5 }
     };
 
     const FILTERS = [
       { key: "all", label: "🎲 Random Mix", short: "Random Mix" },
-      { key: "naija", label: "🇳🇬 Playful Naija", short: "Playful Naija" },
+      { key: "naija", label: "🎉 Playful Deck", short: "Playful Deck" },
       { key: "friends", label: "🍿 Banter", short: "Banter" },
-      { key: "realtalk", label: "� Heart to Heart", short: "Heart to Heart" },
+      { key: "realtalk", label: "💗 Heart to Heart", short: "Heart to Heart" },
       { key: "doam", label: "🔥 Leave It or Drop It", short: "Leave It or Drop It" },
       { key: "charades", label: "🎭 Charades", short: "Charades" },
-      { key: "bibleq", label: "✝️ Bible Questions", short: "Bible Questions" },
-      { key: "biblec", label: "📖 Bible Charades", short: "Bible Charades" }
+      { key: "bibleq", label: "✝️ Bible Trivia", short: "Bible Trivia" },
+      { key: "biblec", label: "📖 Bible Charades", short: "Bible Charades" },
+      { key: "riddles", label: "🧩 Riddles", short: "Riddles" },
+      { key: "nhie", label: "🫣 Never Have I Ever", short: "Never Have I Ever" },
+      { key: "confessions", label: "😏 Confessions", short: "Confessions" }
     ];
 
-    /* Decks excluded from Random Mix. Charade-style decks and Heart to Heart
-       are omitted so Random Mix stays focused on lighter conversational,
-       dare, and Bible trivia prompts. To include one again, remove it
-       from this array. */
-    const RANDOM_MIX_EXCLUDE = ["charades", "biblec", "realtalk"];
+    const RANDOM_MIX_EXCLUDE = ["charades", "biblec", "realtalk", "nhie", "confessions"];
 
-    const STORAGE_KEY = "naijaPartyCards.v3";
-    const INTRO_KEY = "naijaPartyCards.introSeen";
-    const PEER_PREFIX = "naija-party-";
+    const STORAGE_KEY = "hangoutCards.v1";
+    const INTRO_KEY = "hangoutCards.introSeen";
+    const THEME_KEY = "hangoutCards.theme";
+    const PEER_PREFIX = "hangout-";
     const CODE_CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
     /* =========================================================
@@ -2357,15 +3304,23 @@
     const cardEl = document.getElementById("card");
     const tagEl = document.getElementById("tag");
     const qEl = document.getElementById("question");
-    const answerEl = document.getElementById("answer");
+    const hintText = document.getElementById("hintText");
+    const revealBlock = document.getElementById("revealBlock");
+    const voteStatus = document.getElementById("voteStatus");
+    const hintRevealRow = document.getElementById("hintRevealRow");
+    const hintBtn = document.getElementById("hintBtn");
     const revealBtn = document.getElementById("revealBtn");
     const choices = document.getElementById("choices");
+    const scoringChoices = document.getElementById("scoringChoices");
     const controls = document.getElementById("controls");
     const waiting = document.getElementById("waitingNote");
     const nextBtn = document.getElementById("nextBtn");
     const resetBtn = document.getElementById("resetBtn");
+    const leaderBtn = document.getElementById("leaderBtn");
     const doBtn = document.getElementById("doBtn");
     const leaveBtn = document.getElementById("leaveBtn");
+    const haveBtn = document.getElementById("haveBtn");
+    const haventBtn = document.getElementById("haventBtn");
     const chipsEl = document.getElementById("chips");
     const statsEl = document.getElementById("stats");
     const toastEl = document.getElementById("toast");
@@ -2379,6 +3334,7 @@
     const modal = document.getElementById("modal");
     const helpBtn = document.getElementById("helpBtn");
     const helpLink = document.getElementById("helpLink");
+    const themeBtn = document.getElementById("themeBtn");
 
     const gameSelect = document.getElementById("gameSelect");
     const gameSelectEmoji = document.getElementById("gameSelectEmoji");
@@ -2407,7 +3363,11 @@
       current: null,
       drawn: 0,
       didCount: 0,
-      leaveCount: 0
+      leaveCount: 0,
+      guests: [],
+      voters: [{ id: "you", name: "You", score: 5, voted: false, vote: null }],
+      votePhase: "voting",
+      isScoring: false
     };
 
     let role = "solo";
@@ -2415,6 +3375,7 @@
     let partyName = "";
     let remoteRemaining = null;
     let revealed = false;
+    let hintRevealed = false;
 
     let soundOn = true;
     let peer = null;
@@ -2452,6 +3413,7 @@
         deck,
         text: raw.text,
         answer: raw.answer,
+        hint: raw.hint,
         kind: raw.kind || (raw.answer ? "question" : "plain")
       };
     }
@@ -2493,13 +3455,15 @@
     function cardSound() { tone(520, 0.06, "triangle", 0.045); setTimeout(() => tone(780, 0.09, "triangle", 0.04), 55); }
     function doSound() { tone(660, 0.07); setTimeout(() => tone(990, 0.12), 70); }
     function skipSound() { tone(300, 0.12, "sine", 0.05); }
+    function hintSound() { tone(880, 0.06); setTimeout(() => tone(660, 0.09), 50); }
+    function revealSound() { tone(500, 0.08); setTimeout(() => tone(700, 0.08), 70); setTimeout(() => tone(950, 0.12), 140); }
 
     /* ---- Confetti ---- */
     const cv = document.getElementById("confetti");
     const cx = cv.getContext("2d");
     let particles = [];
     let rafId = null;
-    const CONFETTI_COLORS = ["#00A651", "#FFC72C", "#ffffff", "#F97316", "#7C3AED", "#16a34a"];
+    const CONFETTI_COLORS = ["#FF7A5C", "#8B5CF6", "#14B8A6", "#F59E0B", "#EC4899", "#3B82F6"];
 
     function fitCanvas() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -2540,44 +3504,103 @@
     }
 
     /* =========================================================
-       6. ONBOARDING
+       6. THEME
+       ========================================================= */
+
+    let currentTheme = "auto";
+
+    function updateThemeBtn() {
+      if (!themeBtn) return;
+      const effective = document.documentElement.dataset.theme;
+      if (currentTheme === "auto") {
+        themeBtn.textContent = "🌗";
+        themeBtn.title = "Theme: System";
+      } else if (effective === "dark") {
+        themeBtn.textContent = "🌙";
+        themeBtn.title = "Theme: Dark";
+      } else {
+        themeBtn.textContent = "☀️";
+        themeBtn.title = "Theme: Light";
+      }
+    }
+
+    function applyTheme(theme) {
+      const effective = theme === "auto"
+        ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+        : theme;
+      document.documentElement.dataset.theme = effective;
+      updateThemeBtn();
+    }
+
+    function cycleTheme() {
+      if (currentTheme === "light") currentTheme = "dark";
+      else if (currentTheme === "dark") currentTheme = "auto";
+      else currentTheme = "light";
+      try { localStorage.setItem(THEME_KEY, currentTheme); } catch (e) { }
+      applyTheme(currentTheme);
+      const label = currentTheme === "auto" ? "System" : (currentTheme === "dark" ? "Dark" : "Light");
+      toast("Theme: " + label);
+      tone(700, 0.05);
+    }
+
+    function loadTheme() {
+      try {
+        const saved = localStorage.getItem(THEME_KEY);
+        if (saved === "light" || saved === "dark" || saved === "auto") currentTheme = saved;
+      } catch (e) { }
+      applyTheme(currentTheme);
+    }
+
+    themeBtn.addEventListener("click", cycleTheme);
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    mq.addEventListener("change", () => {
+      if (currentTheme === "auto") applyTheme("auto");
+    });
+
+    /* =========================================================
+       7. ONBOARDING
        ========================================================= */
 
     const INTRO_STEPS = [
       {
-        emoji: "🎉",
-        title: "Welcome to Naija Party Cards",
-        body: "700 prompts across seven decks — Playful Naija, Banter, Heart to Heart, Leave It or Drop It, Charades, Bible Questions, and Bible Charades. Pick a game, draw a card, and let the party run itself."
+        emoji: "🎈",
+        title: "Welcome to The Hangout",
+        body: "1,100 prompts across ten decks — conversation, dares, charades, trivia, riddles, and two Never Have I Ever scoring decks. Pick a game, draw a card, and let the hangout run itself."
       },
       {
         emoji: "🎲",
         title: "1. Choose your game",
-        body: "On desktop, tap a chip at the top. On mobile and tablet, tap the game selector bar to open the menu. Choose Playful Naija, Banter, Heart to Heart, Leave It or Drop It, Charades, Bible Questions, or Bible Charades — or leave it on Random Mix for a shuffle of the four conversational decks."
+        body: "On desktop, tap a chip at the top. On mobile, tap the game selector bar to open the menu. Pick a deck, or leave it on Random Mix for a shuffle of the conversational, dare, trivia, and riddle decks."
       },
       {
         emoji: "👉",
         title: "2. Draw a card",
-        body: "Tap Next Card, swipe left on the card, or press Space / →. Each draw is random, and the deck avoids repeats until it reshuffles itself."
+        body: "Tap Next Card, swipe left on the card, or press Space / →. Each draw is random, and the deck avoids repeats until it reshuffles."
       },
       {
         emoji: "💪",
-        title: "3. Leave It or Drop It",
-        body: "Dares and charade cards show two buttons: I DO AM to perform it, or I LEAVE AM to skip. Choosing either fires confetti and moves to the next card automatically. Keyboard: 1 = do, 2 = leave."
+        title: "3. Do Am / Leave Am",
+        body: "Dares and charade cards show I DO AM and I LEAVE AM. Choosing either fires confetti and moves to the next card automatically. Keyboard: 1 = do, 2 = leave."
       },
       {
-        emoji: "✝️",
-        title: "4. Bible Questions & Bible Charades",
-        body: "Bible Questions hide the answer behind a Reveal Answer button — tap it (or press A) when the group is ready. Bible Charades work like normal charades: act it out, or skip with I LEAVE AM."
+        emoji: "💡",
+        title: "4. Hints and answers",
+        body: "Bible Trivia and Riddles cards have a Hint button — tap it for a nudge before you Reveal the answer. Keyboard: H = hint, A = reveal."
+      },
+      {
+        emoji: "🫣",
+        title: "5. Never Have I Ever — scoring decks",
+        body: "Never Have I Ever and Confessions work differently. Everyone taps I HAVE or I HAVEN'T on their own device. When the host reveals, scores update. Everyone starts at 5 points — each I HAVE drops a point."
       },
       {
         emoji: "🎉",
-        title: "5. Play together with Party Mode",
-        body: "Tap Party → Host a Party on one device. Share the 4-letter code, link, or QR code. Everyone who joins sees the same card on their own phone, at the same time. Guests can tap Do Am or Leave Am and the host's device advances everyone."
+        title: "6. Party Mode",
+        body: "Tap Party → Host a Party on one device. Guests join with a code, link, or QR. Everyone sees the same card at once, and scoring decks sync in real time."
       },
       {
-        emoji: "⚙️",
-        title: "6. Make it personal",
-        body: "Open ⚙️ Settings to type the birthday person's name — prompts that mention 'the birthday celebrant' will use their name instead. Toggle sound effects on or off. Press R anytime to reset the deck."
+        emoji: "🌙",
+        title: "7. Settings and theme",
+        body: "Type the birthday person's name in ⚙️ Settings so prompts use it directly. Tap the theme button in the header to cycle Light, Dark, and System. Press R to reset the deck anytime."
       }
     ];
 
@@ -2598,11 +3621,11 @@
       });
 
       introBack.hidden = introIndex === 0;
-      introNext.textContent = introIndex === INTRO_STEPS.length - 1 ? "Let's Play 🎉" : "Next →";
+      introNext.textContent = introIndex === INTRO_STEPS.length - 1 ? "Let's Play 🎈" : "Next →";
 
       if (introIndex === INTRO_STEPS.length - 1) {
         introTip.hidden = false;
-        introTip.innerHTML = "<b>Shortcuts:</b> Space / → = next card · 1 = do am · 2 = leave am · A = reveal answer · R = reset. Reopen this guide anytime with the ❓ button or the footer link.";
+        introTip.innerHTML = "<b>Shortcuts:</b> Space / → = next card · 1 = do · 2 = leave · H = hint · A = reveal · R = reset. Reopen this guide anytime with the ❓ button.";
       } else {
         introTip.hidden = true;
       }
@@ -2647,7 +3670,7 @@
     });
 
     /* =========================================================
-       7. GAME SELECTOR + CHIPS
+       8. GAME SELECTOR
        ========================================================= */
 
     function openDeckSheet() {
@@ -2685,6 +3708,7 @@
         c.setAttribute("aria-pressed", String(c.dataset.key === state.filter));
       });
       [...deckSheetList.children].forEach(c => {
+        if (!c.dataset.key) return;
         c.setAttribute("aria-checked", String(c.dataset.key === state.filter));
       });
       updateGameSelectButton();
@@ -2694,7 +3718,28 @@
       chipsEl.innerHTML = "";
       deckSheetList.innerHTML = "";
 
-      FILTERS.forEach(f => {
+      const convoHeader = document.createElement("div");
+      convoHeader.className = "deck-sheet-section";
+      convoHeader.textContent = "Conversational";
+      deckSheetList.appendChild(convoHeader);
+
+      const mixFilters = FILTERS.filter(f => f.key === "all");
+      const convFilters = FILTERS.filter(f =>
+        ["naija", "friends", "realtalk", "doam", "charades", "bibleq", "biblec", "riddles"].includes(f.key)
+      );
+      const scoreFilters = FILTERS.filter(f => ["nhie", "confessions"].includes(f.key));
+
+      mixFilters.forEach(f => appendFilter(f));
+      convFilters.forEach(f => appendFilter(f));
+
+      const scoreHeader = document.createElement("div");
+      scoreHeader.className = "deck-sheet-section";
+      scoreHeader.innerHTML = 'Scoring <span class="badge-score">SYNCED</span>';
+      deckSheetList.appendChild(scoreHeader);
+
+      scoreFilters.forEach(f => appendFilter(f));
+
+      function appendFilter(f) {
         const b = document.createElement("button");
         b.className = "chip";
         b.type = "button";
@@ -2715,11 +3760,15 @@
         const emoji = parts[0];
         const shortLabel = f.short || parts.slice(1).join(" ");
         const count = deckCount(f.key);
+        const isScoring = DECKS[f.key] && DECKS[f.key].scoring;
 
         opt.innerHTML = `
       <span class="deck-option-emoji" aria-hidden="true">${emoji}</span>
       <span class="deck-option-body">
-        <span class="deck-option-label">${shortLabel}</span>
+        <span class="deck-option-label">
+          ${shortLabel}
+          ${isScoring ? '<span class="badge-score">SCORING</span>' : ''}
+        </span>
         <span class="deck-option-count">${count} card${count === 1 ? "" : "s"}</span>
       </span>
       <span class="deck-option-check" aria-hidden="true">✓</span>
@@ -2731,11 +3780,11 @@
         });
 
         deckSheetList.appendChild(opt);
-      });
+      }
     }
 
     /* =========================================================
-       8. RENDERING
+       9. RENDERING
        ========================================================= */
 
     function buildQueue() {
@@ -2769,15 +3818,19 @@
     }
 
     function showWelcome() {
-      cardEl.style.setProperty("--accent", "#00A651");
+      cardEl.style.setProperty("--accent", "#FF7A5C");
       tagEl.textContent = "Ready";
       qEl.className = "q intro";
       qEl.textContent = role === "guest"
         ? "Waiting for the host to draw the first card…"
         : "Tap “Next Card” to draw your first prompt.";
-      answerEl.hidden = true;
-      revealBtn.hidden = true;
+      hintText.hidden = true;
+      revealBlock.hidden = true;
+      voteStatus.hidden = true;
+      hintRevealRow.hidden = true;
       choices.hidden = true;
+      scoringChoices.hidden = true;
+      leaderBtn.hidden = true;
       updateStats();
     }
 
@@ -2790,26 +3843,93 @@
       qEl.className = "q";
       qEl.textContent = personalize(item.text);
 
-      const isPerformance = item.deck === "doam" || item.kind === "charade";
-      choices.hidden = !isPerformance;
+      const isScoring = !!deck.scoring;
+      state.isScoring = isScoring;
 
+      const hasAnswer = !!item.answer;
+      const hasHint = !!item.hint;
       const rv = !!opts.revealed;
-      if (item.answer) {
-        answerEl.textContent = item.answer;
-        answerEl.hidden = !rv;
-        revealBtn.hidden = rv;
+      const hv = !!opts.hintRevealed;
+
+      if (hasHint && hv) {
+        hintText.textContent = "💡 " + item.hint;
+        hintText.hidden = false;
       } else {
-        answerEl.hidden = true;
-        answerEl.textContent = "";
+        hintText.hidden = true;
+        hintText.textContent = "";
+      }
+
+      if (hasHint && !hv && !isScoring) {
+        hintBtn.hidden = false;
+        hintBtn.disabled = false;
+      } else {
+        hintBtn.hidden = true;
+      }
+
+      if (hasAnswer && !isScoring) {
+        revealBtn.hidden = rv;
+        revealBtn.textContent = "👁️ Reveal Answer";
+      } else {
         revealBtn.hidden = true;
+      }
+
+      hintRevealRow.hidden = !((hasHint && !hv && !isScoring) || (hasAnswer && !rv && !isScoring));
+
+      if (hasAnswer && rv && !isScoring) {
+        revealBlock.hidden = false;
+        revealBlock.innerHTML = `<div class="reveal-group">
+      <div class="reveal-label">Answer</div>
+      <div class="reveal-list">${item.answer}</div>
+    </div>`;
+      } else if (!isScoring) {
+        revealBlock.hidden = true;
+        revealBlock.innerHTML = "";
+      }
+
+      if (isScoring) {
+        choices.hidden = true;
+        scoringChoices.hidden = false;
+        revealBtn.hidden = false;
+        revealBtn.textContent = "👁️ Reveal Answers";
+        revealBtn.disabled = !(state.guests.length > 0 && state.guests.every(g => g.voted) && state.voters[0].voted);
+        leaderBtn.hidden = false;
+        renderVoteStatus();
+      } else {
+        const isPerformance = item.deck === "doam" || item.kind === "charade";
+        choices.hidden = !isPerformance;
+        scoringChoices.hidden = true;
+        leaderBtn.hidden = true;
+        voteStatus.hidden = true;
       }
 
       if (opts.animate !== false) animateCard();
       updateStats();
     }
 
+    function renderVoteStatus() {
+      if (!state.isScoring) { voteStatus.hidden = true; return; }
+      voteStatus.hidden = false;
+
+      if (state.votePhase === "revealed") {
+        voteStatus.innerHTML = `<span class="vote-pill wait">Revealed</span>`;
+        return;
+      }
+
+      if (role === "solo") {
+        voteStatus.innerHTML = `<span class="vote-pill wait">Vote to continue</span>`;
+      } else if (role === "host") {
+        const total = state.guests.length + 1;
+        const voted = state.guests.filter(g => g.voted).length + (state.voters[0].voted ? 1 : 0);
+        voteStatus.innerHTML = `<span class="vote-pill">${voted} of ${total} voted</span>`;
+      } else {
+        voteStatus.innerHTML = state.voters[0].voted
+          ? `<span class="vote-pill wait">Voted — waiting for the host</span>`
+          : `<span class="vote-pill wait">Vote to continue</span>`;
+      }
+    }
+
     /* =========================================================
-       9. GAME LOGIC
+       10. GAME LOGIC
        ========================================================= */
 
     function drawCard() {
@@ -2819,6 +3939,10 @@
       state.current = item;
       state.drawn++;
       revealed = false;
+      hintRevealed = false;
+      state.votePhase = "voting";
+      state.voters.forEach(v => { v.voted = false; v.vote = null; });
+      state.guests.forEach(g => { g.voted = false; g.vote = null; });
       cardSound();
       burst(34);
       render(item);
@@ -2846,14 +3970,96 @@
       setTimeout(drawCard, 160);
     }
 
-    function revealAnswer() {
-      if (!state.current || !state.current.answer) return;
-      revealed = true;
-      answerEl.textContent = state.current.answer;
-      answerEl.hidden = false;
-      revealBtn.hidden = true;
-      tone(880, 0.09);
+    function revealHint() {
+      if (!state.current || !state.current.hint) return;
+      if (hintRevealed) return;
+      hintRevealed = true;
+      hintSound();
+      render(state.current, { animate: false, revealed: revealed, hintRevealed: true });
       if (role === "host") broadcastState();
+    }
+
+    function revealAnswer() {
+      if (!state.current) return;
+
+      if (state.isScoring) {
+        if (state.votePhase === "revealed") return;
+        const start = DECKS[state.current.deck].startScore || 5;
+        const allVoters = role === "solo"
+          ? state.voters
+          : [state.voters[0], ...state.guests];
+        allVoters.forEach(v => {
+          if (!v.voted) return;
+          if (v.vote === "have") v.score = Math.max(0, v.score - 1);
+        });
+        state.votePhase = "revealed";
+        revealSound();
+        burst(60);
+        render(state.current, { animate: false });
+        broadcastState();
+        return;
+      }
+
+      if (!state.current.answer) return;
+      if (revealed) return;
+      revealed = true;
+      revealSound();
+      render(state.current, { animate: false, revealed: true, hintRevealed: hintRevealed });
+      if (role === "host") broadcastState();
+    }
+
+    function castVote(value) {
+      if (role === "guest") {
+        sendToHost({ type: "action", action: "vote", value });
+        state.voters[0].voted = true;
+        state.voters[0].vote = value;
+        haveBtn.disabled = true;
+        haventBtn.disabled = true;
+        renderVoteStatus();
+        toast("Vote sent ✋");
+        return;
+      }
+      if (state.voters[0].voted) return;
+      state.voters[0].voted = true;
+      state.voters[0].vote = value;
+      haveBtn.disabled = true;
+      haventBtn.disabled = true;
+      renderVoteStatus();
+      broadcastState();
+    }
+
+    function showLeaderboard() {
+      const allVoters = role === "solo" ? state.voters : [state.voters[0], ...state.guests];
+      const sorted = allVoters.slice().sort((a, b) => b.score - a.score);
+      const topScore = sorted[0] ? sorted[0].score : 0;
+
+      const rows = sorted.map((v, i) => {
+        const winner = v.score === topScore && topScore > 0 ? " winner" : "";
+        return `<div class="lb-row${winner}">
+      <span class="lb-rank">${i + 1}.</span>
+      <span class="lb-name">${v.name}</span>
+      <span class="lb-score">${v.score}</span>
+    </div>`;
+      }).join("");
+
+      openModal(`
+    <h2>🏆 Scores</h2>
+    <p>Started at 5. Every <b>I HAVE</b> costs one point. Highest score wins.</p>
+    <div class="leaderboard">${rows}</div>
+    <div class="modal-actions">
+      <button class="btn ghost" id="mReset">Reset Scores</button>
+      <button class="btn primary" id="mClose">Close</button>
+    </div>
+  `);
+
+      document.getElementById("mClose").onclick = closeModal;
+      document.getElementById("mReset").onclick = () => {
+        state.voters.forEach(v => { v.score = 5; });
+        state.guests.forEach(g => { g.score = 5; });
+        closeModal();
+        broadcastState();
+        toast("Scores reset 🏆");
+      };
     }
 
     function resetGame() {
@@ -2863,6 +4069,10 @@
       state.leaveCount = 0;
       state.current = null;
       revealed = false;
+      hintRevealed = false;
+      state.votePhase = "voting";
+      state.voters.forEach(v => { v.voted = false; v.vote = null; });
+      state.guests.forEach(g => { g.voted = false; g.vote = null; });
       buildQueue();
       showWelcome();
       toast("Deck reset 🔄");
@@ -2879,6 +4089,10 @@
       state.didCount = 0;
       state.leaveCount = 0;
       revealed = false;
+      hintRevealed = false;
+      state.votePhase = "voting";
+      state.voters.forEach(v => { v.voted = false; v.vote = null; });
+      state.guests.forEach(g => { g.voted = false; g.vote = null; });
 
       updateFilterUI();
       tone(600, 0.05);
@@ -2887,7 +4101,7 @@
     }
 
     /* =========================================================
-       10. SYNC LAYER
+       11. SYNC LAYER
        ========================================================= */
 
     function makeCode() {
@@ -2906,7 +4120,11 @@
         remaining: state.queue.length,
         filter: state.filter,
         name: partyName,
-        revealed: revealed
+        revealed: revealed,
+        hintRevealed: hintRevealed,
+        votePhase: state.votePhase,
+        voters: state.voters.map(v => ({ id: v.id, name: v.name, score: v.score, voted: v.voted, vote: v.vote })),
+        guests: state.guests.map(g => ({ id: g.id, name: g.name, score: g.score, voted: g.voted, vote: g.vote }))
       };
     }
 
@@ -2932,6 +4150,10 @@
       state.leaveCount = p.leaveCount;
       remoteRemaining = p.remaining;
       revealed = !!p.revealed;
+      hintRevealed = !!p.hintRevealed;
+      if (p.votePhase) state.votePhase = p.votePhase;
+      if (Array.isArray(p.voters)) state.voters = p.voters.map(v => ({ ...v }));
+      if (Array.isArray(p.guests)) state.guests = p.guests.map(g => ({ ...g }));
 
       if (typeof p.name === "string") { partyName = p.name; nameInput.value = p.name; }
 
@@ -2942,14 +4164,14 @@
 
       if (p.card) {
         if (!sameCard) cardSound();
-        render(p.card, { animate: !sameCard, revealed: revealed });
+        render(p.card, { animate: !sameCard, revealed: revealed, hintRevealed: hintRevealed });
       } else {
         showWelcome();
       }
     }
 
     /* =========================================================
-       11. PARTY MODE UI
+       12. PARTY MODE UI
        ========================================================= */
 
     function updateRolePill() {
@@ -2971,7 +4193,7 @@
         nameInput.disabled = true;
         gameSelect.disabled = true;
         [...chipsEl.children].forEach(c => { c.disabled = true; });
-        [...deckSheetList.children].forEach(c => { c.disabled = true; });
+        [...deckSheetList.querySelectorAll(".deck-option")].forEach(c => { c.disabled = true; });
         partyBtn.textContent = "🔗 Joined";
       } else {
         controls.hidden = false;
@@ -2979,7 +4201,7 @@
         nameInput.disabled = false;
         gameSelect.disabled = false;
         [...chipsEl.children].forEach(c => { c.disabled = false; });
-        [...deckSheetList.children].forEach(c => { c.disabled = false; });
+        [...deckSheetList.querySelectorAll(".deck-option")].forEach(c => { c.disabled = false; });
         partyBtn.textContent = role === "host" ? "🎉 Hosting" : "🎉 Party";
       }
       updateRolePill();
@@ -3006,12 +4228,12 @@
 
       openModal(`
     <h2>🎉 Party Mode</h2>
-    <p>Host a room so everyone at the party sees the same card on their own device at the same time.</p>
+    <p>Host a room so everyone at the hangout sees the same card on their own device at the same time.</p>
     <div class="modal-actions">
       <button class="btn primary" id="mHost">🎉 Host a Party</button>
       <button class="btn ghost" id="mJoin">🔗 Join a Party</button>
     </div>
-    <p style="font-size:.76rem;color:#7fa992">Tip: you can also open the shared link directly and you'll join automatically.</p>
+    <p style="font-size:.76rem;color:#8A7D8F">Tip: you can also open the shared link directly and you'll join automatically.</p>
   `);
       document.getElementById("mHost").onclick = () => startHosting();
       document.getElementById("mJoin").onclick = () => showJoinPanel();
@@ -3048,6 +4270,7 @@
     <h2>🔗 Join a Party</h2>
     <p>Enter the 4-character code from the host's screen.</p>
     <input class="code-input" id="mCode" maxlength="4" autocomplete="off" spellcheck="false" placeholder="ABCD" value="${prefill || ""}">
+    <input class="name-input" id="mName" placeholder="Your name" maxlength="12" autocomplete="off" style="margin-top:4px">
     <p id="mStatus" style="font-size:.82rem;min-height:1.2em"></p>
     <div class="modal-actions">
       <button class="btn primary" id="mGo">Join</button>
@@ -3055,18 +4278,19 @@
     </div>
   `);
       const codeInput = document.getElementById("mCode");
+      const nameInputEl = document.getElementById("mName");
       const statusEl = document.getElementById("mStatus");
       codeInput.focus();
       codeInput.addEventListener("input", () => {
         codeInput.value = codeInput.value.toUpperCase().replace(/[^A-Z0-9]/g, "");
       });
-      codeInput.addEventListener("keydown", (e) => { if (e.key === "Enter") document.getElementById("mGo").click(); });
       document.getElementById("mBack").onclick = () => showPartyMenu();
       document.getElementById("mGo").onclick = () => {
         const code = codeInput.value.trim().toUpperCase();
+        const name = nameInputEl.value.trim() || "Guest";
         if (code.length !== 4) { statusEl.innerHTML = `<span class="status-dot err"></span>Enter a 4-character code`; return; }
         statusEl.innerHTML = `<span class="status-dot"></span>Connecting…`;
-        joinParty(code, statusEl);
+        joinParty(code, name, statusEl);
       };
       if (prefill && prefill.length === 4) setTimeout(() => document.getElementById("mGo").click(), 250);
     }
@@ -3076,6 +4300,7 @@
       role = "host";
       roomCode = makeCode();
       guestConns = [];
+      state.guests = [];
 
       openModal(`<h2>🎉 Starting Room…</h2><p id="mStatus"><span class="status-dot"></span>Connecting to the party network…</p>`);
       const myStatus = document.getElementById("mStatus");
@@ -3100,16 +4325,40 @@
         });
         conn.on("data", (data) => {
           if (!data || typeof data !== "object") return;
+
+          if (data.type === "join") {
+            const name = (data.name || "Guest").slice(0, 12);
+            state.guests.push({
+              id: "g" + Math.random().toString(36).slice(2, 8),
+              name, score: 5, voted: false, vote: null, conn
+            });
+            toast(name + " joined 👋");
+            broadcastState();
+            refreshHostPanelCount();
+            return;
+          }
+
           if (data.type === "action") {
             if (data.action === "next") drawCard();
             if (data.action === "do") chooseDo();
             if (data.action === "leave") chooseLeave();
+            if (data.action === "vote") {
+              const g = state.guests.find(x => x.conn === conn);
+              if (g && !g.voted) {
+                g.voted = true;
+                g.vote = data.value;
+                renderVoteStatus();
+                broadcastState();
+              }
+            }
           }
         });
         const drop = () => {
           guestConns = guestConns.filter(c => c !== conn);
+          state.guests = state.guests.filter(g => g.conn !== conn);
           updateRolePill();
           refreshHostPanelCount();
+          broadcastState();
         };
         conn.on("close", drop);
         conn.on("error", drop);
@@ -3133,7 +4382,7 @@
       el.textContent = `👥 ${n} guest${n === 1 ? "" : "s"} connected`;
     }
 
-    function joinParty(code, statusEl) {
+    function joinParty(code, name, statusEl) {
       if (typeof Peer === "undefined") {
         statusEl.innerHTML = `<span class="status-dot err"></span>Sync library failed to load`;
         return;
@@ -3148,10 +4397,12 @@
         hostConn.on("open", () => {
           clearTimeout(timeout);
           role = "guest";
+          state.voters[0].name = name || "You";
           applyRoleUI();
           closeModal();
           toast("Joined room " + code + " 🎉");
           tone(700, 0.08);
+          sendToHost({ type: "join", name: name || "Guest" });
         });
         hostConn.on("data", (data) => {
           if (!data || typeof data !== "object") return;
@@ -3173,6 +4424,7 @@
       try { guestConns.forEach(c => c.close()); } catch (e) { }
       try { if (peer) peer.destroy(); } catch (e) { }
       guestConns = [];
+      state.guests = [];
       peer = null;
       role = "solo";
       roomCode = "";
@@ -3185,6 +4437,7 @@
       try { if (hostConn) hostConn.close(); } catch (e) { }
       try { if (peer) peer.destroy(); } catch (e) { }
       hostConn = null;
+      state.guests = [];
       peer = null;
       role = "solo";
       roomCode = "";
@@ -3196,13 +4449,12 @@
     }
 
     /* =========================================================
-       12. SETTINGS
+       13. SETTINGS
        ========================================================= */
 
     function saveSettings() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({ name: nameInput.value, sound: soundOn }));
-      } catch (e) { }
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ name: nameInput.value, sound: soundOn })); }
+      catch (e) { }
     }
 
     function loadSettings() {
@@ -3217,7 +4469,7 @@
       if (role === "guest") return;
       partyName = nameInput.value;
       saveSettings();
-      if (state.current) render(state.current, { animate: false, revealed: revealed });
+      if (state.current) render(state.current, { animate: false, revealed: revealed, hintRevealed: hintRevealed });
       broadcastState();
     });
 
@@ -3236,14 +4488,18 @@
     partyBtn.addEventListener("click", showPartyMenu);
 
     /* =========================================================
-       13. EVENTS
+       14. EVENTS
        ========================================================= */
 
     nextBtn.addEventListener("click", drawCard);
     resetBtn.addEventListener("click", resetGame);
     doBtn.addEventListener("click", chooseDo);
     leaveBtn.addEventListener("click", chooseLeave);
+    hintBtn.addEventListener("click", revealHint);
     revealBtn.addEventListener("click", revealAnswer);
+    haveBtn.addEventListener("click", () => castVote("have"));
+    haventBtn.addEventListener("click", () => castVote("havent"));
+    leaderBtn.addEventListener("click", showLeaderboard);
 
     document.addEventListener("keydown", (e) => {
       if (!introOverlay.hidden) {
@@ -3270,6 +4526,8 @@
         if (state.current && (state.current.deck === "doam" || state.current.kind === "charade")) chooseLeave();
       } else if (e.key.toLowerCase() === "r") {
         resetGame();
+      } else if (e.key.toLowerCase() === "h") {
+        revealHint();
       } else if (e.key.toLowerCase() === "a") {
         revealAnswer();
       }
@@ -3295,9 +4553,10 @@
     overlay.addEventListener("click", (e) => { if (e.target === overlay) closeModal(); });
 
     /* =========================================================
-       14. BOOT
+       15. BOOT
        ========================================================= */
 
+    loadTheme();
     loadSettings();
     buildChips();
     updateFilterUI();
@@ -3315,7 +4574,7 @@
       }
       setTimeout(() => {
         openModal(`<h2>🔗 Joining Party…</h2><p id="mStatus"><span class="status-dot"></span>Connecting to room ${room}…</p>`);
-        joinParty(room, document.getElementById("mStatus"));
+        joinParty(room, "Guest", document.getElementById("mStatus"));
       }, 300);
     })();
 
