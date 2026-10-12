@@ -1,7 +1,7 @@
 # The Hangout 🎈
 
 <p align="center">
-  <img src="img/img-1.png" alt="The Hangout — 1,100 prompts across ten decks" width="800">
+  <img src="img/img-1.png" alt="The Hangout — 1,533 prompts across nine decks" width="800">
 </p>
 
 <p align="center">
@@ -13,7 +13,7 @@ Built as one HTML file with zero build steps, zero backend, and zero accounts. D
 
 > Looking for the couples version? That lives [here](https://github.com/MmedaraU/couple-games) with its own README.
 
-> 📸 **A note on images:** Every image in this README is a PNG, named `img-1.png`, `img-2.png`, `img-3.png`, and so on, in the order they appear. The full mapping is listed at the bottom of the file.
+> 📸 **A note on images:** Every image in this README is a PNG, named `img-1.png`, `img-2.png`, `img-3.png`, and so on, in the order they appear. All files live in an `img/` folder next to `README.md`.
 
 ---
 
@@ -46,19 +46,19 @@ Built as one HTML file with zero build steps, zero backend, and zero accounts. D
 
 ## Features
 
-- **1,100 prompts** across ten decks — Playful Deck, Banter, Heart to Heart, Leave It or Drop It, Charades, Bible Trivia (200), Bible Charades, Riddles, Never Have I Ever, and Confessions.
+- **1,533 prompts** across nine decks — Banter (200), Heart to Heart (100), Leave It or Drop It (100), Charades (200), Bible Trivia & Riddles (300), This or That (233), Hot Takes (200), Never Have I Ever (100), and Confessions (100).
 - **Real-time Party Mode** — one host, unlimited guests, all devices see the same card simultaneously.
 - **Room codes + QR codes** — guests join in seconds by typing a 4-character code, scanning a QR, or opening a shared link.
 - **Do Am / Leave Am** — dare and charade cards let players accept or skip, with confetti and sound feedback.
-- **Hints and reveals** — Bible Trivia and Riddles cards hide their answers behind a two-stage reveal: a Hint button, then an Answer button. Both sync across devices, and **only the host can trigger them** in Party Mode.
-- **Scoring decks** — Never Have I Ever and Confessions let every guest vote on their own device, then reveal the tally with live score updates. If a vote is holding things up, the host can skip the card without scoring anyone.
+- **Hints and reveals** — Bible Trivia & Riddles cards hide their answers behind a two-stage reveal: a Hint button, then an Answer button. Both sync across devices, and **only the host can trigger them** in Party Mode.
+- **Scoring decks** — Never Have I Ever and Confessions let every guest vote on their own device, then reveal the tally with live score updates. If a vote is holding things up, the host can **skip the card** without scoring anyone.
 - **Mature deck warning** — Confessions carries a **MATURE** badge on the chip and in the sheet, and shows a soft confirmation before loading.
 - **Random Mix or targeted decks** — play a shuffle of the five conversational decks, or focus on a single game.
 - **Hamburger game selector on mobile** — full-width button opens a bottom sheet split into Conversational and Scoring sections.
 - **Dark mode** — Light, Dark, and System themes, saved per device, with no flash of light content on load.
 - **Onboarding guide** — an 8-step tour appears on first open and can be reopened anytime.
-- **Birthday personalization** — replace "the birthday celebrant" with the actual name, synced to all devices. Prompts mentioning the celebrant are **hidden until a name is set**.
-- **Keyboard-first** — Space, arrows, 1, 2, H, A, R, Esc.
+- **Birthday personalization** — replace "the birthday celebrant" with the actual name, synced to all devices.
+- **Keyboard-first** — Space, arrows, 1, 2, H, A, S, R, Esc.
 - **Swipe gestures** — draw and skip with a swipe on touch devices.
 - **Sound + confetti** — local per device, so each phone reacts on its own.
 - **Fully responsive** — tuned for phones, tablets, laptops, TVs, and landscape phones.
@@ -100,15 +100,15 @@ Built as one HTML file with zero build steps, zero backend, and zero accounts. D
 ### Hint and reveal
 
 <p align="center">
-  <img src="img/img-5.png" alt="Bible Trivia card with a hint showing" width="500">
+  <img src="img/img-5.png" alt="Bible Trivia & Riddles card with a hint showing" width="500">
 </p>
 
 <p align="center">
-  <em>Stage 1: tap 💡 Hint to reveal a nudge on the card. Works on Bible Trivia and Riddles.</em>
+  <em>Stage 1: tap 💡 Hint to reveal a nudge on the card. Works on every Bible Trivia & Riddles card.</em>
 </p>
 
 <p align="center">
-  <img src="img/img-6.png" alt="Bible Trivia card with the answer revealed" width="500">
+  <img src="img/img-6.png" alt="Bible Trivia & Riddles card with the answer revealed" width="500">
 </p>
 
 <p align="center">
@@ -122,7 +122,7 @@ Built as one HTML file with zero build steps, zero backend, and zero accounts. D
 </p>
 
 <p align="center">
-  <em>Scoring cards show I HAVE and I HAVEN'T instead of Do/Leave. Each guest votes on their own device.</em>
+  <em>Scoring cards show I HAVE and I HAVEN'T instead of Do/Leave. Each guest votes on their own device. The host can skip the card if a vote is holding things up.</em>
 </p>
 
 ### Party Mode host panel
@@ -177,7 +177,7 @@ Solo mode works fully offline over `file://`.
 2. Tap **Next Card**, swipe left on the card, or press **Space / →**.
 3. Read the prompt aloud and let the group answer, debate, or vote.
 4. For dare or charade cards, tap **💪 I DO AM** or **🙅 I LEAVE AM**.
-5. For Bible Trivia and Riddles, tap **💡 Hint** first if you want a nudge, then **👁️ Reveal Answer**.
+5. For Bible Trivia & Riddles, tap **💡 Hint** first if you want a nudge, then **👁️ Reveal Answer**.
 6. For Never Have I Ever and Confessions, tap **✋ I HAVE** or **🙅 I HAVEN'T** — the host reveals when everyone has voted.
 7. Tap **Reset** (or press **R**) to reshuffle and start over. This also resets scores on scoring decks.
 
@@ -185,69 +185,77 @@ Solo mode works fully offline over `file://`.
 
 - The **host** controls the deck: draws cards, switches games, resets, and changes the birthday name.
 - **Guests** see the same card, in sync. They can tap **Do Am / Leave Am** and **vote** on scoring decks. Their choice is sent to the host's device and advances everyone.
-- **Hint, Reveal Answer, Reveal Answers, and Reset are host-only.** Guests can't spoil trivia answers or scoring reveals before the host is ready.
+- **Hint, Reveal Answer, Reveal Answers, Skip this card, and Reset are host-only.** Guests can't spoil trivia answers or scoring reveals before the host is ready.
 - Guests cannot switch decks or reset the game; those controls are hidden on their devices.
-- The host's device must stay open and online for the room to keep working. Closing or refreshing it ends the room.
+- The host's device must stay open and online for the room to keep working. Closing or refreshing it ends the room, and the site warns before you navigate away.
 
 ---
 
 ## Game Decks
 
 <p align="center">
-  <img src="img/img-10.png" alt="The desktop chips row showing all ten game modes" width="800">
+  <img src="img/img-10.png" alt="The desktop chips row showing all nine game modes" width="800">
 </p>
 
-| Deck                | Emoji | Count   | Style                                                                | In Random Mix |
-| ------------------- | ----- | ------- | -------------------------------------------------------------------- | ------------- |
-| Playful Deck        | 🎉     | 100     | Would-you-rather, who-in-this-room, finish-the-sentence              | ✅             |
-| Banter              | 🍿     | 100     | Group debates, hot takes, playful roast prompts                      | ✅             |
-| Heart to Heart      | 💗     | 100     | Tiered deep questions — Perception, Connection, Reflection           | ❌             |
-| Leave It or Drop It | 🔥     | 100     | Dares, performances, reveals                                         | ✅             |
-| Charades            | 🎭     | 100     | Act-it-out prompts — daily life, animals, jobs, movies               | ❌             |
-| Bible Trivia        | ✝️     | **200** | 100 direct questions + 100 riddles, all with hints                   | ✅             |
-| Bible Charades      | 📖     | 100     | Act-it-out Bible stories, parables, and events                       | ❌             |
-| Riddles             | 🧩     | 100     | Classic riddles and brain teasers with hints                         | ✅             |
-| Never Have I Ever   | 🫣     | 100     | Friends-edition confessions, finger scoring                          | ❌             |
-| Confessions         | 😏     | 100     | Cheekier friend confessions, finger scoring. **MATURE**              | ❌             |
-| **Random Mix**      | 🎲     | **600** | Playful Deck + Banter + Leave It or Drop It + Bible Trivia + Riddles | —             |
+| Deck                   | Emoji | Count     | Style                                                                            | In Random Mix |
+| ---------------------- | ----- | --------- | -------------------------------------------------------------------------------- | ------------- |
+| Banter                 | 🍿     | **200**   | Would-you-rather, hot takes, playful roast prompts                               | ✅             |
+| Heart to Heart         | 💗     | 100       | Tiered deep questions — Perception, Connection, Reflection                       | ❌             |
+| Leave It or Drop It    | 🔥     | 100       | Dares, performances, reveals                                                     | ✅             |
+| Charades               | 🎭     | **200**   | Act-it-out prompts — daily life, animals, Bible stories, and events              | ❌             |
+| Bible Trivia & Riddles | ✝️     | **300**   | 100 direct questions + 200 riddles and brain teasers, all with hints             | ✅             |
+| This or That           | 🎯     | **233**   | Playful A-or-B choices — food, home, culture, values                             | ✅             |
+| Hot Takes              | 🔥     | **200**   | Debate prompts — 100 on relationships, 100 on real life                          | ✅             |
+| Never Have I Ever      | 🫣     | 100       | Friends-edition confessions, finger scoring                                      | ❌             |
+| Confessions            | 😏     | 100       | Cheekier friend confessions, finger scoring. **MATURE**                          | ❌             |
+| **Random Mix**         | 🎲     | **1,033** | Banter + Leave It or Drop It + Bible Trivia & Riddles + This or That + Hot Takes | —             |
 
-> **A note on counts.** Banter has six prompts that mention "the birthday celebrant." When no birthday name is set in ⚙️ Settings, those six are hidden from the queue, so Banter and Random Mix both show slightly lower "left in deck" numbers. Set a name to unlock the full counts.
+### About the merged decks
+
+Three of the nine decks are built from more than one source pool:
+
+| Deck                       | Built from                | Why merged                                                              |
+| -------------------------- | ------------------------- | ----------------------------------------------------------------------- |
+| **Banter**                 | Playful Deck + Banter     | Same light conversational tone, similar rhythm. Two decks felt like one |
+| **Charades**               | Charades + Bible Charades | Same Do/Leave mechanic; Bible Charades is a themed subset               |
+| **Bible Trivia & Riddles** | Bible Trivia + Riddles    | Same hint-then-reveal mechanic; players wouldn't notice a difference    |
+
+The underlying prompt arrays are untouched — the merge is handled by a `RAW_SOURCES` map that tells the site which pools to draw from for each deck. Splitting a merged deck back out is a one-line change.
 
 ### Card behaviour by type
 
-| Type                      | Example decks                                 | Buttons shown            |
-| ------------------------- | --------------------------------------------- | ------------------------ |
-| Plain                     | Playful Deck, Banter, Heart to Heart          | None                     |
-| Action                    | Leave It or Drop It, Charades, Bible Charades | 💪 I DO AM · 🙅 I LEAVE AM |
-| Trivia with hint + reveal | Bible Trivia, Riddles                         | 💡 Hint · 👁️ Reveal Answer |
-| Scoring                   | Never Have I Ever, Confessions                | ✋ I HAVE · 🙅 I HAVEN'T   |
+| Type                      | Example decks                                   | Buttons shown            |
+| ------------------------- | ----------------------------------------------- | ------------------------ |
+| Plain                     | Banter, Heart to Heart, This or That, Hot Takes | None                     |
+| Action                    | Leave It or Drop It, Charades                   | 💪 I DO AM · 🙅 I LEAVE AM |
+| Trivia with hint + reveal | Bible Trivia & Riddles                          | 💡 Hint · 👁️ Reveal Answer |
+| Scoring                   | Never Have I Ever, Confessions                  | ✋ I HAVE · 🙅 I HAVEN'T   |
 
 ---
 
 ## Random Mix Behaviour
 
-Random Mix is deliberately curated — it excludes five decks so the shuffle stays coherent.
+Random Mix is deliberately curated — it excludes four decks so the shuffle stays coherent.
 
 ```js
-const RANDOM_MIX_EXCLUDE = ["charades", "biblec", "realtalk", "nhie", "confessions"];
+const RANDOM_MIX_EXCLUDE = ["charades", "realtalk", "nhie", "confessions"];
 ```
 
 **Included in Random Mix:**
-- Playful Deck
 - Banter
 - Leave It or Drop It
-- Bible Trivia
-- Riddles
+- Bible Trivia & Riddles
+- This or That
+- Hot Takes
 
 **Excluded from Random Mix:**
 
-| Deck                | Why                                                          |
-| ------------------- | ------------------------------------------------------------ |
-| 🎭 Charades          | Uses Do/Leave action mechanic — jarring mid-conversation     |
-| 📖 Bible Charades    | Same action mechanic, and would double-stack the Bible theme |
-| 💗 Heart to Heart    | Deep reflection clashes with the lighter mix                 |
-| 🫣 Never Have I Ever | Vote/reveal scoring mechanic                                 |
-| 😏 Confessions       | Same scoring mechanic, and carries mature content            |
+| Deck                | Why                                                      |
+| ------------------- | -------------------------------------------------------- |
+| 🎭 Charades          | Uses Do/Leave action mechanic — jarring mid-conversation |
+| 💗 Heart to Heart    | Deep reflection clashes with the lighter mix             |
+| 🫣 Never Have I Ever | Vote/reveal scoring mechanic                             |
+| 😏 Confessions       | Same scoring mechanic, and carries mature content        |
 
 All excluded decks are still fully playable via their own chips or the mobile deck sheet. To re-include one, remove its key from the `RANDOM_MIX_EXCLUDE` array.
 
@@ -255,7 +263,7 @@ All excluded decks are still fully playable via their own chips or the mobile de
 
 ## Hints & Reveals
 
-Bible Trivia and Riddles cards have a two-stage reveal:
+Bible Trivia & Riddles cards have a two-stage reveal:
 
 1. **💡 Hint** — shows a one-line nudge below the prompt.
 2. **👁️ Reveal Answer** — shows the correct answer.
@@ -264,7 +272,7 @@ Both stages sync across all devices in Party Mode. Either button can be tapped i
 
 **Only the host can trigger Hint or Reveal Answer.** Guests see the hint text and the answer once the host reveals them, but cannot spoil the moment themselves.
 
-The hint button only appears on cards that have a `hint` field. Every Bible Trivia entry and every Riddles entry has one.
+The hint button only appears on cards that have a `hint` field. Every Bible Trivia & Riddles entry has one.
 
 **Keyboard:** `H` for hint, `A` for reveal (host and solo only).
 
@@ -320,6 +328,7 @@ Party Mode uses WebRTC (via PeerJS) to connect devices directly. There is no ser
   - A copyable share link (`?room=K7QP`)
   - A live guest count
 - Actions the host takes are broadcast to every connected guest.
+- If the host tries to close or refresh with active guests, the browser warns first.
 - Tap **End Party** to close all connections and return to solo mode.
 
 ### Joining
@@ -330,7 +339,7 @@ Party Mode uses WebRTC (via PeerJS) to connect devices directly. There is no ser
 
 ### Guest reconnection
 
-If a guest refreshes, the site recognises them by a persistent client ID and replaces their old session rather than adding a duplicate. Duplicate names get numbered automatically ("Ada 2").
+Each guest has a persistent client ID saved in `localStorage`. If they refresh, the host recognises them and replaces their old session rather than adding a duplicate. Duplicate names are numbered automatically ("Ada 2") so the leaderboard stays unambiguous.
 
 ### What syncs
 
@@ -404,7 +413,7 @@ The Hangout ships with three theme states, cycled by the theme button in the hea
 
 ### What stays consistent
 
-- Deck accent colours (coral, violet, teal, gold) are unchanged across themes — they're the deck's identity and read fine on both backgrounds.
+- Deck accent colours (coral, violet, teal, gold, amber) are unchanged across themes — they're the deck's identity and read fine on both backgrounds.
 - The QR code panel stays light in dark mode, because QR scanners need high contrast.
 - Sound, confetti, and Party Mode sync are unaffected.
 
@@ -419,8 +428,8 @@ The Hangout ships with three theme states, cycled by the theme button in the hea
 | `Space` / `→` / `Enter` | Draw next card                               |
 | `1`                     | I DO AM (dare or charade cards)              |
 | `2`                     | I LEAVE AM (dare or charade cards)           |
-| `H`                     | Reveal hint (Bible Trivia and Riddles)       |
-| `A`                     | Reveal answer (Bible Trivia and Riddles)     |
+| `H`                     | Reveal hint (Bible Trivia & Riddles)         |
+| `A`                     | Reveal answer (Bible Trivia & Riddles)       |
 | `S`                     | Skip this card (scoring decks, host or solo) |
 | `R`                     | Reset the deck                               |
 
@@ -438,7 +447,7 @@ Shortcuts are paused while the onboarding guide is open, while the deck sheet is
 
 ### Desktop and large tablets
 
-- **Chips row** at the top — all ten decks plus Random Mix, wrap-around layout.
+- **Chips row** at the top — all nine decks plus Random Mix, wrap-around layout.
 - Full-size card, generous padding, and both footer shortcut hints visible.
 
 ### Phones and portrait tablets (≤1024px portrait)
@@ -451,7 +460,7 @@ Shortcuts are paused while the onboarding guide is open, while the deck sheet is
 ### Small phones (≤560px)
 
 - Brand text hides, icon buttons shrink.
-- **Do/Leave, Have/Haven't, Hint/Reveal buttons stack or split cleanly.**
+- **Do/Leave, Have/Haven't, Hint/Reveal, Skip buttons stack or split cleanly.**
 - Next and Reset split 50/50.
 - Footer keyboard hints hide.
 - Modals collapse to single-column actions.
@@ -534,7 +543,7 @@ Find the `RAW` object. Each deck is an array of strings, or objects with optiona
 
 ```js
 const RAW = {
-  naija: [
+  friends: [
     "Your custom question here",
     // ...
   ],
@@ -554,19 +563,40 @@ const RAW = {
 - An object with `answer` becomes a question card with a reveal button.
 - An object with `hint` (and optionally `answer`) shows the Hint button.
 
+### Merged decks — `RAW_SOURCES` map
+
+The nine visible decks are built from the RAW pools by a map. If you add a new deck or split an existing one, edit `RAW_SOURCES`:
+
+```js
+const RAW_SOURCES = {
+  banter:      ["naija", "friends"],
+  realtalk:    ["realtalk"],
+  doam:        ["doam"],
+  charades:    ["charades", "biblec"],
+  trivia:      ["bibleq", "riddles"],
+  thisorthat:  ["thisorthat"],
+  hottakes:    ["hottakes"],
+  nhie:        ["nhie"],
+  confessions: ["confessions"]
+};
+```
+
+Each key maps to one or more RAW array names. The site pulls prompts from every source listed and labels them all with the deck key's `DECKS` entry.
+
 ### Rename a deck or change its colour
 
 Edit the `DECKS` object:
 
 ```js
 const DECKS = {
-  naija: { label: "Playful Deck", emoji: "🎉", color: "#F97316" },
+  banter: { label: "Banter", emoji: "🍿", color: "#8B5CF6" },
+  nhie:   { label: "Never Have I Ever", emoji: "🫣", color: "#3B82F6", scoring: true, startScore: 5 },
   confessions: { label: "Confessions", emoji: "😏", color: "#F43F5E", scoring: true, startScore: 5, mature: true },
   // ...
 };
 ```
 
-The `color` value becomes the accent stripe on the card. Add `mature: true` to show a MATURE badge and confirmation modal. Add `scoring: true` and `startScore` for scoring decks.
+The `color` value becomes the accent stripe on the card. Add `mature: true` for a MATURE badge and confirmation modal. Add `scoring: true` and `startScore` for scoring decks.
 
 ### Change or reorder the game chips
 
@@ -574,21 +604,20 @@ Edit the `FILTERS` array:
 
 ```js
 const FILTERS = [
-  { key: "all", label: "🎲 Random Mix", short: "Random Mix" },
-  { key: "naija", label: "🎉 Playful Deck", short: "Playful Deck" },
+  { key: "all",    label: "🎲 Random Mix", short: "Random Mix" },
+  { key: "banter", label: "🍿 Banter",     short: "Banter" },
   // ...
-  { key: "confessions", label: "😏 Confessions", short: "Confessions", mature: true }
 ];
 ```
 
-Each `key` must match a key in `DECKS`. Add `mature: true` to show the MATURE badge on the chip.
+Each `key` must match a key in `DECKS` and in `RAW_SOURCES`.
 
 ### Change which decks appear in Random Mix
 
 Edit the exclusion list:
 
 ```js
-const RANDOM_MIX_EXCLUDE = ["charades", "biblec", "realtalk", "nhie", "confessions"];
+const RANDOM_MIX_EXCLUDE = ["charades", "realtalk", "nhie", "confessions"];
 ```
 
 Remove a key to include that deck in Random Mix, or add another to exclude it.
@@ -701,7 +730,7 @@ The host owns:
 - `state.voters` — array of local voter objects (solo + host)
 - `state.votePhase` — `"voting"` or `"revealed"`
 - `state.isScoring` — whether the current deck uses scoring
-- `state.actionLocked` — brief lockout after Do/Leave to prevent double-draws
+- `state.actionLocked` — brief lockout after Do/Leave/Skip to prevent double-draws
 - `partyName` — birthday name
 - `revealed` — answer visibility
 - `hintRevealed` — hint visibility
@@ -793,7 +822,7 @@ Party Mode requires HTTPS (or `localhost`).
 - Switching decks rebuilds the queue from scratch.
 
 **Hint button doesn't show**
-- Only Bible Trivia and Riddles cards have hints. Other decks go straight to the prompt.
+- Only Bible Trivia & Riddles cards have hints. Other decks go straight to the prompt.
 - In Party Mode, Hint is host-only. Guest devices show no hint button.
 
 **Reveal button won't enable on scoring decks**
@@ -801,8 +830,8 @@ Party Mode requires HTTPS (or `localhost`).
 - If someone has left without voting, tap **⏭️ Skip this card** (or press `S`) to move on without scoring anyone.
 - If you want a clean slate instead, **Reset** clears the card and puts everyone back to 5 points.
 
-**Deck count says 94 instead of 100**
-- Six prompts in Banter mention "the birthday celebrant." Until a name is set in ⚙️ Settings, those prompts are hidden from the queue, so Banter shows 94. Set a name to see the full 100.
+**Deck counts look wrong**
+- Merged decks (Banter, Charades, Bible Trivia & Riddles) report the sum of their source pools. Banter should read 200, Charades 200, Bible Trivia & Riddles 300. If a count is off, check `RAW_SOURCES` — a missing entry will make the deck render empty.
 
 **Dark mode flashes light on load**
 - LocalStorage may be disabled, in which case the fallback is light.
@@ -817,6 +846,7 @@ Party Mode requires HTTPS (or `localhost`).
 **Party Mode advanced:**
 - Host device must stay awake. Screen-lock may suspend the connection on some phones.
 - Guests who refresh will attempt to rejoin automatically if the URL still contains `?room=CODE`, and the host will replace their old session rather than creating a duplicate.
+- Closing or refreshing the host page ends the room, with a confirmation prompt if guests are still connected.
 
 ---
 
@@ -828,7 +858,7 @@ Party Mode requires HTTPS (or `localhost`).
 - **Public PeerJS cloud** — subject to rate limits and occasional downtime.
 - **Confetti and sound are local** — each device animates and beeps independently.
 - **Theme is not synced** — each device picks its own Light/Dark/System.
-- **Birthday prompts hidden without a name** — six Banter prompts mention "the birthday celebrant" and are filtered out until a name is set.
+- **Merged decks pull from untouched source pools** — splitting a merged deck back out is a one-line change, but the source arrays stay in `RAW` regardless.
 
 ---
 
@@ -846,6 +876,7 @@ Ideas for future versions:
 - **Self-hosted PeerJS + TURN** for reliability behind strict NATs.
 - **PWA install** — offline caching and home-screen launch.
 - **Custom theme colours** — let users pick their own accent palette.
+- **Audience presets** — Party / Family / Everything shortcuts above the chips.
 
 ---
 
@@ -859,7 +890,7 @@ Every image is a PNG. Filenames follow the order they appear in this README. All
 | `img-2.png`  | Screenshots — Desktop      | Desktop layout with chips and a card in view                   | 1200×800       |
 | `img-3.png`  | Screenshots — Mobile       | Mobile view with the game selector bar                         | 600×1000       |
 | `img-4.png`  | Screenshots — Deck sheet   | Bottom sheet open, showing Conversational and Scoring sections | 600×1000       |
-| `img-5.png`  | Screenshots — Hint         | Bible Trivia or Riddles card with a hint showing               | 1000×700       |
+| `img-5.png`  | Screenshots — Hint         | Bible Trivia & Riddles card with a hint showing                | 1000×700       |
 | `img-6.png`  | Screenshots — Reveal       | The same card with the answer revealed                         | 1000×700       |
 | `img-7.png`  | Screenshots — Scoring      | Never Have I Ever card with vote buttons                       | 1000×700       |
 | `img-8.png`  | Screenshots — Host panel   | Room code, QR, link, guest count                               | 800×900        |
