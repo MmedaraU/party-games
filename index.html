@@ -3818,6 +3818,7 @@
     const INTRO_KEY = "hangoutCards.introSeen";
     const THEME_KEY = "hangoutCards.theme";
     const CLIENT_ID_KEY = "hangoutCards.clientId";
+    const GUEST_NAME_KEY = "hangoutCards.guestName";
     const PEER_PREFIX = "hangout-";
     const CODE_CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
@@ -5022,7 +5023,13 @@
       const codeInput = document.getElementById("mCode");
       const nameInputEl = document.getElementById("mName");
       const statusEl = document.getElementById("mStatus");
-      codeInput.focus();
+
+      // Prefill name from a previous join, if any
+      try {
+        const saved = localStorage.getItem(GUEST_NAME_KEY) || "";
+        if (saved) nameInputEl.value = saved;
+      } catch (e) { }
+
       codeInput.addEventListener("input", () => {
         codeInput.value = codeInput.value.toUpperCase().replace(/[^A-Z0-9]/g, "");
       });
@@ -5034,7 +5041,10 @@
         statusEl.innerHTML = `<span class="status-dot"></span>Connecting…`;
         joinParty(code, name, statusEl);
       };
-      if (prefill && prefill.length === 4) setTimeout(() => document.getElementById("mGo").click(), 250);
+
+      // Focus the first field that still needs filling
+      if (codeInput.value.length !== 4) codeInput.focus();
+      else nameInputEl.focus();
     }
 
     function makeUniqueGuestName(raw) {
@@ -5157,6 +5167,9 @@
         return;
       }
       roomCode = code;
+      if (name && name !== "Guest") {
+        try { localStorage.setItem(GUEST_NAME_KEY, name); } catch (e) { }
+      }
       peer = new Peer({ debug: 0 });
       peer.on("open", () => {
         hostConn = peer.connect(PEER_PREFIX + code, { reliable: true });
@@ -5363,10 +5376,7 @@
         setTimeout(() => toast("Sync library failed to load"), 800);
         return;
       }
-      setTimeout(() => {
-        openModal(`<h2>🔗 Joining Party…</h2><p id="mStatus"><span class="status-dot"></span>Connecting to room ${room}…</p>`);
-        joinParty(room, "Guest", document.getElementById("mStatus"));
-      }, 300);
+      setTimeout(() => showJoinPanel(room), 300);
     })();
 
     (function maybeIntro() {
