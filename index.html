@@ -3905,6 +3905,8 @@
     let revealed = false;
     let hintRevealed = false;
     let myVoted = false;
+    let lastSeenDrawn = -1;
+    let lastSeenCardKey = "";
 
     let soundOn = true;
     let peer = null;
@@ -4865,6 +4867,9 @@
     }
 
     function applyRemoteState(p) {
+      const cardKey = p.card ? (p.card.deck + "|" + p.card.text) : "";
+      const isNewCard = p.drawn !== lastSeenDrawn || cardKey !== lastSeenCardKey;
+
       const sameCard = state.current && p.card &&
         state.current.text === p.card.text && state.current.deck === p.card.deck;
       const filterChanged = p.filter !== state.filter;
@@ -4879,8 +4884,6 @@
       if (p.votePhase) state.votePhase = p.votePhase;
       if (Array.isArray(p.voters)) {
         state.voters = p.voters.map(v => ({ ...v }));
-        // On guest devices, voters[0] mirrors the host's own vote — label it "Host"
-        // so the leaderboard doesn't show the host as "You" on everyone's screen.
         if (role === "guest" && state.voters[0]) state.voters[0].name = "Host";
       }
       if (Array.isArray(p.guests)) state.guests = p.guests.map(g => ({ ...g }));
@@ -4896,9 +4899,17 @@
       }
 
       if (p.card) {
-        if (!sameCard) cardSound();
-        render(p.card, { animate: !sameCard, revealed: revealed, hintRevealed: hintRevealed });
+        if (isNewCard) {
+          cardSound();
+          myVoted = false;
+        }
+        lastSeenDrawn = p.drawn;
+        lastSeenCardKey = cardKey;
+        render(p.card, { animate: isNewCard || !sameCard, revealed: revealed, hintRevealed: hintRevealed });
       } else {
+        lastSeenDrawn = -1;
+        lastSeenCardKey = "";
+        myVoted = false;
         showWelcome();
       }
     }
