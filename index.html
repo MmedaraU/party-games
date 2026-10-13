@@ -265,7 +265,9 @@
       white-space: nowrap;
       transition: transform .15s, background .2s, color .2s, border-color .2s, box-shadow .15s;
       touch-action: manipulation;
-      box-shadow: 0 2px 6px rgba(31, 27, 36, .05)
+      box-shadow: 0 2px 6px rgba(31, 27, 36, .05);
+      display: inline-flex;
+      align-items: center
     }
 
     .chip[aria-pressed="true"] {
@@ -284,6 +286,14 @@
       background: #F43F5E;
       color: #fff;
       border-color: #F43F5E
+    }
+
+    .chip .badge-mature {
+      margin-left: 6px
+    }
+
+    .chip[aria-pressed="true"] .badge-mature {
+      background: rgba(255, 255, 255, .25)
     }
 
     .chip:active {
@@ -2109,7 +2119,7 @@
     </label>
     <label class="row"><input type="checkbox" id="soundChk" checked> Sound effects</label>
     <p class="hint">The name you type replaces "the birthday celebrant" in any prompt. When hosting, guests see the same
-      name. Prompts about the birthday celebrant are hidden until a name is set.</p>
+      name.</p>
   </div>
 
   <nav class="chips" id="chips" aria-label="Game modes"></nav>
@@ -2161,7 +2171,8 @@
   <footer>
     <span id="stats">0 cards drawn</span>
     <button class="helplink" id="helpLink">How to play ❓</button>
-    <span class="keys">Space / → = next · 1 = do · 2 = leave · H = hint · A = reveal · R = reset</span>
+    <span class="keys">Space / → / Enter = next · 1 = do · 2 = leave · H = hint · A = reveal · S = skip · R =
+      reset</span>
   </footer>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -2199,7 +2210,7 @@
   <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
   <script>
     /* =========================================================
-       1. THE DECKS  (1,100 prompts total)
+       1. THE DECKS  (1,461 prompts total)
        ========================================================= */
 
     const RAW = {
@@ -2617,6 +2628,9 @@
       ],
 
       charades: [
+        // ============================================================
+        // NIGERIAN DAILY LIFE (35)
+        // ============================================================
         "Act out: A Lagos danfo conductor shouting for passengers",
         "Act out: Haggling at Balogun Market",
         "Act out: NEPA taking light during a movie",
@@ -2624,44 +2638,38 @@
         "Act out: Selling pure water in traffic",
         "Act out: A Nigerian mum doing the mummy's corner dance",
         "Act out: Waiting 30 minutes for your food at a restaurant",
-        "Act out: A baby taking its first steps",
-        "Act out: Someone who forgot their phone at home",
         "Act out: A Nigerian dad trying to use TikTok",
-        "Act out: A chicken crossing the road",
-        "Act out: A goat eating from a market stall",
-        "Act out: A dog chasing its tail",
-        "Act out: A cat trying to catch a fly",
-        "Act out: A monkey stealing food",
-        "Act out: A snake slithering through grass",
-        "Act out: A cow chewing cud",
-        "Act out: A parrot repeating what someone says",
-        "Act out: A fish out of water",
-        "Act out: A proud peacock",
-        "Act out: Brushing your teeth in a rush",
-        "Act out: Trying to open a stubborn jar",
-        "Act out: Stepping on a Lego",
-        "Act out: Walking on hot sand at the beach",
-        "Act out: Getting caught in the rain without an umbrella",
+        "Act out: A bus driver in Lagos traffic",
+        "Act out: A pastor preaching with passion",
+        "Act out: A police officer directing traffic",
+        "Act out: A market woman haggling",
+        "Act out: A Lagos traffic warden",
+        "Act out: Taking a selfie from every angle",
+        "Act out: Waking up late for work",
         "Act out: Trying to catch a bus that is about to leave",
         "Act out: Falling asleep in a meeting",
-        "Act out: Eating pepper soup and realizing it is too hot",
-        "Act out: Taking a selfie from every angle",
-        "Act out: Trying to fix a bad WiFi connection",
-        "Act out: Waking up late for work",
         "Act out: Doing laundry by hand",
         "Act out: Learning to ride a bicycle",
-        "Act out: Blowing out birthday candles",
         "Act out: Opening a gift you do not like",
         "Act out: A doctor giving an injection",
         "Act out: A teacher writing on a blackboard",
         "Act out: A tailor taking measurements",
         "Act out: A barber giving a haircut",
-        "Act out: A bus driver in Lagos traffic",
-        "Act out: A pastor preaching with passion",
-        "Act out: A police officer directing traffic",
-        "Act out: A footballer scoring a goal",
-        "Act out: A chef flipping food in a pan",
-        "Act out: A photographer at a wedding",
+        "Act out: A Nigerian dad giving a serious lecture",
+        "Act out: A Nigerian mum scolding a child",
+        "Act out: Trying to explain yourself to a Nigerian parent",
+        "Act out: Being told to greet a relative you have never met",
+        "Act out: Standing in a long queue at the bank",
+        "Act out: Arguing with a Lagos bus conductor about change",
+        "Act out: A Nigerian mum threatening you with a slipper",
+        "Act out: Negotiating the price of a taxi",
+        "Act out: Watching a Nollywood movie with the family",
+        "Act out: Trying to explain your job to a Nigerian elder",
+        "Act out: A Nigerian wedding MC warming up the crowd",
+
+        // ============================================================
+        // REACTIONS (24)
+        // ============================================================
         "Act out: Someone who just won the lottery",
         "Act out: Someone who just missed their flight",
         "Act out: Someone who saw a ghost",
@@ -2672,51 +2680,69 @@
         "Act out: Someone who just got paid",
         "Act out: Someone who is extremely shy",
         "Act out: Someone who is trying not to laugh",
-        "Act out: The Titanic sinking scene",
-        "Act out: A superhero saving the day",
-        "Act out: A zombie walking",
-        "Act out: A robot running out of battery",
-        "Act out: A slow-motion action scene",
-        "Act out: A Nollywood dramatic death",
-        "Act out: Singing in the rain",
-        "Act out: A lion king sunrise",
-        "Act out: A horror movie chase",
-        "Act out: A romantic movie reunion",
+        "Act out: Someone tasting something disgusting",
+        "Act out: Someone who is freezing cold",
+        "Act out: Someone who is boiling hot",
+        "Act out: Someone about to sneeze",
+        "Act out: Someone who is very nervous",
+        "Act out: Someone who just remembered something important",
+        "Act out: Someone stuck in an awkward silence",
+        "Act out: Someone who just told a lie",
+        "Act out: Someone who is very proud of themselves",
+        "Act out: Someone who is trying to hide that they are angry",
+        "Act out: Someone who just got caught doing something wrong",
+        "Act out: Someone who just heard their name in a group",
+        "Act out: Someone who just farted in public and is pretending they didn't",
+        "Act out: Someone who just got a text they cannot reply to in public",
+
+        // ============================================================
+        // PROFESSIONS (18)
+        // ============================================================
+        "Act out: A footballer scoring a goal",
+        "Act out: A chef flipping food in a pan",
+        "Act out: A photographer at a wedding",
+        "Act out: A DJ at a party",
+        "Act out: A fitness instructor pushing someone to keep going",
+        "Act out: A security guard falling asleep on duty",
+        "Act out: A journalist interviewing someone",
+        "Act out: A firefighter rushing to a fire",
+        "Act out: An artist painting a portrait",
+        "Act out: A mechanic fixing a car",
+        "Act out: A farmer planting crops",
+        "Act out: A fisherman casting a net",
+        "Act out: A pilot landing a plane",
+        "Act out: A referee making a controversial call",
+        "Act out: A coach shouting instructions from the sideline",
+        "Act out: A Nigerian tailor measuring a client who won't stand still",
+        "Act out: A Nigerian phone repairer explaining why your phone is not fixed yet",
+        "Act out: A Nigerian hairdresser gossiping while styling",
+
+        // ============================================================
+        // EVERYDAY SITUATIONS (23)
+        // ============================================================
+        "Act out: Brushing your teeth in a rush",
+        "Act out: Trying to open a stubborn jar",
+        "Act out: Stepping on a Lego",
+        "Act out: Walking on hot sand at the beach",
+        "Act out: Getting caught in the rain without an umbrella",
+        "Act out: Eating pepper soup and realizing it is too hot",
+        "Act out: Trying to fix a bad WiFi connection",
+        "Act out: Blowing out birthday candles",
+        "Act out: Chewing meat that will not soften",
+        "Act out: Biting into a very sour lime",
+        "Act out: Trying on clothes in a shop",
+        "Act out: Locking yourself out of the house",
+        "Act out: Trying to find your keys in a bag",
+        "Act out: Reading a book and falling asleep",
+        "Act out: Drinking something and burning your tongue",
         "Act out: Playing football",
         "Act out: Playing table tennis",
         "Act out: Swimming in a race",
-        "Act out: Boxing",
-        "Act out: Playing a video game",
-        "Act out: Running a marathon",
-        "Act out: Playing a drum",
-        "Act out: Playing the piano",
-        "Act out: Yoga",
         "Act out: Skipping rope",
-        "Act out: Eating a bowl of eba with egusi",
-        "Act out: Sucking a mango",
-        "Act out: Drinking hot tea",
-        "Act out: Biting into a very sour lime",
-        "Act out: Chewing meat that will not soften",
-        "Act out: Roasting corn",
-        "Act out: Peeling an orange",
-        "Act out: Making puff-puff",
-        "Act out: Eating rice with a fork",
-        "Act out: Sharing a plate of food",
-        "Act out: A traffic light changing from red to green",
-        "Act out: A phone battery dying",
-        "Act out: A balloon deflating",
-        "Act out: A clock ticking",
-        "Act out: A candle burning out",
-        "Act out: A flower blooming",
-        "Act out: A door creaking open",
-        "Act out: A car engine failing to start",
-        "Act out: A kettle boiling",
-        "Act out: An airplane taking off",
-        "Act out: A train arriving at a station",
-        "Act out: A rocket launching",
-        "Act out: A baby crying",
-        "Act out: An old person getting up from a chair",
-        "Act out: Someone snoring loudly"
+        "Act out: Playing the drums",
+        "Act out: Trying to take a screenshot on someone else's phone",
+        "Act out: Trying to charge your phone with no charger nearby",
+        "Act out: Attempting to eat jollof without spilling on your white shirt"
       ],
 
       bibleq: [
@@ -2821,59 +2847,25 @@
         { text: "How many years did Solomon's temple take to build?", answer: "Seven", hint: "It was finished in the eleventh year of his reign." },
         { text: "What was the name of the servant of Abraham who found a wife for Isaac?", answer: "Eliezer", hint: "He prayed at the well for a sign." },
         { text: "I was born in a stable, visited by shepherds and wise men, and my birth is celebrated every December. Who am I?", answer: "Jesus", hint: "I am the reason for Christmas." },
-        { text: "I am the food that fell from the sky for forty years, and I tasted like honey wafers. What am I?", answer: "Manna", hint: "The Israelites ate me in the wilderness." },
-        { text: "I am the shortest verse in the Bible — only two words long. What am I?", answer: "Jesus wept (John 11:35)", hint: "It happens at Lazarus' tomb." },
-        { text: "I built a boat the size of a football field, and I had never seen rain. Who am I?", answer: "Noah", hint: "I saved my family and a lot of animals." },
         { text: "I was a shepherd boy with a sling and five smooth stones, and I brought down a giant. Who am I?", answer: "David", hint: "I later became king of Israel." },
-        { text: "I walked on water toward Jesus and then sank. Who am I?", answer: "Peter", hint: "I denied Jesus three times before a rooster crowed." },
-        { text: "My strength was in my hair, and when it was cut, I lost everything. Who am I?", answer: "Samson", hint: "I pushed down the pillars of a Philistine temple." },
         { text: "I ran from God's command and was swallowed by a great fish. Who am I?", answer: "Jonah", hint: "Three days in the belly, then Nineveh." },
-        { text: "I spent one night in a den of lions and walked out alive. Who am I?", answer: "Daniel", hint: "I also interpreted dreams for kings." },
-        { text: "I was the first man ever created, formed from dust. Who am I?", answer: "Adam", hint: "My wife was made from my rib." },
-        { text: "I was the first woman, and I took the fruit that changed everything. Who am I?", answer: "Eve", hint: "A serpent spoke to me." },
-        { text: "I am the place Jesus was born, small and humble. Where am I?", answer: "Bethlehem", hint: "Shepherds came to visit me first." },
-        { text: "I am the sea that split in two so Israel could walk through. What am I?", answer: "The Red Sea", hint: "Pharaoh's army drowned in me." },
-        { text: "I am the mountain where Moses received the Ten Commandments. Where am I?", answer: "Mount Sinai", hint: "I burned with fire and smoke." },
         { text: "I stood over nine feet tall and mocked Israel's army for forty days. Who am I?", answer: "Goliath", hint: "A stone from a sling brought me down." },
-        { text: "I betrayed Jesus with a kiss for thirty pieces of silver. Who am I?", answer: "Judas Iscariot", hint: "I was one of the twelve." },
-        { text: "I was the first person to see the risen Jesus. Who am I?", answer: "Mary Magdalene", hint: "I went to the tomb early on Sunday." },
-        { text: "I baptized Jesus in the Jordan River. Who am I?", answer: "John the Baptist", hint: "I ate locusts and wild honey." },
-        { text: "I am the mother of Jesus, and an angel visited me. Who am I?", answer: "Mary", hint: "Gabriel brought me the news." },
-        { text: "My coat of many colors made my brothers so jealous they sold me. Who am I?", answer: "Joseph", hint: "I interpreted Pharaoh's dreams in Egypt." },
         { text: "I was a bush that burned but was not consumed, and I spoke to Moses. What am I?", answer: "The burning bush", hint: "Moses removed his sandals before me." },
-        { text: "I am the first book of the Bible. What am I?", answer: "Genesis", hint: "My name means 'beginning.'" },
-        { text: "I am the last book of the Bible. What am I?", answer: "Revelation", hint: "I was written on the island of Patmos." },
-        { text: "I led Israel out of Egypt and parted the sea with my staff. Who am I?", answer: "Moses", hint: "I received the Ten Commandments." },
-        { text: "I am the queen who saved the Jews from destruction, and my story is celebrated at Purim. Who am I?", answer: "Esther", hint: "My cousin Mordecai raised me." },
         { text: "I hid two Israelite spies in Jericho and hung a scarlet cord from my window. Who am I?", answer: "Rahab", hint: "I was later part of Jesus' family line." },
         { text: "I wrestled with an angel all night and walked away with a new name. Who am I?", answer: "Jacob", hint: "My new name was Israel." },
-        { text: "I am the number of days it took God to create the world. What am I?", answer: "Six", hint: "On the seventh, God rested." },
         { text: "I am the number of disciples Jesus chose. What am I?", answer: "Twelve", hint: "One of us betrayed him." },
         { text: "I am the number of plagues that struck Egypt. What am I?", answer: "Ten", hint: "The last one was the death of the firstborn." },
-        { text: "I wrote most of the Psalms. Who am I?", answer: "David", hint: "I was a shepherd, a king, and a musician." },
         { text: "I am the wisest man who ever lived — I asked God for wisdom, not wealth. Who am I?", answer: "Solomon", hint: "I built the first temple in Jerusalem." },
         { text: "We were three men thrown into a fiery furnace and walked out without a burn. Who are we?", answer: "Shadrach, Meshach, and Abednego", hint: "A fourth figure, like a son of the gods, walked with us." },
         { text: "I doubted Jesus rose from the dead until I saw his wounds. Who am I?", answer: "Thomas", hint: "I am also called Didymus." },
-        { text: "I was a short tax collector who climbed a sycamore tree to see Jesus. Who am I?", answer: "Zacchaeus", hint: "Jesus ate at my house that day." },
-        { text: "I was the Roman governor who sentenced Jesus to death, then washed my hands. Who am I?", answer: "Pontius Pilate", hint: "I asked the crowd which prisoner to release." },
-        { text: "I was the prophet taken up to heaven in a whirlwind, and I was fed by ravens. Who am I?", answer: "Elijah", hint: "I faced the prophets of Baal on Mount Carmel." },
-        { text: "I am the mountain where fire fell from heaven to prove God's power. Where am I?", answer: "Mount Carmel", hint: "Elijah prayed on me for rain." },
-        { text: "I married a woman named Gomer, and my marriage became a picture of God's love for Israel. Who am I?", answer: "Hosea", hint: "I was a prophet in the northern kingdom." },
-        { text: "I saw a valley of dry bones come to life in a vision. Who am I?", answer: "Ezekiel", hint: "My vision was of a vast army." },
-        { text: "I wrote the book of Revelation on the island of Patmos. Who am I?", answer: "John", hint: "I was the disciple Jesus loved." },
-        { text: "I was the first Christian to be martyred, and Saul watched my stoning. Who am I?", answer: "Stephen", hint: "I saw heaven open as I died." },
         { text: "I was blinded by a light on the road to Damascus and became one of the greatest apostles. Who am I?", answer: "Paul (Saul)", hint: "I wrote most of the New Testament letters." },
         { text: "I ran alongside an Ethiopian's chariot and baptized him. Who am I?", answer: "Philip", hint: "I explained Isaiah to him." },
-        { text: "I was old when I gave birth to John the Baptist. Who am I?", answer: "Elizabeth", hint: "My husband was struck mute for doubting." },
-        { text: "I was struck mute for doubting the angel's news about my son. Who am I?", answer: "Zechariah", hint: "My son was John the Baptist." },
-        { text: "My name means 'father of many nations,' and my wife Sarah laughed at God's promise. Who am I?", answer: "Abraham", hint: "God tested me with Isaac on Mount Moriah." },
         { text: "I am the rock that gave water in the desert when Moses struck me. What am I?", answer: "The rock at Horeb", hint: "Water flowed out for the thirsty people." },
         { text: "I was the first murder victim in history, and my brother killed me out of jealousy. Who am I?", answer: "Abel", hint: "My offering pleased God; my brother's did not." },
         { text: "I lived 969 years — the longest of anyone in the Bible. Who am I?", answer: "Methuselah", hint: "My name is often used to mean 'very old.'" },
         { text: "We tried to build a tower to heaven, and God confused our language. Where were we?", answer: "The Tower of Babel", hint: "Our city was called Babel." },
         { text: "I looked back at a burning city and turned into a pillar of salt. Who am I?", answer: "Lot's wife", hint: "I was told not to look back." },
         { text: "I am the son Abraham was asked to sacrifice on Mount Moriah. Who am I?", answer: "Isaac", hint: "A ram was sacrificed in my place." },
-        { text: "I laughed when I heard I would have a child in my old age. Who am I?", answer: "Sarah", hint: "My son's name means 'he laughs.'" },
         { text: "I sold my birthright for a bowl of stew. Who am I?", answer: "Esau", hint: "I was the elder twin, and I was hairy." },
         { text: "I worked fourteen years to marry the woman I loved, and I was tricked into marrying her sister first. Who am I?", answer: "Jacob", hint: "I later wrestled with an angel." },
         { text: "I am the sister Jacob did not plan to marry, but I became the mother of Judah and Levi. Who am I?", answer: "Leah", hint: "My younger sister was Rachel." },
@@ -2881,17 +2873,13 @@
         { text: "I am the little brother my older brothers sold into slavery, and I later saved them from famine. Who am I?", answer: "Joseph", hint: "I wore a coat of many colors." },
         { text: "I dreamed of my son's family bowing to him, and I thought it impossible. Who am I?", answer: "Jacob (Israel)", hint: "I mourned Joseph as dead for years." },
         { text: "I ruled Egypt and had dreams I could not understand until Joseph interpreted them. Who am I?", answer: "Pharaoh", hint: "I put Joseph in charge of all Egypt." },
-        { text: "I am the sister of Moses, and I led the women in song after crossing the sea. Who am I?", answer: "Miriam", hint: "I was a prophetess." },
-        { text: "I was Moses' spokesman, and I became the first high priest of Israel. Who am I?", answer: "Aaron", hint: "My staff budded and produced almonds." },
         { text: "I am the man Moses sent to spy out the Promised Land, and I came back with a good report. Who am I?", answer: "Caleb", hint: "My partner was Joshua." },
         { text: "I led Israel into the Promised Land after Moses died. Who am I?", answer: "Joshua", hint: "The walls of Jericho fell at my command." },
         { text: "I tested God with a fleece of wool twice, and He answered both times. Who am I?", answer: "Gideon", hint: "I defeated the Midianites with 300 men." },
         { text: "I am the woman who betrayed Samson by cutting his hair. Who am I?", answer: "Delilah", hint: "I was paid silver by the Philistines." },
         { text: "I am the Moabite woman who said, 'Where you go, I will go.' Who am I?", answer: "Ruth", hint: "I became the great-grandmother of David." },
-        { text: "I am the mother-in-law of Ruth, and I told her to lie at Boaz's feet. Who am I?", answer: "Naomi", hint: "My name means 'pleasant,' but I asked to be called Mara." },
         { text: "I am the wealthy landowner who married Ruth. Who am I?", answer: "Boaz", hint: "I was a relative of Naomi's late husband." },
         { text: "I heard God call my name in the night when I was a boy. Who am I?", answer: "Samuel", hint: "I anointed both Saul and David as king." },
-        { text: "I was Israel's first king, and I stood head and shoulders above everyone else. Who am I?", answer: "Saul", hint: "I was from the tribe of Benjamin." },
         { text: "I was David's best friend, and my father was King Saul. Who am I?", answer: "Jonathan", hint: "David mourned me greatly." },
         { text: "I was the wife David took from Uriah, and I became the mother of Solomon. Who am I?", answer: "Bathsheba", hint: "My first husband was killed in battle." },
         { text: "I was David's son who rebelled against him and was caught by his hair in a tree. Who am I?", answer: "Absalom", hint: "I was known for my long hair." },
@@ -2899,7 +2887,6 @@
         { text: "I was a queen who killed God's prophets and threatened Elijah's life. Who am I?", answer: "Jezebel", hint: "My husband was King Ahab." },
         { text: "I am the prophet who followed Elijah and asked for a double portion of his spirit. Who am I?", answer: "Elisha", hint: "I made an axe head float and healed Naaman." },
         { text: "I was the Syrian commander healed of leprosy after dipping seven times in the Jordan. Who am I?", answer: "Naaman", hint: "Elisha told me to wash in the river." },
-        { text: "I was the king of Judah who saw the sun move backward as a sign I would be healed. Who am I?", answer: "Hezekiah", hint: "I added fifteen years to my life." },
         { text: "I am the prophet who said, 'Before I formed you in the womb, I knew you.' Who am I?", answer: "Jeremiah", hint: "I wrote Lamentations." },
         { text: "I am the prophet who saw the Lord on a throne, high and lifted up, and cried, 'Here am I; send me.' Who am I?", answer: "Isaiah", hint: "I prophesied about a virgin bearing a son." },
         { text: "I am the prophet who said God requires justice, mercy, and a humble walk. Who am I?", answer: "Micah", hint: "I predicted Bethlehem as the Messiah's birthplace." },
@@ -2912,7 +2899,6 @@
         { text: "I was the disciple who brought my brother Peter to Jesus. Who am I?", answer: "Andrew", hint: "I was a fisherman from Bethsaida." },
         { text: "I was a tax collector and wrote the first Gospel. Who am I?", answer: "Matthew", hint: "I also went by Levi." },
         { text: "I was a Pharisee who came to Jesus at night with questions. Who am I?", answer: "Nicodemus", hint: "Jesus told me I must be born again." },
-        { text: "I am the disciple who replaced Judas as the twelfth apostle. Who am I?", answer: "Matthias", hint: "The apostles cast lots to choose me." },
         { text: "I was dead four days and Jesus called me out of the tomb. Who am I?", answer: "Lazarus", hint: "My sisters were Mary and Martha." },
         { text: "I am the sister of Lazarus who sat at Jesus' feet and listened. Who am I?", answer: "Mary of Bethany", hint: "I anointed Jesus' feet with expensive perfume." },
         { text: "I am the sister of Lazarus who was busy serving and complained to Jesus. Who am I?", answer: "Martha", hint: "Jesus said Mary had chosen the better part." },
@@ -3507,27 +3493,17 @@
         "Rise early or rise late?",
         "Work to live or live to work?",
 
-        // Love and relationships (22)
-        "Marry your best friend or marry your dream partner?",
+        // Love and relationships (12)
         "Partner who cooks or partner who cleans?",
         "Love in Lagos or love in a quiet town?",
-        "Be loved for who you are or for who you could become?",
-        "First love or last love?",
         "Long engagement or quick wedding?",
-        "Public affection or private love?",
         "Say I love you first or wait?",
         "Love that's calm or love that's fire?",
         "Big gesture or small consistent acts?",
         "Argue in the moment or cool off first?",
         "Jealous or trusting?",
         "Independent or attached?",
-        "Same friends or separate friends?",
         "Same taste or opposite taste?",
-        "Commit fast or take it slow?",
-        "Move in together or wait until marriage?",
-        "Marry young or marry older?",
-        "Marry for love or for companionship?",
-        "Marry near family or far from family?",
         "Text all day or talk at night?",
         "Go to bed angry or stay up and resolve?",
 
@@ -3556,48 +3532,19 @@
         "Follow the crowd or take your own path?",
         "Learn in a classroom or learn from doing?",
 
-        // Character and values (25)
-        "Be respected or be liked?",
-        "Be smart or be wise?",
-        "Be right or be happy?",
-        "Be honest or be kind?",
-        "Be funny or be deep?",
-        "Be brave or be safe?",
-        "Be bold or be humble?",
-        "Be loyal or be free?",
-        "Be rich or be loved?",
-        "Be famous or be anonymous?",
-        "Be remembered or be forgotten?",
-        "Be interesting or be calm?",
-        "Be fair or be strong?",
-        "Be first or be best?",
-        "Be busy or be present?",
-        "Be curious or be certain?",
-        "Be patient or be urgent?",
-        "Be generous or be careful?",
-        "Be spontaneous or be reliable?",
-        "Be open or be reserved?",
-        "Have the last word or keep the peace?",
-        "Talk about it now or let it go?",
-        "Hold a grudge or forgive quickly?",
-        "Show up on time or show up relaxed?",
-        "Text back immediately or reply when you feel like it?",
 
-        // Big questions (9)
+        // Big questions (6)
         "Enjoy the journey or focus on the destination?",
         "Plan everything or go with the flow?",
         "Move fast and fix later or move slow and get it right?",
         "Live in the moment or build for the future?",
         "Take the safe path or the interesting one?",
-        "Stay or leave?",
-        "Trust first or verify first?",
-        "Lead with fear or lead with hope?",
         "Regret doing something or regret doing nothing?"
       ],
       hottakes: [
 
         // ============================================================
-        // RELATIONSHIPS (100)
+        // RELATIONSHIPS (102)
         // ============================================================
         "Should you tell your partner everything?",
         "Is it okay to look through your partner's phone?",
@@ -3947,6 +3894,7 @@
     let remoteRemaining = null;
     let revealed = false;
     let hintRevealed = false;
+    let myVoted = false;
 
     let soundOn = true;
     let peer = null;
@@ -3990,13 +3938,9 @@
       return text.replace(/the birthday celebrant/gi, n).replace(/birthday celebrant/gi, n);
     }
 
-    function isBirthdayPrompt(text) {
-      return /birthday celebrant/i.test(text);
-    }
-
     function normalizeItem(raw, deck) {
       if (typeof raw === "string") {
-        const isCharade = deck === "charades" || deck === "biblec";
+        const isCharade = deck === "charades";
         return { deck, text: raw, kind: isCharade ? "charade" : "plain" };
       }
       return {
@@ -4203,7 +4147,7 @@
       {
         emoji: "🎈",
         title: "Welcome to The Hangout",
-        body: "1,533 prompts across nine decks — Banter, Heart to Heart, Leave It or Drop It, Charades, Bible Trivia & Riddles, This or That, Hot Takes, Never Have I Ever, and Confessions. Pick a game, draw a card, and let the hangout run itself."
+        body: "1,461 prompts across nine decks — Banter, Heart to Heart, Leave It or Drop It, Charades, Bible Trivia & Riddles, This or That, Hot Takes, Never Have I Ever, and Confessions. Pick a game, draw a card, and let the hangout run itself."
       },
       {
         emoji: "🎲",
@@ -4263,7 +4207,7 @@
 
       if (introIndex === INTRO_STEPS.length - 1) {
         introTip.hidden = false;
-        introTip.innerHTML = "<b>Shortcuts:</b> Space / → = next card · 1 = do · 2 = leave · H = hint · A = reveal · R = reset. Reopen this guide anytime with the ❓ button.";
+        introTip.innerHTML = "<b>Shortcuts:</b> Space / → = next card · 1 = do · 2 = leave · H = hint · A = reveal · S = skip · R = reset. Reopen this guide anytime with the ❓ button.";
       } else {
         introTip.hidden = true;
       }
@@ -4386,6 +4330,12 @@
         b.dataset.key = f.key;
         if (f.mature) b.dataset.mature = "true";
         b.textContent = f.label;
+        if (f.mature) {
+          const badge = document.createElement("span");
+          badge.className = "badge-mature";
+          badge.textContent = "MATURE";
+          b.appendChild(badge);
+        }
         b.setAttribute("aria-pressed", String(state.filter === f.key));
         b.addEventListener("click", () => setFilter(f.key));
         chipsEl.appendChild(b);
@@ -4580,7 +4530,7 @@
         const voted = state.guests.filter(g => g.voted).length + (state.voters[0].voted ? 1 : 0);
         voteStatus.innerHTML = `<span class="vote-pill">${voted} of ${total} voted</span>`;
       } else {
-        voteStatus.innerHTML = state.voters[0].voted
+        voteStatus.innerHTML = myVoted
           ? `<span class="vote-pill wait">Voted — waiting for the host</span>`
           : `<span class="vote-pill wait">Vote to continue</span>`;
       }
@@ -4606,6 +4556,7 @@
       state.votePhase = "voting";
       state.voters.forEach(v => { v.voted = false; v.vote = null; });
       state.guests.forEach(g => { g.voted = false; g.vote = null; });
+      myVoted = false;
       cardSound();
       burst(34);
       render(item);
@@ -4671,6 +4622,14 @@
         burst(60);
         render(state.current, { animate: false });
         broadcastState();
+        if (role === "solo") {
+          const thisCard = state.current;
+          setTimeout(() => {
+            if (state.current === thisCard && state.votePhase === "revealed") {
+              drawCard();
+            }
+          }, 1500);
+        }
         return;
       }
 
@@ -4702,14 +4661,14 @@
     function castVote(value) {
       if (role === "guest") {
         sendToHost({ type: "action", action: "vote", value });
-        state.voters[0].voted = true;
-        state.voters[0].vote = value;
+        myVoted = true;
         haveBtn.disabled = true;
         haventBtn.disabled = true;
         renderVoteStatus();
         toast("Vote sent ✋");
         return;
       }
+
       if (state.voters[0].voted) return;
       state.voters[0].voted = true;
       state.voters[0].vote = value;
@@ -4727,32 +4686,37 @@
       const rows = sorted.map((v, i) => {
         const winner = v.score === topScore && topScore > 0 ? " winner" : "";
         return `<div class="lb-row${winner}">
-      <span class="lb-rank">${i + 1}.</span>
-      <span class="lb-name">${v.name}</span>
-      <span class="lb-score">${v.score}</span>
-    </div>`;
+  <span class="lb-rank">${i + 1}.</span>
+  <span class="lb-name">${v.name}</span>
+  <span class="lb-score">${v.score}</span>
+</div>`;
       }).join("");
 
+      const canReset = role !== "guest";
+      const actions = canReset
+        ? `<button class="btn ghost" id="mReset">Reset Scores</button>
+       <button class="btn primary" id="mClose">Close</button>`
+        : `<button class="btn primary" id="mClose">Close</button>`;
+
       openModal(`
-    <h2>🏆 Scores</h2>
-    <p>Started at 5. Every <b>I HAVE</b> costs one point. Highest score wins.</p>
-    <div class="leaderboard">${rows}</div>
-    <div class="modal-actions">
-      <button class="btn ghost" id="mReset">Reset Scores</button>
-      <button class="btn primary" id="mClose">Close</button>
-    </div>
-  `);
+<h2>🏆 Scores</h2>
+<p>Started at 5. Every <b>I HAVE</b> costs one point. Highest score wins.</p>
+<div class="leaderboard">${rows}</div>
+<div class="modal-actions">${actions}</div>
+`);
 
       document.getElementById("mClose").onclick = closeModal;
-      document.getElementById("mReset").onclick = () => {
-        state.voters.forEach(v => { v.score = 5; });
-        state.guests.forEach(g => { g.score = 5; });
-        closeModal();
-        broadcastState();
-        toast("Scores reset 🏆");
-      };
+      const resetEl = document.getElementById("mReset");
+      if (resetEl) {
+        resetEl.onclick = () => {
+          state.voters.forEach(v => { v.score = 5; });
+          state.guests.forEach(g => { g.score = 5; });
+          closeModal();
+          broadcastState();
+          toast("Scores reset 🏆");
+        };
+      }
     }
-
     function resetGame() {
       if (role === "guest") return;
       state.drawn = 0;
@@ -4895,7 +4859,12 @@
       revealed = !!p.revealed;
       hintRevealed = !!p.hintRevealed;
       if (p.votePhase) state.votePhase = p.votePhase;
-      if (Array.isArray(p.voters)) state.voters = p.voters.map(v => ({ ...v }));
+      if (Array.isArray(p.voters)) {
+        state.voters = p.voters.map(v => ({ ...v }));
+        // On guest devices, voters[0] mirrors the host's own vote — label it "Host"
+        // so the leaderboard doesn't show the host as "You" on everyone's screen.
+        if (role === "guest" && state.voters[0]) state.voters[0].name = "Host";
+      }
       if (Array.isArray(p.guests)) state.guests = p.guests.map(g => ({ ...g }));
 
       if (typeof p.name === "string") { partyName = p.name; nameInput.value = p.name; }
@@ -4934,7 +4903,8 @@
 
     function applyRoleUI() {
       if (role === "guest") {
-        controls.hidden = true;
+        nextBtn.hidden = true;
+        resetBtn.hidden = true;
         waiting.hidden = false;
         nameInput.disabled = true;
         gameSelect.disabled = true;
@@ -4942,7 +4912,8 @@
         [...deckSheetList.querySelectorAll(".deck-option")].forEach(c => { c.disabled = true; });
         partyBtn.textContent = "🔗 Joined";
       } else {
-        controls.hidden = false;
+        nextBtn.hidden = false;
+        resetBtn.hidden = false;
         waiting.hidden = true;
         nameInput.disabled = false;
         gameSelect.disabled = false;
@@ -5249,7 +5220,7 @@
       if (role === "guest") return;
       partyName = nameInput.value;
       saveSettings();
-      // Rebuild queue so birthday prompts appear/disappear
+      // Rebuild queue so personalized prompts re-render with the new name
       buildQueue();
       if (state.current) render(state.current, { animate: false, revealed: revealed, hintRevealed: hintRevealed });
       broadcastState();
@@ -5298,9 +5269,11 @@
         return;
       }
 
-      if (deckSheetOpen && e.key === "Escape") {
-        e.preventDefault();
-        closeDeckSheet();
+      if (deckSheetOpen) {
+        if (e.key === "Escape") {
+          e.preventDefault();
+          closeDeckSheet();
+        }
         return;
       }
 
