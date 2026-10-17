@@ -1,7 +1,7 @@
 # The Hangout 🎈
 
 <p align="center">
-  <img src="img/img-1.png" alt="The Hangout — 1,461 prompts across nine decks" width="800">
+<img src="img/img-1.png" alt="The Hangout — 1,505 prompts across nine decks" width="800">
 </p>
 
 <p align="center">
@@ -46,7 +46,7 @@ Built as one HTML file with zero build steps, zero backend, and zero accounts. D
 
 ## Features
 
-- **1,461 prompts** across nine decks — Banter (200), Heart to Heart (100), Leave It or Drop It (100), Charades (200), Bible Trivia & Riddles (264), This or That (195), Hot Takes (202), Never Have I Ever (100), and Confessions (100).
+- **1,505 prompts** across nine decks — Banter (200), Heart to Heart (100), Leave It or Drop It (100), Charades (200), Bible Trivia & Riddles (264), Pick Your Poison (239), Hot Takes (202), Never Have I Ever (100), and Confessions (100).
 - **Real-time Party Mode** — one host, unlimited guests, all devices see the same card simultaneously.
 - **Room codes + QR codes** — guests join in seconds by typing a 4-character code, scanning a QR, or opening a shared link.
 - **Do Am / Leave Am** — dare and charade cards let players accept or skip, with confetti and sound feedback.
@@ -197,18 +197,18 @@ Solo mode works fully offline over `file://`.
   <img src="img/img-10.png" alt="The desktop chips row showing all nine game modes" width="800">
 </p>
 
-| Deck                   | Emoji | Count   | Style                                                                            | In Random Mix |
-| ---------------------- | ----- | ------- | -------------------------------------------------------------------------------- | ------------- |
-| Banter                 | 🍿     | **200** | Would-you-rather, hot takes, playful roast prompts                               | ✅             |
-| Heart to Heart         | 💗     | 100     | Tiered deep questions — Perception, Connection, Reflection                       | ❌             |
-| Leave It or Drop It    | 🔥     | 100     | Dares, performances, reveals                                                     | ✅             |
-| Charades               | 🎭     | **200** | Act-it-out prompts — Nigerian daily life, reactions, professions, Bible stories  | ❌             |
-| Bible Trivia & Riddles | ✝️     | **264** | 164 direct questions + 100 riddles, all with hints                               | ✅             |
-| This or That           | 🎯     | **195** | Playful A-or-B choices — food, home, culture, values                             | ✅             |
-| Hot Takes              | 🔥     | **202** | Debate prompts — 102 on relationships, 100 on real life                          | ✅             |
-| Never Have I Ever      | 🫣     | 100     | Friends-edition confessions, finger scoring                                      | ❌             |
-| Confessions            | 😏     | 100     | Cheekier friend confessions, finger scoring. **MATURE**                          | ❌             |
-| **Random Mix**         | 🎲     | **961** | Banter + Leave It or Drop It + Bible Trivia & Riddles + This or That + Hot Takes | —             |
+| Deck                   | Emoji | Count     | Style                                                                                | In Random Mix |
+| ---------------------- | ----- | --------- | ------------------------------------------------------------------------------------ | ------------- |
+| Banter                 | 🍿     | **200**   | Would-you-rather, hot takes, playful roast prompts                                   | ✅             |
+| Heart to Heart         | 💗     | 100       | Tiered deep questions — Perception, Connection, Reflection                           | ❌             |
+| Leave It or Drop It    | 🔥     | 100       | Dares, performances, reveals                                                         | ✅             |
+| Charades               | 🎭     | **200**   | Act-it-out prompts — Nigerian daily life, reactions, professions, Bible stories      | ❌             |
+| Bible Trivia & Riddles | ✝️     | **264**   | 164 direct questions + 100 riddles, all with hints                                   | ✅             |
+| Pick Your Poison       | ☠️     | **239**   | Two bad options — pick the one you can live with                                     | ✅             |
+| Hot Takes              | 🔥     | **202**   | Debate prompts — 102 on relationships, 100 on real life                              | ✅             |
+| Never Have I Ever      | 🫣     | 100       | Friends-edition confessions, finger scoring                                          | ❌             |
+| Confessions            | 😏     | 100       | Cheekier friend confessions, finger scoring. **MATURE**                              | ❌             |
+| **Random Mix**         | 🎲     | **1,005** | Banter + Leave It or Drop It + Bible Trivia & Riddles + Pick Your Poison + Hot Takes | —             |
 
 ### About the merged decks
 
@@ -224,12 +224,12 @@ The underlying prompt arrays are untouched — the merge is handled by a `RAW_SO
 
 ### Card behaviour by type
 
-| Type                      | Example decks                                   | Buttons shown            |
-| ------------------------- | ----------------------------------------------- | ------------------------ |
-| Plain                     | Banter, Heart to Heart, This or That, Hot Takes | None                     |
-| Action                    | Leave It or Drop It, Charades                   | 💪 I DO AM · 🙅 I LEAVE AM |
-| Trivia with hint + reveal | Bible Trivia & Riddles                          | 💡 Hint · 👁️ Reveal Answer |
-| Scoring                   | Never Have I Ever, Confessions                  | ✋ I HAVE · 🙅 I HAVEN'T   |
+| Type                      | Example decks                                       | Buttons shown            |
+| ------------------------- | --------------------------------------------------- | ------------------------ |
+| Plain                     | Banter, Heart to Heart, Pick Your Poison, Hot Takes | None                     |
+| Action                    | Leave It or Drop It, Charades                       | 💪 I DO AM · 🙅 I LEAVE AM |
+| Trivia with hint + reveal | Bible Trivia & Riddles                              | 💡 Hint · 👁️ Reveal Answer |
+| Scoring                   | Never Have I Ever, Confessions                      | ✋ I HAVE · 🙅 I HAVEN'T   |
 
 ---
 
