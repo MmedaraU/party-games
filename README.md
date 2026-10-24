@@ -1,11 +1,11 @@
-# The Hangout 🎈
+# 🎈 The Hangout
 
 <p align="center">
-<img src="img/img-1.png" alt="The Hangout — 1,505 prompts across nine decks" width="800">
+  <img src="img/img-1.png" alt="The Hangout — 1,533 prompts across nine decks" width="800">
 </p>
 
 <p align="center">
-  <strong>A single-file, offline-capable party game for hangouts, friends, and family.</strong><br>
+  <strong>A single-file, offline-capable party game for friends, family, and hangouts.</strong><br>
   Real-time multi-device sync so everyone sees the same card at the same time.
 </p>
 
@@ -13,768 +13,128 @@ Built as one HTML file with zero build steps, zero backend, and zero accounts. D
 
 > Looking for the couples version? That lives [here](https://github.com/MmedaraU/couple-games) with its own README.
 
-> 📸 **A note on images:** Every image in this README is a PNG, named `img-1.png`, `img-2.png`, `img-3.png`, and so on, in the order they appear. All files live in an `img/` folder next to `README.md`.
-
----
-
-## Table of Contents
-
-- [Features](#features)
-- [Screenshots](#screenshots)
-- [Quick Start](#quick-start)
-- [How to Play](#how-to-play)
-- [Game Decks](#game-decks)
-- [Random Mix Behaviour](#random-mix-behaviour)
-- [Hints & Reveals](#hints--reveals)
-- [Never Have I Ever — Scoring](#never-have-i-ever--scoring)
-- [Party Mode](#party-mode)
-- [Onboarding Guide](#onboarding-guide)
-- [Dark Mode](#dark-mode)
-- [Keyboard Shortcuts](#keyboard-shortcuts)
-- [Responsive Design](#responsive-design)
-- [Deployment](#deployment)
-- [Customization](#customization)
-- [Technical Architecture](#technical-architecture)
-- [Browser Support](#browser-support)
-- [Troubleshooting](#troubleshooting)
-- [Known Limitations](#known-limitations)
-- [Roadmap](#roadmap)
-- [Image Reference](#image-reference)
-- [License](#license)
-
 ---
 
 ## Features
 
-- **1,505 prompts** across nine decks — Banter (200), Heart to Heart (100), Leave It or Drop It (100), Charades (200), Bible Trivia & Riddles (264), Pick Your Poison (239), Hot Takes (202), Never Have I Ever (100), and Confessions (100).
-- **Real-time Party Mode** — one host, unlimited guests, all devices see the same card simultaneously.
-- **Room codes + QR codes** — guests join in seconds by typing a 4-character code, scanning a QR, or opening a shared link.
-- **Do Am / Leave Am** — dare and charade cards let players accept or skip, with confetti and sound feedback.
-- **Hints and reveals** — Bible Trivia & Riddles cards hide their answers behind a two-stage reveal: a Hint button, then an Answer button. Both sync across devices, and **only the host can trigger them** in Party Mode.
-- **Scoring decks** — Never Have I Ever and Confessions let every guest vote on their own device, then reveal the tally with live score updates. If a vote is holding things up, the host can **skip the card** without scoring anyone.
-- **Mature deck warning** — Confessions is highlighted red on the chip and carries a **MATURE** badge in the deck sheet, plus a soft confirmation before loading.
-- **Random Mix or targeted decks** — play a shuffle of the five conversational decks, or focus on a single game.
-- **Hamburger game selector on mobile** — full-width button opens a bottom sheet split into Conversational and Scoring sections.
+- **1,533 prompts** across nine decks — Banter, Heart to Heart, Leave It or Drop It, Charades, Bible Trivia & Riddles, Pick Your Poison, Hot Takes, Never Have I Ever, and Confessions.
+- **Real-time Party Mode** — one host, unlimited guests, everyone sees the same card simultaneously. Guests join with a code, link, or QR code.
+- **Action cards** — dares and charades let players accept or skip, with confetti and sound feedback.
+- **Hints and reveals** — Trivia and Riddles hide their answers behind a two-stage reveal. Only the host can trigger them in Party Mode.
+- **Scoring decks** — Never Have I Ever and Confessions let every guest vote on their own device, then reveal the tally with live score updates. 
+- **Mature content warning** — Confessions carries a MATURE badge and shows a soft confirmation before loading.
+- **Shared leaderboard** — everyone can open 🏆 Scores to check their standing. Only the host can reset scores.
+- **Onboarding guide** — an 8-step tour appears on first open and can be reopened anytime with the ❓ button.
 - **Dark mode** — Light, Dark, and System themes, saved per device, with no flash of light content on load.
-- **Onboarding guide** — an 8-step tour appears on first open and can be reopened anytime.
-- **Birthday personalization** — replace "the birthday celebrant" with the actual name, synced to all devices.
-- **Keyboard-first** — Space, arrows, 1, 2, H, A, S, R, Esc.
-- **Swipe gestures** — draw and skip with a swipe on touch devices.
-- **Sound + confetti** — local per device, so each phone reacts on its own.
-- **Fully responsive** — tuned for phones, tablets, laptops, TVs, and landscape phones.
-- **Zero backend** — pure client-side, deploys anywhere static files are served.
-- **Offline solo play** — the whole game works without internet if you skip Party Mode.
-
----
-
-## Screenshots
-
-<p align="center">
-  <img src="img/img-2.png" alt="Desktop layout with the chips row and an active card" width="800">
-</p>
-
-<p align="center">
-  <em>Desktop layout with the game chips and an active prompt.</em>
-</p>
-
-### Mobile
-
-<p align="center">
-  <img src="img/img-3.png" alt="Mobile layout with the game selector bar" width="360">
-</p>
-
-<p align="center">
-  <em>On phones and portrait tablets, chips are replaced by a full-width game selector bar with a hamburger icon.</em>
-</p>
-
-### Deck selector sheet
-
-<p align="center">
-  <img src="img/img-4.png" alt="Bottom sheet showing Conversational and Scoring sections" width="380">
-</p>
-
-<p align="center">
-  <em>Tap the bar to open the sheet. Deck options are grouped into Conversational and Scoring sections, with card counts and scoring or mature badges.</em>
-</p>
-
-### Hint and reveal
-
-<p align="center">
-  <img src="img/img-5.png" alt="Bible Trivia & Riddles card with a hint showing" width="500">
-</p>
-
-<p align="center">
-  <em>Stage 1: tap 💡 Hint to reveal a nudge on the card. Works on every Bible Trivia & Riddles card.</em>
-</p>
-
-<p align="center">
-  <img src="img/img-6.png" alt="Bible Trivia & Riddles card with the answer revealed" width="500">
-</p>
-
-<p align="center">
-  <em>Stage 2: tap 👁️ Reveal Answer. In Party Mode, only the host can trigger either stage — guests see the same hint or answer at the same time, but can't spoil it.</em>
-</p>
-
-### Never Have I Ever — scoring
-
-<p align="center">
-  <img src="img/img-7.png" alt="Never Have I Ever card with I HAVE and I HAVEN'T buttons" width="500">
-</p>
-
-<p align="center">
-  <em>Scoring cards show I HAVE and I HAVEN'T instead of Do/Leave. Each guest votes on their own device. The host can skip the card if a vote is holding things up.</em>
-</p>
-
-### Party Mode host panel
-
-<p align="center">
-  <img src="img/img-8.png" alt="Host panel showing room code, QR code, and guest count" width="420">
-</p>
-
-<p align="center">
-  <em>Share the 4-character code, the link, or the QR. Everyone who joins sees the same card in real time.</em>
-</p>
-
-### Light and Dark mode
-
-<p align="center">
-  <img src="img/img-9.png" alt="The Hangout in dark mode" width="800">
-</p>
-
-<p align="center">
-  <em>Tap the theme button in the header to cycle Light, Dark, and System. The preference is saved per device.</em>
-</p>
+- **Fully responsive** — tuned for phones, tablets, laptops, and landscape orientation.
 
 ---
 
 ## Quick Start
 
 ### Run locally
-
 1. Download `index.html` (or copy the code into a file with that name).
 2. Double-click it to open in any modern browser.
-3. Tap **Next Card** to draw.
+3. Tap **Next Card** to draw. Solo mode works fully offline.
 
-Solo mode works fully offline over `file://`.
-
-### Run a hangout
-
-1. Open the file in a browser (or visit the hosted URL) on the **host device**.
+### Run a hangout (Party Mode)
+1. Open the file in a browser on the **host device**.
 2. Tap **🎉 Party → Host a Party**.
-3. Share the 4-character code, the link, or the QR code with guests.
+3. Share the 4-character code, link, or QR code with guests.
 4. Guests open the link or tap **🔗 Join a Party** and type the code.
 5. Draw cards — every connected device mirrors the same card.
 
-> Party Mode needs internet access for the initial peer connection. Solo mode does not.
+*Party Mode needs internet access for the initial WebRTC peer connection. Solo mode does not.*
 
 ---
 
 ## How to Play
 
-### Solo / shared-screen play
-
-1. Pick a deck using the chips at the top (desktop) or the game selector bar (mobile).
-2. Tap **Next Card**, swipe left on the card, or press **Space / →**.
-3. Read the prompt aloud and let the group answer, debate, or vote.
-4. For dare or charade cards, tap **💪 I DO AM** or **🙅 I LEAVE AM**.
-5. For Bible Trivia & Riddles, tap **💡 Hint** first if you want a nudge, then **👁️ Reveal Answer**.
-6. For Never Have I Ever and Confessions, tap **✋ I HAVE** or **🙅 I HAVEN'T** — the host reveals when everyone has voted.
-7. Tap **Reset** (or press **R**) to reshuffle and start over. This also resets scores on scoring decks.
-
-### Party Mode play
-
-- The **host** controls the deck: draws cards, switches games, resets, and changes the birthday name.
-- **Guests** see the same card, in sync. They can tap **Do Am / Leave Am** and **vote** on scoring decks. Their choice is sent to the host's device and advances everyone.
-- **Hint, Reveal Answer, Reveal Answers, Skip this card, and Reset are host-only.** Guests can't spoil trivia answers or scoring reveals before the host is ready.
-- Guests cannot switch decks or reset the game; those controls are hidden on their devices.
-- The host's device must stay open and online for the room to keep working. Closing or refreshing it ends the room, and the site warns before you navigate away.
+- **Solo / Shared Screen:** Pick a deck, tap **Next Card**, and read the prompt aloud. For dares, tap **💪 I DO AM** or **🙅 I LEAVE AM**. For Trivia/Riddles, tap **💡 Hint** then **👁️ Reveal Answer**.
+- **Never Have I Ever (Scoring):** Everyone taps **✋ I HAVE** or **🙅 I HAVEN'T** on their own device. When all votes are in, the host taps **👁️ Reveal Answers**. Each I HAVE drops a player's score by 1 point (starting from 5).
+- **Keyboard Shortcuts:** `Space` / `→` = Next Card, `1` = Do, `2` = Leave, `H` = Hint, `A` = Reveal, `S` = Skip Card, `R` = Reset.
 
 ---
 
-## Game Decks
+## The Decks
 
-<p align="center">
-  <img src="img/img-10.png" alt="The desktop chips row showing all nine game modes" width="800">
-</p>
+| Deck                   | Emoji | Count     | Style                                                                | In Random Mix |
+| ---------------------- | ----- | --------- | -------------------------------------------------------------------- | ------------- |
+| Banter                 | 🍿     | **200**   | Would-you-rather, playful roast prompts                              | ✅             |
+| Heart to Heart         | 💗     | 100       | Deep questions on perception, connection, and reflection             | ❌             |
+| Leave It or Drop It    | 🔥     | 100       | Dares, performances, reveals                                         | ✅             |
+| Charades               | 🎭     | **200**   | Act-it-out prompts — daily life, reactions, professions              | ❌             |
+| Bible Trivia & Riddles | ✝️     | **264**   | 164 direct questions + 100 riddles, all with hints                   | ✅             |
+| Pick Your Poison       | ☠️     | **239**   | Two bad options — pick the one you can live with                     | ✅             |
+| Hot Takes              | 🔥     | **202**   | Debate prompts — relationships and real life                         | ✅             |
+| Never Have I Ever      | 🫣     | 100       | Friends-edition confessions, finger scoring                          | ❌             |
+| Confessions            | 😏     | 100       | Cheekier friend confessions, finger scoring. **MATURE**              | ❌             |
+| **Random Mix**         | 🎲     | **1,005** | Banter + Leave It or Drop It + Trivia + Pick Your Poison + Hot Takes | —             |
 
-| Deck                   | Emoji | Count     | Style                                                                                | In Random Mix |
-| ---------------------- | ----- | --------- | ------------------------------------------------------------------------------------ | ------------- |
-| Banter                 | 🍿     | **200**   | Would-you-rather, hot takes, playful roast prompts                                   | ✅             |
-| Heart to Heart         | 💗     | 100       | Tiered deep questions — Perception, Connection, Reflection                           | ❌             |
-| Leave It or Drop It    | 🔥     | 100       | Dares, performances, reveals                                                         | ✅             |
-| Charades               | 🎭     | **200**   | Act-it-out prompts — Nigerian daily life, reactions, professions, Bible stories      | ❌             |
-| Bible Trivia & Riddles | ✝️     | **264**   | 164 direct questions + 100 riddles, all with hints                                   | ✅             |
-| Pick Your Poison       | ☠️     | **239**   | Two bad options — pick the one you can live with                                     | ✅             |
-| Hot Takes              | 🔥     | **202**   | Debate prompts — 102 on relationships, 100 on real life                              | ✅             |
-| Never Have I Ever      | 🫣     | 100       | Friends-edition confessions, finger scoring                                          | ❌             |
-| Confessions            | 😏     | 100       | Cheekier friend confessions, finger scoring. **MATURE**                              | ❌             |
-| **Random Mix**         | 🎲     | **1,005** | Banter + Leave It or Drop It + Bible Trivia & Riddles + Pick Your Poison + Hot Takes | —             |
-
-### About the merged decks
-
-Three of the nine decks are built from more than one source pool:
-
-| Deck                       | Built from                | Why merged                                                                                     |
-| -------------------------- | ------------------------- | ---------------------------------------------------------------------------------------------- |
-| **Banter**                 | Playful Deck + Banter     | Same light conversational tone, similar rhythm. Two decks felt like one                        |
-| **Charades**               | Charades + Bible Charades | Same Do/Leave mechanic; Bible Charades is a themed subset                                      |
-| **Bible Trivia & Riddles** | Bible Trivia + Riddles    | Same hint-then-reveal mechanic; the riddle pool is appended to the trivia pool in `RAW.bibleq` |
-
-The underlying prompt arrays are untouched — the merge is handled by a `RAW_SOURCES` map that tells the site which pools to draw from for each deck. Splitting a merged deck back out is a one-line change.
-
-### Card behaviour by type
-
-| Type                      | Example decks                                       | Buttons shown            |
-| ------------------------- | --------------------------------------------------- | ------------------------ |
-| Plain                     | Banter, Heart to Heart, Pick Your Poison, Hot Takes | None                     |
-| Action                    | Leave It or Drop It, Charades                       | 💪 I DO AM · 🙅 I LEAVE AM |
-| Trivia with hint + reveal | Bible Trivia & Riddles                              | 💡 Hint · 👁️ Reveal Answer |
-| Scoring                   | Never Have I Ever, Confessions                      | ✋ I HAVE · 🙅 I HAVEN'T   |
-
----
-
-## Random Mix Behaviour
-
-Random Mix is deliberately curated — it excludes four decks so the shuffle stays coherent.
-
-```js
-const RANDOM_MIX_EXCLUDE = ["charades", "realtalk", "nhie", "confessions"];
-```
-
-**Included in Random Mix:**
-- Banter
-- Leave It or Drop It
-- Bible Trivia & Riddles
-- This or That
-- Hot Takes
-
-**Excluded from Random Mix:**
-
-| Deck                | Why                                                      |
-| ------------------- | -------------------------------------------------------- |
-| 🎭 Charades          | Uses Do/Leave action mechanic — jarring mid-conversation |
-| 💗 Heart to Heart    | Deep reflection clashes with the lighter mix             |
-| 🫣 Never Have I Ever | Vote/reveal scoring mechanic                             |
-| 😏 Confessions       | Same scoring mechanic, and carries mature content        |
-
-All excluded decks are still fully playable via their own chips or the mobile deck sheet. To re-include one, remove its key from the `RANDOM_MIX_EXCLUDE` array.
-
----
-
-## Hints & Reveals
-
-Bible Trivia & Riddles cards have a two-stage reveal:
-
-1. **💡 Hint** — shows a one-line nudge below the prompt.
-2. **👁️ Reveal Answer** — shows the correct answer.
-
-Both stages sync across all devices in Party Mode. Either button can be tapped in any order — you can reveal the answer without showing the hint, or show the hint without revealing.
-
-**Only the host can trigger Hint or Reveal Answer.** Guests see the hint text and the answer once the host reveals them, but cannot spoil the moment themselves.
-
-The hint button only appears on cards that have a `hint` field. Every Bible Trivia & Riddles entry has one.
-
-**Keyboard:** `H` for hint, `A` for reveal (host and solo only).
-
----
-
-## Never Have I Ever — Scoring
-
-Never Have I Ever and Confessions use a different mechanic from the rest of the site.
-
-### How it works
-
-1. Every player starts with **5 points**.
-2. A prompt appears. Each player taps **✋ I HAVE** or **🙅 I HAVEN'T** on their own device.
-3. The host sees a live tally: "3 of 5 voted" — but not who voted what.
-4. When everyone has voted, the host taps **👁️ Reveal Answers**.
-5. Everyone sees the breakdown, and scores update: **each I HAVE drops a point.**
-6. The host taps **Next Card** to continue to the next prompt.
-
-### Solo / one-device play
-
-The two voting buttons appear on the card, but only one vote is registered per card in solo mode. For more than one player, use Party Mode so each person votes on their own device.
-
-### Party Mode
-
-Each guest enters their name when joining. Votes sync to the host, who reveals when everyone is ready. The **🏆 Scores** button shows the leaderboard with a **Reset Scores** option.
-
-Guests see the leaderboard too, so they can check their own score after the host reveals. Guests can't reset scores — that button is host-only.
-
-### Reset, skip, and deck switching
-
-- **Reset** clears the current card and puts everyone back to **5 points**.
-- **Skip this card** discards the current prompt without scoring anyone. It appears only on the host's device (or solo), and only while votes are still coming in. Useful when a guest has stepped away or the prompt isn't landing.
-- **Switching to a different deck** also resets scores, so every scoring session starts fresh.
-- If the host tries to switch away from a scoring deck with votes in progress, a confirmation modal appears to avoid accidental data loss.
+### Card Behaviour
+- **Plain:** No buttons (just answer the prompt).
+- **Action:** 💪 I DO AM · 🙅 I LEAVE AM.
+- **Trivia:** 💡 Hint · 👁️ Reveal Answer.
+- **Scoring:** ✋ I HAVE · 🙅 I HAVEN'T.
 
 ---
 
 ## Party Mode
 
 <p align="center">
-  <img src="img/img-11.png" alt="Diagram showing the host device broadcasting state to guests" width="620">
+  <img src="img/img-11.png" alt="Host panel showing room code and QR" width="420">
 </p>
 
-Party Mode uses WebRTC (via PeerJS) to connect devices directly. There is no server relaying game data — the host's browser is the source of truth, and guests receive state updates in real time.
+Party Mode uses WebRTC (via PeerJS) so devices share the same card in real time.
 
-### Hosting
-
-- Tap **🎉 Party → Host a Party**.
-- A 4-character room code is generated (e.g. `K7QP`).
-- The host panel shows:
-  - The room code (large, readable aloud)
-  - A QR code guests can scan
-  - A copyable share link (`?room=K7QP`)
-  - A live guest count
-- Actions the host takes are broadcast to every connected guest.
-- If the host tries to close or refresh with active guests, the browser warns first.
-- Tap **End Party** to close all connections and return to solo mode.
-
-### Joining
-
-- Open the shared link (auto-joins), or
-- Tap **🎉 Party → Join a Party**, enter a 4-character code and your name.
-- Once connected, the guest's screen locks to the host's state.
-
-### Guest reconnection
-
-Each guest has a persistent client ID saved in `localStorage`. If they refresh, the host recognises them and replaces their old session rather than adding a duplicate. Duplicate names are numbered automatically ("Ada 2") so the leaderboard stays unambiguous.
-
-### What syncs
-
-- Current card
-- Deck tag and accent colour
-- Drawn / done / skipped counters
-- Remaining cards in the deck
-- Selected game mode (filter)
-- Birthday name
-- Hint reveal state
-- Answer reveal state
-- Scoring votes and leaderboard
-
-### What does *not* sync
-
-- Sound effects (each device plays its own)
-- Confetti (each device animates its own)
-- Theme preference (each device picks its own Light/Dark/System)
-- Local settings (name field, sound toggle — saved per device)
+- **Host:** Controls the deck, draws cards, switches games, resets, and triggers Hint/Reveal. The host's device must stay open and online.
+- **Guests:** See the same card in sync. They can tap Do/Leave and vote on scoring decks. Their choice is sent to the host's device and advances everyone.
+- **Reconnection:** If a guest refreshes, the host recognises their persistent ID and replaces their old session rather than adding a duplicate.
+- **What doesn't sync:** Sound, confetti, and theme preference are local to each device.
 
 ---
 
-## Onboarding Guide
+## Technical Stack & Customization
 
-<p align="center">
-  <img src="img/img-12.png" alt="The onboarding guide showing the welcome slide" width="420">
-</p>
+- **Stack:** HTML, CSS, Vanilla JavaScript. No frameworks, no build steps.
+- **Sync:** WebRTC via [PeerJS](https://peerjs.com/).
+- **Audio/Visuals:** Canvas 2D (confetti) and Web Audio API (synthesized sounds).
 
-An 8-step guide appears automatically the first time someone opens the app. It walks through:
+### Customizing the Game
+All content is managed in three objects near the top of the `<script>` tag in `index.html`:
+- `RAW`: The actual prompt arrays. Use plain strings for questions, or `{ text: "...", answer: "...", hint: "..." }` for trivia.
+- `DECKS`: Defines the deck labels, emojis, colors, and whether they are `scoring` or `mature`.
+- `RAW_SOURCES`: Maps merged decks to their underlying arrays (e.g., `charades` pulls from both `charades` and `biblec`).
+- `FILTERS`: Defines what appears in the game selection menu.
 
-1. **Welcome** — what the app is
-2. **Choose your game** — the filter chips, the deck sheet, and Random Mix
-3. **Draw a card** — button, swipe, and keyboard
-4. **Do Am / Leave Am** — how dares and charades work
-5. **Hints and answers** — how the two-stage reveal works
-6. **Never Have I Ever** — how scoring decks work
-7. **Party Mode** — host and join with a shared code
-8. **Settings and theme** — birthday name, sound, theme cycle, reset
-
-Each slide has an animated emoji, title, body text, dot indicators you can tap, and **Back / Next** buttons. The last slide becomes **Let's Play 🎈** and fires confetti.
-
-**Reopen anytime:**
-- Tap the **❓** button in the header.
-- Tap the **How to play ❓** link in the footer.
-
-The guide is skipped if someone opens the app via a party link (`?room=CODE`) so they aren't interrupted mid-join. It only auto-appears if the player has never seen it (tracked in `localStorage`).
-
-**Keyboard navigation while the guide is open:**
-- **→ / Enter** = next slide
-- **←** = back
-- **Esc** = close
-
----
-
-## Dark Mode
-
-The Hangout ships with three theme states, cycled by the theme button in the header:
-
-| Icon | State  | Behaviour                                       |
-| ---- | ------ | ----------------------------------------------- |
-| ☀️    | Light  | Warm off-white background, ink text             |
-| 🌙    | Dark   | Deep plum background, soft light text           |
-| 🌗    | System | Follows `prefers-color-scheme` and updates live |
-
-### How it works
-
-- The preference saves to `localStorage` under `hangoutCards.theme`.
-- On first visit it defaults to **System**.
-- A tiny inline script runs in `<head>` before any CSS renders, so **there's no flash of light content** when a dark-mode user loads the page.
-- When set to System, the site reacts to the OS theme changing in real time.
-
-### What stays consistent
-
-- Deck accent colours (coral, violet, teal, gold, amber) are unchanged across themes — they're the deck's identity and read fine on both backgrounds.
-- The QR code panel stays light in dark mode, because QR scanners need high contrast.
-- Sound, confetti, and Party Mode sync are unaffected.
-
-**Theme is not synced across Party Mode.** Each device picks its own. Some people prefer dark, some light, and no one should be forced into the other's preference.
-
----
-
-## Keyboard Shortcuts
-
-| Key                     | Action                                       |
-| ----------------------- | -------------------------------------------- |
-| `Space` / `→` / `Enter` | Draw next card                               |
-| `1`                     | I DO AM (dare or charade cards)              |
-| `2`                     | I LEAVE AM (dare or charade cards)           |
-| `H`                     | Reveal hint (Bible Trivia & Riddles)         |
-| `A`                     | Reveal answer (Bible Trivia & Riddles)       |
-| `S`                     | Skip this card (scoring decks, host or solo) |
-| `R`                     | Reset the deck                               |
-
-Shortcuts are paused while the onboarding guide is open and while typing in an input field. The deck sheet blocks `Esc` only — other shortcuts still fire while it's open.
-
-**Host-only in Party Mode:** `H`, `A`, `S`, and `R` do nothing on a guest device. Guests can still use `Space`, `1`, and `2`.
-
----
-
-## Responsive Design
-
-<p align="center">
-  <img src="img/img-13.png" alt="The same card rendered on phone, tablet, and desktop" width="800">
-</p>
-
-### Desktop and large tablets
-
-- **Chips row** at the top — all nine decks plus Random Mix, wrap-around layout.
-- Full-size card, generous padding, and both footer shortcut hints visible.
-
-### Phones and portrait tablets (≤1024px portrait)
-
-- **Chips row is replaced by a full-width game selector button** with a staggered hamburger icon.
-- Tapping the bar opens a **bottom sheet** split into **Conversational** and **Scoring** sections, with card counts and scoring or mature badges.
-- The sheet closes on backdrop tap, ✕ button, or Escape.
-- Guests in Party Mode cannot open the sheet — a "Host controls the game" toast appears.
-
-### Small phones (≤560px)
-
-- Brand text hides, icon buttons shrink.
-- **Do/Leave, Have/Haven't, Hint/Reveal, Skip buttons stack or split cleanly.**
-- Next and Reset split 50/50.
-- Footer keyboard hints hide.
-- Modals collapse to single-column actions.
-
-### Very small phones (≤380px)
-
-- Extra-compact padding, smaller chips, tighter card.
-
-### Landscape phones (≤540px height)
-
-- Compressed vertical layout so the card fits on screen.
-- Header and footer hints hide.
-
-### Other responsive touches
-
-| Feature              | Behaviour                                                             |
-| -------------------- | --------------------------------------------------------------------- |
-| **Notched devices**  | Header and footer respect `env(safe-area-inset-*)`                    |
-| **Touch devices**    | Keyboard hints hidden; `touch-action: manipulation` removes tap delay |
-| **iOS text scaling** | `text-size-adjust: 100%` prevents unwanted scaling                    |
-| **iOS focus zoom**   | Inputs stay at 16px to prevent zoom on focus                          |
-| **Reduced motion**   | All animations and transitions disabled                               |
-| **Card centering**   | `justify-content: safe center` prevents long cards from being cut off |
+The code is heavily commented to show you exactly how to add new prompts, change deck colors, or adjust which decks appear in Random Mix.
 
 ---
 
 ## Deployment
 
-Because everything lives in a single HTML file, you can host it anywhere static. HTTPS is required for Party Mode (WebRTC).
+Everything lives in a single HTML file. Host it anywhere static. **HTTPS is required for Party Mode** (WebRTC).
 
-### GitHub Pages
+- **GitHub Pages:** Commit the file, go to Settings → Pages, and select your branch.
+- **Netlify:** Drag the folder onto [app.netlify.com/drop](https://app.netlify.com/drop).
+- **Vercel:** Run `vercel --prod` in the directory.
 
-```bash
-git add index.html
-git commit -m "Add The Hangout"
-git push origin main
-```
-
-Then enable GitHub Pages in **Settings → Pages** and select the branch.
-
-### Netlify
-
-- Drag the folder onto [app.netlify.com/drop](https://app.netlify.com/drop), or
-- Connect your repo and set the publish directory to the folder containing `index.html`.
-
-### Vercel
-
-```bash
-vercel --prod
-```
-
-### Cloudflare Pages
-
-- Create a project, point it at your repo, and set the build output directory.
-
-### Any shared hosting
-
-- Upload `index.html` to `public_html` or your web root.
-- Ensure HTTPS is enabled (required for Party Mode).
-
-### Running locally for testing
-
-```bash
-python3 -m http.server 8080
-# or
-npx serve .
-```
-
-Then visit `http://localhost:8080`.
+To test locally, run `python3 -m http.server 8080` and visit `http://localhost:8080`.
 
 ---
 
-## Customization
+## Troubleshooting
 
-All editable content lives in a few clearly-labelled blocks near the top of the `<script>` tag.
+**Guests can't connect**
+- Confirm both devices are online and the site is served over HTTPS.
+- Some corporate or public Wi-Fi blocks WebRTC — try a mobile hotspot.
 
-### Add or change prompts
+**Reveal button won't enable on scoring decks**
+- Every connected guest must vote first. Watch the "X of Y voted" counter.
+- If someone leaves without voting, the host can tap **⏭️ Skip this card** (or press `S`) to move on without scoring anyone.
 
-Find the `RAW` object. Each deck is an array of strings, or objects with optional `answer`, `hint`, and `kind`:
-
-```js
-const RAW = {
-  friends: [
-    "Your custom question here",
-    // ...
-  ],
-  bibleq: [
-    { text: "Who built the ark?", answer: "Noah", hint: "He also planted a vineyard afterward." },
-    // ...
-  ],
-  riddles: [
-    { text: "What has hands but cannot clap?", answer: "A clock", hint: "It's always telling you something." },
-    // ...
-  ]
-};
-```
-
-- A plain string becomes a plain card.
-- A string in the `charades` or `biblec` deck automatically becomes a charade card (Do Am / Leave Am).
-- An object with `answer` becomes a question card with a reveal button.
-- An object with `hint` (and optionally `answer`) shows the Hint button.
-
-### Merged decks — `RAW_SOURCES` map
-
-The nine visible decks are built from the RAW pools by a map. If you add a new deck or split an existing one, edit `RAW_SOURCES`:
-
-```js
-const RAW_SOURCES = {
-  banter:      ["naija", "friends"],
-  realtalk:    ["realtalk"],
-  doam:        ["doam"],
-  charades:    ["charades", "biblec"],
-  trivia:      ["bibleq", "riddles"],
-  thisorthat:  ["thisorthat"],
-  hottakes:    ["hottakes"],
-  nhie:        ["nhie"],
-  confessions: ["confessions"]
-};
-```
-
-Each key maps to one or more RAW array names. The site pulls prompts from every source listed and labels them all with the deck key's `DECKS` entry.
-
-### Rename a deck or change its colour
-
-Edit the `DECKS` object:
-
-```js
-const DECKS = {
-  banter: { label: "Banter", emoji: "🍿", color: "#8B5CF6" },
-  nhie:   { label: "Never Have I Ever", emoji: "🫣", color: "#3B82F6", scoring: true, startScore: 5 },
-  confessions: { label: "Confessions", emoji: "😏", color: "#F43F5E", scoring: true, startScore: 5, mature: true },
-  // ...
-};
-```
-
-The `color` value becomes the accent stripe on the card. Add `mature: true` for a MATURE badge and confirmation modal. Add `scoring: true` and `startScore` for scoring decks.
-
-### Change or reorder the game chips
-
-Edit the `FILTERS` array:
-
-```js
-const FILTERS = [
-  { key: "all",    label: "🎲 Random Mix", short: "Random Mix" },
-  { key: "banter", label: "🍿 Banter",     short: "Banter" },
-  // ...
-];
-```
-
-Each `key` must match a key in `DECKS` and in `RAW_SOURCES`.
-
-### Change which decks appear in Random Mix
-
-Edit the exclusion list:
-
-```js
-const RANDOM_MIX_EXCLUDE = ["charades", "realtalk", "nhie", "confessions"];
-```
-
-Remove a key to include that deck in Random Mix, or add another to exclude it.
-
-### Change the room code length
-
-In `makeCode()`:
-
-```js
-function makeCode() {
-  let out = "";
-  for (let i = 0; i < 4; i++) out += CODE_CHARS[Math.floor(Math.random() * CODE_CHARS.length)];
-  return out;
-}
-```
-
-Change `4` to whatever length you want, then update the join input's `maxlength` attribute in `showJoinPanel()` to match.
-
-### Change which characters appear in codes
-
-Edit `CODE_CHARS`. The default excludes `I`, `O`, `0`, and `1` because they're easy to confuse when read aloud.
-
-### Edit onboarding slides
-
-Modify the `INTRO_STEPS` array. Each step has `emoji`, `title`, and `body`.
-
-### Change the default theme
-
-In the inline script inside `<head>`:
-
-```js
-var t = localStorage.getItem("hangoutCards.theme") || "auto";
-```
-
-Change `"auto"` to `"light"` or `"dark"` if you want a fixed default for new visitors.
-
-### Customizing dark mode colours
-
-Every dark-mode override lives in the `[data-theme="dark"]` block near the end of the `<style>` tag. To change the dark background, for instance:
-
-```css
-[data-theme="dark"] body {
-  background: #15131a; /* change this */
-}
-```
-
-The `--ink`, `--ink-soft`, and `--muted` variables are also redefined inside the `[data-theme="dark"]` selector, so changing those three values cascades through the whole site.
-
-### Bundling dependencies locally (optional)
-
-By default the page loads two external resources:
-
-- **PeerJS** from `unpkg.com`
-- **QR codes** from `api.qrserver.com`
-
-To make the site fully self-contained:
-
-1. Download `peerjs.min.js` and reference it locally.
-2. Replace the QR image with a client-side generator like `qrcode.js`.
-
-### Self-hosting the PeerJS signaling server (optional)
-
-For larger or public events, run your own PeerJS server and pass it to the constructor:
-
-```js
-peer = new Peer(PEER_PREFIX + roomCode, {
-  host: "your-peerjs-host",
-  port: 443,
-  secure: true
-});
-```
-
-This removes dependence on the public PeerJS cloud.
-
----
-
-## Technical Architecture
-
-### Stack
-
-- **HTML + CSS + vanilla JavaScript** — no framework, no bundler, no build step.
-- **PeerJS** — WebRTC wrapper for peer discovery and data channels.
-- **Canvas 2D** — confetti animation.
-- **Web Audio API** — synthesized sounds (no audio files).
-- **LocalStorage** — theme, settings, onboarding persistence, and guest client ID.
-- **QR Server API** — QR code image for the host panel.
-
-### File structure
-
-```
-your-project/
-├── index.html                ← everything (markup, styles, logic, decks)
-├── README.md                 ← this file
-└── img/
-    ├── img-1.png
-    ├── img-2.png
-    ├── ... (see Image Reference)
-    └── img-13.png
-```
-
-### State model
-
-The host owns:
-
-- `state.queue` — shuffled pool of remaining cards
-- `state.current` — the visible card
-- `state.drawn`, `state.didCount`, `state.leaveCount` — counters
-- `state.filter` — selected deck
-- `state.guests` — array of guest objects with votes and scores
-- `state.voters` — array of local voter objects (solo + host)
-- `state.votePhase` — `"voting"` or `"revealed"`
-- `state.isScoring` — whether the current deck uses scoring
-- `state.actionLocked` — brief lockout after Do/Leave/Skip to prevent double-draws
-- `partyName` — birthday name
-- `revealed` — answer visibility
-- `hintRevealed` — hint visibility
-
-Guests mirror this via `applyRemoteState()`.
-
-### Sync messages
-
-**Host → guests** (`buildStatePayload`):
-
-```js
-{
-  type: "state",
-  card, drawn, didCount, leaveCount,
-  remaining, filter, name,
-  revealed, hintRevealed,
-  votePhase, voters, guests
-}
-```
-
-**Guest → host**:
-
-```js
-{ type: "join", name: "Ada", clientId: "c1a2b3" }
-{ type: "action", action: "next" | "do" | "leave" | "vote", value?: "have" | "havent" }
-```
-
-### Lifecycle
-
-1. Host opens a PeerJS connection with ID `hangout-<CODE>`.
-2. Guests connect, then send a `join` message with their name and a persistent client ID.
-3. On every host change, `broadcastState()` sends the full payload.
-4. On guest actions, the host applies them locally and re-broadcasts.
-
-### Persistence
-
-| Key                      | What                                       |
-| ------------------------ | ------------------------------------------ |
-| `hangoutCards.v1`        | Name + sound preference (per device)       |
-| `hangoutCards.introSeen` | Whether onboarding has been completed      |
-| `hangoutCards.theme`     | `"light"`, `"dark"`, or `"auto"`           |
-| `hangoutCards.clientId`  | Persistent guest identity for rejoin dedup |
-
-Rooms are ephemeral. There is no server-side state.
+**Sound doesn't play**
+- Browsers block audio until the first user interaction. Tap once, then draw.
 
 ---
 
@@ -786,124 +146,6 @@ Rooms are ephemeral. There is no server-side state.
 | Safari (macOS + iOS)              | ✅    | ✅          | ✅         |
 | Firefox                           | ✅    | ✅          | ✅         |
 | Samsung Internet                  | ✅    | ✅          | ✅         |
-| Older browsers without WebRTC     | ✅    | ❌          | ✅         |
-
-Party Mode requires HTTPS (or `localhost`).
-
----
-
-## Troubleshooting
-
-**Guests can't connect**
-- Make sure the host is still on the page and hasn't refreshed.
-- Confirm both devices have internet.
-- Check that the site is served over HTTPS.
-- Some corporate or public Wi-Fi blocks WebRTC — try a mobile hotspot.
-- If the room code collides, the host will auto-generate a new one.
-
-**Room code not found**
-- Codes are case-insensitive and use `A–Z` (minus I/O) and `2–9` (minus 0/1).
-- Ask the host to re-read the code from their screen.
-- The room may have expired if the host closed the tab.
-
-**QR code doesn't load**
-- The QR uses an external API. If it's blocked, the copyable link still works.
-
-**Sound doesn't play**
-- Browsers block audio until the first user interaction. Tap the screen once, then draw.
-- Check the Sound toggle in ⚙️ Settings.
-
-**The guide reappears every time**
-- LocalStorage may be disabled (private browsing, strict privacy settings).
-- The ❓ button always reopens it manually.
-
-**Cards feel repetitive**
-- The queue avoids repeats until it's exhausted, then reshuffles.
-- Switching decks rebuilds the queue from scratch.
-
-**Hint button doesn't show**
-- Only Bible Trivia & Riddles cards have hints. Other decks go straight to the prompt.
-- In Party Mode, Hint is host-only. Guest devices show no hint button.
-
-**Reveal button won't enable on scoring decks**
-- Every connected guest must vote first. Watch the "X of Y voted" counter under the card.
-- If someone has left without voting, tap **⏭️ Skip this card** (or press `S`) to move on without scoring anyone.
-- If you want a clean slate instead, **Reset** clears the card and puts everyone back to 5 points.
-
-**Deck counts look wrong**
-- Merged decks (Banter, Charades, Bible Trivia & Riddles) report the sum of their source pools. Banter should read 200, Charades 200, Bible Trivia & Riddles 264. If a count is off, check `RAW_SOURCES` — a missing entry will make the deck render empty.
-
-**Dark mode flashes light on load**
-- LocalStorage may be disabled, in which case the fallback is light.
-- Verify the inline `<head>` script is present and runs before the `<style>` tag.
-
-**Dark mode doesn't follow the system**
-- The theme button cycles Light → Dark → System. If it's stuck on Light or Dark, the OS theme won't affect the page. Tap the theme button until it shows 🌗.
-
-**The game selector doesn't show on mobile**
-- It appears when the viewport is ≤1024px **and** the device is in portrait orientation. Rotate back to portrait if you don't see it.
-
-**Party Mode advanced:**
-- Host device must stay awake. Screen-lock may suspend the connection on some phones.
-- Guests who refresh will attempt to rejoin automatically if the URL still contains `?room=CODE`, and the host will replace their old session rather than creating a duplicate.
-- Closing or refreshing the host page ends the room, with a confirmation prompt if guests are still connected.
-
----
-
-## Known Limitations
-
-- **Host-dependent** — closing the host tab ends the room; there is no server to recover state.
-- **No persistence** — refreshing the host starts a new room.
-- **No authentication** — 4-character codes are guessable; suitable for private hangouts, not sensitive data.
-- **Public PeerJS cloud** — subject to rate limits and occasional downtime.
-- **Confetti and sound are local** — each device animates and beeps independently.
-- **Theme is not synced** — each device picks its own Light/Dark/System.
-- **Leaderboard is host-only** — guests see their own score in the vote pill but cannot open the full ranking
-- **Solo scoring registers one vote** — one player per card in solo mode; use Party Mode for multiple voters.
-- **Scoring decks don't auto-advance** — the host taps Next Card after revealing.
-- **Merged decks pull from untouched source pools** — splitting a merged deck back out is a one-line change, but the source arrays stay in `RAW` regardless.
-
----
-
-## Roadmap
-
-Ideas for future versions:
-
-- **Persistent rooms** backed by Firebase or Supabase.
-- **Reconnection and rejoin** for hosts and guests.
-- **Custom deck builder** — add prompts from the UI.
-- **Timer mode** — countdown per card.
-- **Team mode** — split the room into two teams.
-- **Streamer mode** — large-format display for TVs.
-- **Localization** — Yoruba, Igbo, Hausa, and Pidgin UI strings.
-- **Self-hosted PeerJS + TURN** for reliability behind strict NATs.
-- **PWA install** — offline caching and home-screen launch.
-- **Custom theme colours** — let users pick their own accent palette.
-- **Audience presets** — Party / Family / Everything shortcuts above the chips.
-
----
-
-## Image Reference
-
-Every image is a PNG. Filenames follow the order they appear in this README. All files live in an `img/` folder next to `README.md`.
-
-| Filename     | Where it appears           | What it should show                                            | Suggested size |
-| ------------ | -------------------------- | -------------------------------------------------------------- | -------------- |
-| `img-1.png`  | Hero banner, top of README | The Hangout title card or a hero shot                          | 1600×600       |
-| `img-2.png`  | Screenshots — Desktop      | Desktop layout with chips and a card in view                   | 1200×800       |
-| `img-3.png`  | Screenshots — Mobile       | Mobile view with the game selector bar                         | 600×1000       |
-| `img-4.png`  | Screenshots — Deck sheet   | Bottom sheet open, showing Conversational and Scoring sections | 600×1000       |
-| `img-5.png`  | Screenshots — Hint         | Bible Trivia & Riddles card with a hint showing                | 1000×700       |
-| `img-6.png`  | Screenshots — Reveal       | The same card with the answer revealed                         | 1000×700       |
-| `img-7.png`  | Screenshots — Scoring      | Never Have I Ever card with vote buttons                       | 1000×700       |
-| `img-8.png`  | Screenshots — Host panel   | Room code, QR, link, guest count                               | 800×900        |
-| `img-9.png`  | Screenshots — Dark mode    | The full layout rendered in dark mode                          | 1200×800       |
-| `img-10.png` | Game Decks                 | Close-up of the desktop chips row                              | 1400×300       |
-| `img-11.png` | Party Mode                 | Host → guests diagram                                          | 1200×600       |
-| `img-12.png` | Onboarding                 | Onboarding slide 1                                             | 900×1200       |
-| `img-13.png` | Responsive Design          | Same card on phone, tablet, desktop                            | 1600×800       |
-
-Until you add them, GitHub will show broken image icons — but the README reads fine without them. If you'd rather not have visible broken links during development, comment out the image blocks with `<!-- -->` and uncomment them once the files are in place.
 
 ---
 
@@ -912,16 +154,6 @@ Until you add them, GitHub will show broken image icons — but the README reads
 Free to use, modify, and share for personal hangouts and community events.
 
 Prompt content is original and written for this project. If you redistribute, a credit link back is appreciated but not required.
-
----
-
-## Credits
-
-- Game concept and content: written for The Hangout.
-- Sync layer: [PeerJS](https://peerjs.com/) over WebRTC.
-- QR generation: [qrserver.com](https://goqr.me/api/).
-- Sound effects: synthesized in-browser with the Web Audio API.
-- Confetti: custom canvas animation.
 
 <p align="center">
   Enjoy the hangout. 🎈
