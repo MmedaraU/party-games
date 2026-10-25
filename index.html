@@ -2117,6 +2117,10 @@
       max-width: 340px;
       margin: 0 auto;
       text-align: left;
+      max-height: 180px;
+      /* NEW: Limits the height */
+      overflow-y: auto;
+      /* NEW: Adds a scrollbar */
     }
 
     .trivia-feed .guess-row {
@@ -5059,7 +5063,8 @@
       const sorted = allVoters.slice().sort((a, b) => b.score - a.score);
       const topScore = sorted[0] ? sorted[0].score : 0;
 
-      const rows = sorted.map((v, i) => {
+      // 1. ADD .slice(0, 10) HERE so it only grabs the top 10
+      const rows = sorted.slice(0, 10).map((v, i) => {
         const winner = v.score === topScore && topScore > 0 ? " winner" : "";
         return `<div class="lb-row${winner}">
   <span class="lb-rank">${i + 1}.</span>
@@ -5068,10 +5073,17 @@
 </div>`;
       }).join("");
 
+      // 2. ADD THIS LINE to calculate how many players are left over
+      const extraNote = sorted.length > 10 ? `<p style="text-align:center; font-size:0.8rem; color:var(--muted); margin-top:10px;">...and ${sorted.length - 10} more players</p>` : "";
+
       openModal(`
     <h2>📊 Current Standings</h2>
     <p>Keep playing to secure your spot on the final podium.</p>
     <div class="leaderboard">${rows}</div>
+    
+    <!-- 3. ADD EXTRA NOTE HERE, right below the leaderboard div -->
+    ${extraNote}
+
     <div class="modal-actions">
       <button class="btn primary" id="mClose">Close</button>
     </div>
@@ -5199,12 +5211,26 @@
       };
     }
 
-    function broadcastState() {
+    let broadcastTimer = null;
+
+    function broadcastState(immediate = false) {
       if (role !== "host") return;
+
+      if (immediate) {
+        clearTimeout(broadcastTimer);
+        executeBroadcast();
+      } else {
+        clearTimeout(broadcastTimer);
+        broadcastTimer = setTimeout(executeBroadcast, 250); // Batches updates every 0.25s
+      }
+    }
+
+    function executeBroadcast() {
       const payload = buildStatePayload();
       guestConns.forEach(c => { if (c && c.open) { try { c.send(payload); } catch (e) { } } });
       updateRolePill();
     }
+
 
     function sendToHost(msg) {
       if (role !== "guest" || !hostConn || !hostConn.open) { toast("Not connected to host"); return; }
