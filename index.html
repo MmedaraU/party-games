@@ -2238,6 +2238,19 @@
       box-shadow: 0 0 10px rgba(34, 197, 94, 0.6);
       transform: scale(1.1);
     }
+
+    .podium-name {
+      font-size: 0.8rem;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      min-height: 1.2rem;
+      /* Prevents collapsing if name is empty */
+      color: #fff;
+      font-weight: 800;
+    }
   </style>
 </head>
 
@@ -4983,7 +4996,11 @@
     }
 
     function showPodium() {
-      const allPlayers = [state.voters[0], ...state.guests].filter(p => p.id !== "partner");
+      // 1. Exclude the host from the podium, and filter out the solo "Partner" slot
+      const allPlayers = role === "host"
+        ? [...state.guests]
+        : [state.voters[0]].filter(p => p.id !== "partner");
+
       const sorted = allPlayers.sort((a, b) => b.score - a.score);
 
       const top1 = sorted[0];
@@ -4992,11 +5009,15 @@
 
       const makeSpot = (p, rank, className, emoji) => {
         if (!p) return `<div style="width:90px"></div>`;
+
+        // 2. Add a fallback name just in case it's blank
+        const displayName = p.name && p.name.trim() !== "" ? p.name : "Player";
+
         return `
           <div class="podium-spot ${className}">
             <div class="podium-rank">${emoji}</div>
             <div class="podium-avatar">👤</div>
-            <div class="podium-name">${p.name}</div>
+            <div class="podium-name">${displayName}</div>
             <div class="podium-score">${p.score}</div>
           </div>
         `;
