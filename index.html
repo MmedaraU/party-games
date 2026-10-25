@@ -4206,16 +4206,36 @@
     }
 
     function isCorrectGuess(guess, answer) {
-      const cleanGuess = cleanString(guess);
-      const cleanAnswer = cleanString(answer);
+      const g = cleanString(guess);
+      const a = cleanString(answer);
+      if (!g || !a) return false;
 
-      // If the guess is exactly the answer, or contains the answer
-      if (cleanGuess === cleanAnswer) return true;
-      if (cleanGuess.includes(cleanAnswer) && cleanAnswer.length > 3) return true;
+      // Exact match
+      if (g === a) return true;
+
+      // One contains the other (both long enough to avoid false positives)
+      if (g.length >= 3 && a.length >= 3) {
+        if (g.includes(a) || a.includes(g)) return true;
+      }
+
+      // Numeric equivalence ("12" vs "Twelve", "6" vs "six")
+      const WORDS = {
+        one: "1", two: "2", three: "3", four: "4", five: "5",
+        six: "6", seven: "7", eight: "8", nine: "9", ten: "10",
+        eleven: "11", twelve: "12", forty: "40", fifty: "50", sixty: "60", seventy: "70"
+      };
+      const toNum = s => WORDS[s] || s;
+      if (toNum(g) === toNum(a)) return true;
+
+      // Token overlap — "Judas" matches "Judas Iscariot"
+      const gTokens = g.split(" ").filter(Boolean);
+      const aTokens = a.split(" ").filter(Boolean);
+      const gInA = gTokens.every(t => aTokens.includes(t) || t.length < 3);
+      const aInG = aTokens.every(t => gTokens.includes(t) || t.length < 3);
+      if (gInA || aInG) return true;
 
       return false;
     }
-
 
     /* =========================================================
        6. THEME
@@ -4571,12 +4591,21 @@
 
 
     function updateStats() {
-      const remaining = role === "guest" && remoteRemaining !== null ? remoteRemaining : state.queue.length;
+      const remaining = role === "guest" && remoteRemaining !== null
+        ? remoteRemaining : state.queue.length;
       const plural = state.drawn === 1 ? "" : "s";
       let s = `${state.drawn} card${plural} drawn · ${remaining} left in deck`;
+
       if (state.didCount + state.leaveCount > 0) {
         s += ` · 💪 ${state.didCount} done · 🙅 ${state.leaveCount} skipped`;
       }
+
+      // NEW: show the guest their own score in the footer
+      if (role === "guest") {
+        const me = state.guests.find(g => g.clientId === clientId);
+        if (me) s += ` · 🏆 Your score: ${me.score}`;
+      }
+
       statsEl.textContent = s;
     }
 
@@ -4799,21 +4828,33 @@
        ========================================================= */
 
     function drawCard() {
-      if (state.actionLocked || state.gameOver) return; // Blocked if game is over
+      if (state.actionLocked || state.gameOver) return;
       if (role === "guest") { sendToHost({ type: "action", action: "next" }); return; }
+
       if (state.queue.length === 0) {
         buildQueue();
         if (state.queue.length === 0) { toast("No prompts available"); return; }
         toast("Deck reshuffled 🔄");
       }
+
+      // NEW: award any un-awarded correct guesses on the card we're leaving
+      // (covers the case where the host taps Next without Revealing first)
+      const swept = autoAwardGuesses();
+      if (swept.length > 0) {
+        // optional visual feedback on the host's own screen
+        const total = swept.reduce((s, x) => s + x.pts, 0);
+        tone(1000, 0.08);
+        burst(20 + total * 6);
+      }
+
       const item = state.queue.pop();
       state.current = item;
       state.drawn++;
-      cardStartTime = Date.now(); // <-- ADD THIS
+      cardStartTime = Date.now();
 
-      // Reset guesses for the new card
+      // Reset guesses for the new card — safe now, award already happened above
       state.voters.forEach(v => { v.guess = null; v.guessTime = null; v.guessAwarded = false; });
-      state.guests.forEach(g => { g.guess = null; g.guessAwarded = false; });
+      state.guests.forEach(g => { g.guess = null; g.guessTime = null; g.guessAwarded = false; });
 
       revealed = false;
       hintRevealed = false;
@@ -4821,6 +4862,7 @@
       state.voters.forEach(v => { v.voted = false; v.vote = null; });
       state.guests.forEach(g => { g.voted = false; g.vote = null; });
       myVoted = false;
+      myGuess = null;
       cardSound();
       burst(34);
       render(item);
@@ -4872,6 +4914,7 @@
       if (role === "guest") return;
       if (!state.current) return;
 
+      // ---- Scoring decks (Never Have I Ever / Confessions) ----
       if (state.isScoring) {
         if (state.votePhase === "revealed") return;
         const allVoters = role === "solo"
@@ -4897,19 +4940,24 @@
         return;
       }
 
+      // ---- Trivia / Riddles ----
       if (!state.current.answer) return;
       if (revealed) return;
 
       revealed = true;
       revealSound();
 
-      // 1. Update the card to show the answer
+      // NEW: auto-award every correct guess the moment the answer appears.
+      // Runs before render() so the host's feed reflects the new scores.
+      autoAwardGuesses();
+
+      // Update the card to show the answer
       render(state.current, { animate: false, revealed: true, hintRevealed: hintRevealed });
 
-      // 2. Update the Host's Live Feed to show the Green +1/+2/+3 buttons
+      // Refresh the host's Live Guesses feed so awarded rows flip to ✓
       renderTriviaFeed();
 
-      // 3. Broadcast immediately so guests see it instantly
+      // Broadcast immediately so guests see it (and their award toast) instantly
       if (role === "host") broadcastState(true);
     }
 
@@ -5034,6 +5082,33 @@
           broadcastState(true);
         }
       }
+    }
+
+    function autoAwardGuesses() {
+      if (!state.current || !state.current.answer) return [];
+      if (state.isScoring) return [];                 // nhie / confessions use vote logic
+
+      const allPlayers = role === "solo"
+        ? state.voters
+        : [state.voters[0], ...state.guests];          // host's own guess + all guests
+
+      const awarded = [];
+      allPlayers.forEach(p => {
+        if (!p.guess || p.guessAwarded) return;
+        if (!isCorrectGuess(p.guess, state.current.answer)) return;
+
+        let pts = 1;
+        if (p.guessTime) {
+          if (p.guessTime < 5000) pts = 3;
+          else if (p.guessTime < 10000) pts = 2;
+        }
+
+        p.score += pts;
+        p.guessAwarded = true;
+        awarded.push({ name: p.name, pts });
+      });
+
+      return awarded;
     }
     // --- NEW: GAME SHOW LOGIC ---
 
