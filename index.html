@@ -4728,11 +4728,11 @@
         voteStatus.hidden = true;
       }
 
-      // ===== CHANGED: trivia block now branches solo / host / guest correctly =====
+      // ===== Trivia block: guest = guess input, host = live feed, solo = no input =====
       const isTrivia = hasAnswer && !isScoring;
       if (isTrivia) {
         if (role === "guest") {
-          triviaActions.hidden = rv;               // hide only once the answer is out
+          triviaActions.hidden = rv;
           if (myGuess) {
             guessInput.value = myGuess;
             guessInput.disabled = true;
@@ -4747,25 +4747,15 @@
           triviaActions.hidden = true;
           triviaFeed.hidden = false;
           renderTriviaFeed();
-        } else { // solo
-          const g = state.voters[0].guess;
-          triviaActions.hidden = !!g || rv;
-          if (g) {
-            guessInput.value = g;
-            guessInput.disabled = true;
-            submitGuessBtn.disabled = true;
-            submitGuessBtn.textContent = "Submitted ✓";
-          } else {
-            guessInput.disabled = false;
-            submitGuessBtn.disabled = false;
-            submitGuessBtn.textContent = "Submit";
-          }
+        } else {
+          // solo: no guess input — reveal the answer directly
+          triviaActions.hidden = true;
         }
       } else {
         triviaActions.hidden = true;
         triviaFeed.hidden = true;
       }
-      // ===== end changed block =====
+      // ===== end block =====
 
       if ((role === "host" || role === "solo") && state.guests.length > 0) {
         endGameBtn.hidden = false;
