@@ -5257,6 +5257,7 @@
         if (isNewCard) {
           cardSound();
           myVoted = false;
+          cardStartTime = Date.now(); // <-- ADD THIS LINE HERE
         }
         lastSeenDrawn = p.drawn;
         lastSeenCardKey = cardKey;
