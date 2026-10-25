@@ -2092,6 +2092,146 @@
     [data-theme="dark"] .intro-tip b {
       color: #b8b0bd;
     }
+
+    /* ============ NEW: GAME SHOW & TRIVIA STYLES ============ */
+    .trivia-actions input {
+      font-family: inherit;
+      font-size: 16px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(42, 17, 25, .15);
+      outline: none;
+      flex: 1;
+    }
+
+    .trivia-actions input:focus {
+      border-color: var(--rose);
+    }
+
+    .trivia-feed {
+      background: #FBF6FB;
+      border: 1px solid rgba(42, 17, 25, .08);
+      border-radius: 14px;
+      padding: 12px 14px;
+      width: 100%;
+      max-width: 340px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .trivia-feed .guess-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(42, 17, 25, .06);
+      font-size: 0.9rem;
+    }
+
+    .trivia-feed .guess-row:last-child {
+      border-bottom: 0;
+    }
+
+    .trivia-feed .guess-name {
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .trivia-feed .guess-text {
+      color: var(--ink-soft);
+      font-style: italic;
+    }
+
+    .trivia-feed .guess-correct {
+      background: #22C55E;
+      color: white;
+      border: 0;
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-weight: 800;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+
+    .trivia-feed .guess-correct.awarded {
+      background: #D1D5DB;
+      pointer-events: none;
+    }
+
+    /* Podium Styles */
+    .podium-container {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 8px;
+      height: 220px;
+      margin: 20px 0;
+      padding-bottom: 10px;
+    }
+
+    .podium-spot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      width: 90px;
+      border-radius: 12px 12px 0 0;
+      padding: 10px 4px;
+      text-align: center;
+      font-weight: 800;
+      color: #fff;
+      box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+      transition: height 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .podium-1 {
+      height: 180px;
+      background: linear-gradient(180deg, #F59E0B, #B45309);
+    }
+
+    .podium-2 {
+      height: 130px;
+      background: linear-gradient(180deg, #94A3B8, #475569);
+    }
+
+    .podium-3 {
+      height: 90px;
+      background: linear-gradient(180deg, #D97706, #78350F);
+    }
+
+    .podium-avatar {
+      font-size: 2rem;
+      margin-bottom: 5px;
+    }
+
+    .podium-name {
+      font-size: 0.8rem;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    .podium-score {
+      font-size: 1.2rem;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 2px 8px;
+      border-radius: 8px;
+    }
+
+    .podium-rank {
+      font-size: 1.5rem;
+      font-weight: 900;
+      margin-bottom: auto;
+    }
+
+    /* Scrollable Leaderboard for Big Rooms */
+    .leaderboard {
+      max-height: 50vh;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
   </style>
 </head>
 
@@ -2141,6 +2281,20 @@
 
       <div class="reveal-block" id="revealBlock" hidden></div>
 
+      <!-- Trivia Guessing (For Guests) -->
+      <div class="trivia-actions" id="triviaActions" hidden
+        style="width:100%; max-width:340px; display:flex; gap:10px; margin: 0 auto;">
+        <input type="text" id="guessInput" class="name-input" placeholder="Type your guess..." autocomplete="off"
+          maxlength="30">
+        <button class="btn primary" id="submitGuessBtn">Submit</button>
+      </div>
+
+      <!-- Trivia Live Feed (For Hosts) -->
+      <div class="trivia-feed" id="triviaFeed" hidden>
+        <div class="reveal-label">Live Guesses</div>
+        <div id="triviaFeedList" class="reveal-list"></div>
+      </div>
+
       <p class="vote-status" id="voteStatus" hidden></p>
 
       <div class="hint-reveal-row" id="hintRevealRow" hidden>
@@ -2163,8 +2317,11 @@
     <div class="controls" id="controls">
       <button class="btn primary" id="nextBtn">Next Card →</button>
       <button class="btn ghost" id="leaderBtn" hidden>🏆 Scores</button>
+      <button class="btn danger" id="endGameBtn" hidden>🛑 End Game</button>
       <button class="btn ghost" id="resetBtn">Reset</button>
     </div>
+
+
     <div class="waiting" id="waitingNote" hidden>Waiting for the host to draw the next card…</div>
   </main>
 
@@ -3822,6 +3979,13 @@
     const introNext = document.getElementById("introNext");
     const introTip = document.getElementById("introTip");
 
+    const endGameBtn = document.getElementById("endGameBtn");
+    const guessInput = document.getElementById("guessInput");
+    const submitGuessBtn = document.getElementById("submitGuessBtn");
+    const triviaActions = document.getElementById("triviaActions");
+    const triviaFeed = document.getElementById("triviaFeed");
+    const triviaFeedList = document.getElementById("triviaFeedList");
+
     /* =========================================================
        4. STATE
        ========================================================= */
@@ -3834,11 +3998,13 @@
       didCount: 0,
       leaveCount: 0,
       guests: [],
-      voters: [{ id: "you", name: "You", score: 5, voted: false, vote: null }],
+      voters: [{ id: "you", name: "You", score: 5, voted: false, vote: null, guess: null }],
       votePhase: "voting",
       isScoring: false,
-      actionLocked: false
+      actionLocked: false,
+      gameOver: false // NEW
     };
+
 
     let role = "solo";
     let roomCode = "";
@@ -4382,6 +4548,9 @@
       choices.hidden = true;
       scoringChoices.hidden = true;
       leaderBtn.hidden = true;
+      endGameBtn.hidden = true;
+      triviaActions.hidden = true;
+      triviaFeed.hidden = true;
       updateStats();
     }
 
@@ -4466,15 +4635,62 @@
         voteStatus.hidden = true;
       }
 
+      // --- Game Show & Trivia Logic ---
+      const isTrivia = hasAnswer && !isScoring;
+      if (isTrivia) {
+        if (!state.guests.some(g => g.guess) && !state.voters[0].guess) {
+          guessInput.value = "";
+          guessInput.disabled = false;
+          submitGuessBtn.disabled = false;
+        }
+        if (role === "guest") {
+          const myGuess = state.voters[0].guess;
+          triviaActions.hidden = !!myGuess || rv;
+          guessInput.value = myGuess || "";
+          guessInput.disabled = !!myGuess;
+          submitGuessBtn.disabled = !!myGuess;
+        } else if (role === "host") {
+          triviaFeed.hidden = false;
+          renderTriviaFeed();
+        }
+      } else {
+        triviaActions.hidden = true;
+        triviaFeed.hidden = true;
+      }
+
+      if ((role === "host" || role === "solo") && state.guests.length > 0) {
+        endGameBtn.hidden = false;
+      } else {
+        endGameBtn.hidden = true;
+      }
+
+      if (role !== "guest") {
+        controls.style.opacity = state.gameOver ? "0.2" : "1";
+        controls.style.pointerEvents = state.gameOver ? "none" : "auto";
+      }
+
       if (opts.animate !== false) animateCard();
       updateStats();
     }
     function updateRevealState() {
-      if (!state.isScoring) return;
       if (role === "guest") return;
-      const allVotesIn = state.voters[0].voted && state.guests.every(g => g.voted);
-      revealBtn.disabled = !allVotesIn || state.votePhase === "revealed";
+      if (!state.isScoring) return;
+
+      const votedCount = state.guests.filter(g => g.voted).length + (state.voters[0].voted ? 1 : 0);
+      const totalCount = state.guests.length + 1;
+
+      if (role === "solo") {
+        revealBtn.disabled = !state.voters.every(v => v.voted) || state.votePhase === "revealed";
+      } else {
+        revealBtn.disabled = state.votePhase === "revealed";
+        if (state.votePhase === "voting") {
+          revealBtn.textContent = votedCount === totalCount
+            ? "👁️ Reveal Answers"
+            : `👁️ Reveal (${votedCount}/${totalCount} voted)`;
+        }
+      }
     }
+
     function renderVoteStatus() {
       if (!state.isScoring) { voteStatus.hidden = true; return; }
       voteStatus.hidden = false;
@@ -4502,7 +4718,7 @@
        ========================================================= */
 
     function drawCard() {
-      if (state.actionLocked) return;
+      if (state.actionLocked || state.gameOver) return; // Blocked if game is over
       if (role === "guest") { sendToHost({ type: "action", action: "next" }); return; }
       if (state.queue.length === 0) {
         buildQueue();
@@ -4512,6 +4728,11 @@
       const item = state.queue.pop();
       state.current = item;
       state.drawn++;
+
+      // Reset guesses for the new card
+      state.voters.forEach(v => { v.guess = null; v.guessAwarded = false; });
+      state.guests.forEach(g => { g.guess = null; g.guessAwarded = false; });
+
       revealed = false;
       hintRevealed = false;
       state.votePhase = "voting";
@@ -4525,7 +4746,7 @@
     }
 
     function chooseDo() {
-      if (state.actionLocked) return;
+      if (state.actionLocked || state.gameOver) return;
       if (role === "guest") { sendToHost({ type: "action", action: "do" }); toast("Sent to host 💪"); return; }
       if (!state.current) return;
       state.actionLocked = true;
@@ -4541,7 +4762,7 @@
     }
 
     function chooseLeave() {
-      if (state.actionLocked) return;
+      if (state.actionLocked || state.gameOver) return;
       if (role === "guest") { sendToHost({ type: "action", action: "leave" }); toast("Sent to host 🙅"); return; }
       if (!state.current) return;
       state.actionLocked = true;
@@ -4640,6 +4861,118 @@
       broadcastState();
     }
 
+    // --- NEW: TRIVIA LOGIC ---
+
+    function submitGuess() {
+      const val = guessInput.value.trim();
+      if (!val) return;
+
+      if (role === "guest") {
+        sendToHost({ type: "action", action: "guess", value: val });
+        state.voters[0].guess = val; // The guest is voters[0] locally
+        guessInput.disabled = true;
+        submitGuessBtn.disabled = true;
+        render();
+      } else {
+        state.voters[0].guess = val;
+        guessInput.disabled = true;
+        submitGuessBtn.disabled = true;
+        render();
+      }
+    }
+
+    function renderTriviaFeed() {
+      const list = role === "solo" ? state.voters : [state.voters[0], ...state.guests];
+      const feed = list.filter(v => v.guess);
+
+      if (feed.length === 0) {
+        triviaFeedList.innerHTML = `<span class="reveal-empty">No guesses yet…</span>`;
+        return;
+      }
+
+      triviaFeedList.innerHTML = feed.map(v => {
+        const awarded = v.guessAwarded;
+        return `<div class="guess-row">
+          <div>
+            <span class="guess-name">${v.name}:</span> 
+            <span class="guess-text">"${v.guess}"</span>
+          </div>
+          ${state.votePhase === "revealed" && !awarded
+            ? `<button class="guess-correct" onclick="awardPoint('${v.id}')">+1</button>`
+            : (awarded ? `<span class="guess-correct awarded">✓</span>` : '')}
+        </div>`;
+      }).join("");
+    }
+
+    function awardPoint(voterId) {
+      const v = voterId === "you"
+        ? state.voters[0]
+        : (voterId === "partner" ? state.voters[1] : state.guests.find(g => g.id === voterId));
+
+      if (v) {
+        v.score += 1;
+        v.guessAwarded = true;
+        tone(900, 0.1);
+        burst(20);
+        renderTriviaFeed();
+        broadcastState();
+      }
+    }
+
+    // --- NEW: GAME SHOW LOGIC ---
+
+    function endGame() {
+      if (role === "guest") return;
+      state.gameOver = true;
+      broadcastState();
+      showPodium();
+      revealSound();
+      burst(150);
+    }
+
+    function showPodium() {
+      const allPlayers = [state.voters[0], ...state.guests].filter(p => p.id !== "partner");
+      const sorted = allPlayers.sort((a, b) => b.score - a.score);
+
+      const top1 = sorted[0];
+      const top2 = sorted[1];
+      const top3 = sorted[2];
+
+      const makeSpot = (p, rank, className, emoji) => {
+        if (!p) return `<div style="width:90px"></div>`;
+        return `
+          <div class="podium-spot ${className}">
+            <div class="podium-rank">${emoji}</div>
+            <div class="podium-avatar">👤</div>
+            <div class="podium-name">${p.name}</div>
+            <div class="podium-score">${p.score}</div>
+          </div>
+        `;
+      };
+
+      openModal(`
+        <h2 style="text-align:center; font-size: 1.6rem; color: var(--rose);">🏆 Game Over! 🏆</h2>
+        <p style="text-align:center; margin-bottom: 10px;">Here are the top minds of the night.</p>
+        
+        <div class="podium-container">
+          ${makeSpot(top2, 2, "podium-2", "🥈")}
+          ${makeSpot(top1, 1, "podium-1", "🥇")}
+          ${makeSpot(top3, 3, "podium-3", "🥉")}
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn primary" id="mPlayAgain">Play Again</button>
+          <button class="btn ghost" id="mClose">Close</button>
+        </div>
+      `);
+
+      document.getElementById("mClose").onclick = closeModal;
+      document.getElementById("mPlayAgain").onclick = () => {
+        closeModal();
+        resetGame();
+      };
+    }
+
     function showLeaderboard() {
       const allVoters = role === "solo" ? state.voters : [state.voters[0], ...state.guests];
       const sorted = allVoters.slice().sort((a, b) => b.score - a.score);
@@ -4654,33 +4987,21 @@
 </div>`;
       }).join("");
 
-      const canReset = role !== "guest";
-      const actions = canReset
-        ? `<button class="btn ghost" id="mReset">Reset Scores</button>
-       <button class="btn primary" id="mClose">Close</button>`
-        : `<button class="btn primary" id="mClose">Close</button>`;
-
       openModal(`
-<h2>🏆 Scores</h2>
-<p>Started at 5. Every <b>I HAVE</b> costs one point. Highest score wins.</p>
-<div class="leaderboard">${rows}</div>
-<div class="modal-actions">${actions}</div>
-`);
+    <h2>📊 Current Standings</h2>
+    <p>Keep playing to secure your spot on the final podium.</p>
+    <div class="leaderboard">${rows}</div>
+    <div class="modal-actions">
+      <button class="btn primary" id="mClose">Close</button>
+    </div>
+  `);
 
       document.getElementById("mClose").onclick = closeModal;
-      const resetEl = document.getElementById("mReset");
-      if (resetEl) {
-        resetEl.onclick = () => {
-          state.voters.forEach(v => { v.score = 5; });
-          state.guests.forEach(g => { g.score = 5; });
-          closeModal();
-          broadcastState();
-          toast("Scores reset 🏆");
-        };
-      }
     }
+
     function resetGame() {
       if (role === "guest") return;
+      state.gameOver = false;
       state.drawn = 0;
       state.didCount = 0;
       state.leaveCount = 0;
@@ -4689,8 +5010,8 @@
       hintRevealed = false;
       state.votePhase = "voting";
       state.actionLocked = false;
-      state.voters.forEach(v => { v.voted = false; v.vote = null; v.score = 5; });
-      state.guests.forEach(g => { g.voted = false; g.vote = null; g.score = 5; });
+      state.voters.forEach(v => { v.voted = false; v.vote = null; v.score = 5; v.guess = null; v.guessAwarded = false; });
+      state.guests.forEach(g => { g.voted = false; g.vote = null; g.score = 5; g.guess = null; g.guessAwarded = false; });
       buildQueue();
       showWelcome();
       toast("Deck reset — scores cleared 🔄");
@@ -4710,8 +5031,8 @@
       hintRevealed = false;
       state.votePhase = "voting";
       state.actionLocked = false;
-      state.voters.forEach(v => { v.voted = false; v.vote = null; v.score = 5; });
-      state.guests.forEach(g => { g.voted = false; g.vote = null; g.score = 5; });
+      state.voters.forEach(v => { v.voted = false; v.vote = null; v.score = 5; v.guess = null; v.guessAwarded = false; });
+      state.guests.forEach(g => { g.voted = false; g.vote = null; g.score = 5; g.guess = null; g.guessAwarded = false; });
 
       updateFilterUI();
       tone(600, 0.05);
@@ -4791,8 +5112,9 @@
         revealed: revealed,
         hintRevealed: hintRevealed,
         votePhase: state.votePhase,
-        voters: state.voters.map(v => ({ id: v.id, name: v.name, score: v.score, voted: v.voted, vote: v.vote })),
-        guests: state.guests.map(g => ({ id: g.id, name: g.name, score: g.score, voted: g.voted, vote: g.vote }))
+        gameOver: state.gameOver, // NEW
+        voters: state.voters.map(v => ({ id: v.id, name: v.name, score: v.score, voted: v.voted, vote: v.vote, guess: v.guess, guessAwarded: v.guessAwarded })),
+        guests: state.guests.map(g => ({ id: g.id, name: g.name, score: g.score, voted: g.voted, vote: g.vote, guess: g.guess, guessAwarded: g.guessAwarded }))
       };
     }
 
@@ -4838,6 +5160,16 @@
         if (p.filter && DECKS[p.filter]) {
           toast("Deck: " + DECKS[p.filter].label);
         }
+      }
+
+      if (p.gameOver && !state.gameOver) {
+        state.gameOver = true;
+        showPodium();
+        revealSound();
+        burst(150);
+      } else if (!p.gameOver && state.gameOver) {
+        state.gameOver = false;
+        closeModal();
       }
 
       if (p.card) {
@@ -5030,12 +5362,19 @@
 
       peer.on("connection", (conn) => {
         guestConns.push(conn);
+
         conn.on("open", () => {
           try { conn.send(buildStatePayload()); } catch (e) { }
           updateRolePill();
           refreshHostPanelCount();
           tone(700, 0.07);
+
+          // Big Room Warning
+          if (guestConns.filter(c => c.open).length === 12) {
+            toast("⚠️ 12+ guests connected. Keep this tab in the foreground.");
+          }
         });
+
         conn.on("data", (data) => {
           if (!data || typeof data !== "object") return;
 
@@ -5049,19 +5388,28 @@
                 existing.name = makeUniqueGuestName(data.name);
                 existing.voted = false;
                 existing.vote = null;
-                existing.conn.on("close", () => dropGuest(conn));
-                existing.conn.on("error", () => dropGuest(conn));
+                existing.guess = null; // Reset guess on reconnect
+                existing.guessAwarded = false;
+                conn.on("close", () => dropGuest(conn));
+                conn.on("error", () => dropGuest(conn));
                 toast(existing.name + " reconnected 👋");
                 broadcastState();
                 refreshHostPanelCount();
                 return;
               }
             }
+
             const name = makeUniqueGuestName(data.name);
             state.guests.push({
               id: "g" + Math.random().toString(36).slice(2, 8),
               clientId: cid,
-              name, score: 5, voted: false, vote: null, conn
+              name,
+              score: 5,
+              voted: false,
+              vote: null,
+              guess: null,       // Initialize guess
+              guessAwarded: false, // Initialize awarded status
+              conn
             });
             toast(name + " joined 👋");
             broadcastState();
@@ -5073,6 +5421,7 @@
             if (data.action === "next") drawCard();
             if (data.action === "do") chooseDo();
             if (data.action === "leave") chooseLeave();
+
             if (data.action === "vote") {
               const g = state.guests.find(x => x.conn === conn);
               if (g && !g.voted) {
@@ -5083,8 +5432,19 @@
                 broadcastState();
               }
             }
+
+            // Handle Trivia Guesses
+            if (data.action === "guess") {
+              const g = state.guests.find(x => x.conn === conn);
+              if (g) {
+                g.guess = data.value;
+                renderTriviaFeed();
+                broadcastState();
+              }
+            }
           }
         });
+
         function dropGuest(c) {
           guestConns = guestConns.filter(x => x !== c);
           state.guests = state.guests.filter(g => g.conn !== c);
@@ -5092,6 +5452,7 @@
           refreshHostPanelCount();
           broadcastState();
         }
+
         conn.on("close", () => dropGuest(conn));
         conn.on("error", () => dropGuest(conn));
       });
@@ -5238,7 +5599,11 @@
     haveBtn.addEventListener("click", () => castVote("have"));
     haventBtn.addEventListener("click", () => castVote("havent"));
     leaderBtn.addEventListener("click", showLeaderboard);
-
+    endGameBtn.addEventListener("click", endGame);
+    submitGuessBtn.addEventListener("click", submitGuess);
+    guessInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") submitGuess();
+    });
     document.addEventListener("keydown", (e) => {
       if (!introOverlay.hidden) {
         if (e.key === "ArrowRight" || e.key === "Enter") { e.preventDefault(); introNext.click(); }
@@ -5340,6 +5705,9 @@
       if (!seen && !joining) setTimeout(() => openIntro(0), 450);
     })();
   </script>
+
+  <!-- GoatCounter Analytics -->
+  <script data-goatcounter="https://party-games.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 
 </html>
