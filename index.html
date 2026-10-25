@@ -4038,8 +4038,8 @@
     let partyName = "";
     let remoteRemaining = null;
     let revealed = false;
-    let hintRevealed = false;
     let myVoted = false;
+    let myGuess = null;          // NEW
     let lastSeenDrawn = -1;
     let lastSeenCardKey = "";
     let cardStartTime = 0;
@@ -4657,9 +4657,19 @@
         (isScoring && canReveal);
       hintRevealRow.hidden = !rowVisible;
 
+      // ===== CHANGED: reveal block now shows the viewer's own guess =====
       if (hasAnswer && rv && !isScoring) {
+        let selfFeedback = "";
+        const guessToCheck = role === "guest" ? myGuess : state.voters[0].guess;
+        if (guessToCheck) {
+          const correct = isCorrectGuess(guessToCheck, item.answer);
+          selfFeedback = `<div class="reveal-group" style="background:${correct ? '#ECFDF5' : '#FEF2F2'};border-color:${correct ? '#86EFAC' : '#FECACA'};">
+        <div class="reveal-label" style="color:${correct ? '#166534' : '#991B1B'};">Your guess</div>
+        <div class="reveal-list" style="color:${correct ? '#166534' : '#991B1B'};">${guessToCheck} ${correct ? '✅' : '❌'}</div>
+      </div>`;
+        }
         revealBlock.hidden = false;
-        revealBlock.innerHTML = `<div class="reveal-group">
+        revealBlock.innerHTML = `${selfFeedback}<div class="reveal-group">
       <div class="reveal-label">Answer</div>
       <div class="reveal-list">${item.answer}</div>
     </div>`;
@@ -4667,6 +4677,7 @@
         revealBlock.hidden = true;
         revealBlock.innerHTML = "";
       }
+      // ===== end changed block =====
 
       if (isScoring) {
         choices.hidden = true;
@@ -4688,28 +4699,44 @@
         voteStatus.hidden = true;
       }
 
-      // --- Game Show & Trivia Logic ---
+      // ===== CHANGED: trivia block now branches solo / host / guest correctly =====
       const isTrivia = hasAnswer && !isScoring;
       if (isTrivia) {
-        if (!state.guests.some(g => g.guess) && !state.voters[0].guess) {
-          guessInput.value = "";
-          guessInput.disabled = false;
-          submitGuessBtn.disabled = false;
-        }
         if (role === "guest") {
-          const myGuess = state.voters[0].guess;
-          triviaActions.hidden = !!myGuess || rv;
-          guessInput.value = myGuess || "";
-          guessInput.disabled = !!myGuess;
-          submitGuessBtn.disabled = !!myGuess;
+          triviaActions.hidden = rv;               // hide only once the answer is out
+          if (myGuess) {
+            guessInput.value = myGuess;
+            guessInput.disabled = true;
+            submitGuessBtn.disabled = true;
+            submitGuessBtn.textContent = "Submitted ✓";
+          } else {
+            guessInput.disabled = false;
+            submitGuessBtn.disabled = false;
+            submitGuessBtn.textContent = "Submit";
+          }
         } else if (role === "host") {
+          triviaActions.hidden = true;
           triviaFeed.hidden = false;
           renderTriviaFeed();
+        } else { // solo
+          const g = state.voters[0].guess;
+          triviaActions.hidden = !!g || rv;
+          if (g) {
+            guessInput.value = g;
+            guessInput.disabled = true;
+            submitGuessBtn.disabled = true;
+            submitGuessBtn.textContent = "Submitted ✓";
+          } else {
+            guessInput.disabled = false;
+            submitGuessBtn.disabled = false;
+            submitGuessBtn.textContent = "Submit";
+          }
         }
       } else {
         triviaActions.hidden = true;
         triviaFeed.hidden = true;
       }
+      // ===== end changed block =====
 
       if ((role === "host" || role === "solo") && state.guests.length > 0) {
         endGameBtn.hidden = false;
@@ -4725,6 +4752,7 @@
       if (opts.animate !== false) animateCard();
       updateStats();
     }
+
     function updateRevealState() {
       if (role === "guest") return;
       if (!state.isScoring) return;
@@ -4929,24 +4957,21 @@
       const val = guessInput.value.trim();
       if (!val) return;
 
-      // Deduct 1000ms from the guest's time to account for network lag
-      let timeTaken = Date.now() - cardStartTime;
-      if (role === "guest") {
-        timeTaken = Math.max(0, timeTaken - 1000);
-      }
+      const timeTaken = Math.max(0, Date.now() - cardStartTime);
 
       if (role === "guest") {
         sendToHost({ type: "action", action: "guess", value: val, timeTaken });
-        state.voters[0].guess = val;
-        state.voters[0].guessTime = timeTaken;
+        myGuess = val;                                    // store locally, NOT in state.voters[0]
         guessInput.disabled = true;
         submitGuessBtn.disabled = true;
+        submitGuessBtn.textContent = "Submitted ✓";
         render();
       } else {
         state.voters[0].guess = val;
         state.voters[0].guessTime = timeTaken;
         guessInput.disabled = true;
         submitGuessBtn.disabled = true;
+        submitGuessBtn.textContent = "Submitted ✓";
         render();
       }
     }
@@ -5022,12 +5047,12 @@
     }
 
     function showPodium() {
-      // 1. Exclude the host from the podium, and filter out the solo "Partner" slot
-      const allPlayers = role === "host"
-        ? [...state.guests]
-        : [state.voters[0]].filter(p => p.id !== "partner");
+      // Host AND guest now both see the guest roster (host is not scored)
+      const allPlayers = role === "solo"
+        ? [state.voters[0]].filter(p => p.id !== "partner")
+        : [...state.guests];
 
-      const sorted = allPlayers.sort((a, b) => b.score - a.score);
+      const sorted = allPlayers.slice().sort((a, b) => b.score - a.score);
 
       const top1 = sorted[0];
       const top2 = sorted[1];
@@ -5035,35 +5060,30 @@
 
       const makeSpot = (p, rank, className, emoji) => {
         if (!p) return `<div style="width:90px"></div>`;
-
-        // 2. Add a fallback name just in case it's blank
         const displayName = p.name && p.name.trim() !== "" ? p.name : "Player";
-
         return `
-          <div class="podium-spot ${className}">
-            <div class="podium-rank">${emoji}</div>
-            <div class="podium-avatar">👤</div>
-            <div class="podium-name">${displayName}</div>
-            <div class="podium-score">${p.score}</div>
-          </div>
-        `;
+      <div class="podium-spot ${className}">
+        <div class="podium-rank">${emoji}</div>
+        <div class="podium-avatar">👤</div>
+        <div class="podium-name">${displayName}</div>
+        <div class="podium-score">${p.score}</div>
+      </div>
+    `;
       };
 
       openModal(`
-        <h2 style="text-align:center; font-size: 1.6rem; color: var(--rose);">🏆 Game Over! 🏆</h2>
-        <p style="text-align:center; margin-bottom: 10px;">Here are the top minds of the night.</p>
-        
-        <div class="podium-container">
-          ${makeSpot(top2, 2, "podium-2", "🥈")}
-          ${makeSpot(top1, 1, "podium-1", "🥇")}
-          ${makeSpot(top3, 3, "podium-3", "🥉")}
-        </div>
-
-        <div class="modal-actions">
-          <button class="btn primary" id="mPlayAgain">Play Again</button>
-          <button class="btn ghost" id="mClose">Close</button>
-        </div>
-      `);
+    <h2 style="text-align:center; font-size: 1.6rem; color: var(--rose);">🏆 Game Over! 🏆</h2>
+    <p style="text-align:center; margin-bottom: 10px;">Here are the top minds of the night.</p>
+    <div class="podium-container">
+      ${makeSpot(top2, 2, "podium-2", "🥈")}
+      ${makeSpot(top1, 1, "podium-1", "🥇")}
+      ${makeSpot(top3, 3, "podium-3", "🥉")}
+    </div>
+    <div class="modal-actions">
+      <button class="btn primary" id="mPlayAgain">Play Again</button>
+      <button class="btn ghost" id="mClose">Close</button>
+    </div>
+  `);
 
       document.getElementById("mClose").onclick = closeModal;
       document.getElementById("mPlayAgain").onclick = () => {
@@ -5073,34 +5093,34 @@
     }
 
     function showLeaderboard() {
-      const allVoters = role === "solo" ? state.voters : [state.voters[0], ...state.guests];
+      const allVoters = role === "solo" ? state.voters : [...state.guests];
       const sorted = allVoters.slice().sort((a, b) => b.score - a.score);
       const topScore = sorted[0] ? sorted[0].score : 0;
 
-      // 1. ADD .slice(0, 10) HERE so it only grabs the top 10
+      const isMe = (v) => role === "guest"
+        ? v.clientId === clientId
+        : v.id === "you";
+
       const rows = sorted.slice(0, 10).map((v, i) => {
         const winner = v.score === topScore && topScore > 0 ? " winner" : "";
-        return `<div class="lb-row${winner}">
-  <span class="lb-rank">${i + 1}.</span>
-  <span class="lb-name">${v.name}</span>
-  <span class="lb-score">${v.score}</span>
-</div>`;
+        const me = isMe(v) ? " winner" : "";   // reuse winner style as highlight
+        return `<div class="lb-row${winner}${me}">
+      <span class="lb-rank">${i + 1}.</span>
+      <span class="lb-name">${v.name}${isMe(v) ? " (you)" : ""}</span>
+      <span class="lb-score">${v.score}</span>
+    </div>`;
       }).join("");
 
-      // 2. ADD THIS LINE to calculate how many players are left over
-      const extraNote = sorted.length > 10 ? `<p style="text-align:center; font-size:0.8rem; color:var(--muted); margin-top:10px;">...and ${sorted.length - 10} more players</p>` : "";
+      const extraNote = sorted.length > 10
+        ? `<p style="text-align:center; font-size:0.8rem; color:var(--muted); margin-top:10px;">...and ${sorted.length - 10} more players</p>`
+        : "";
 
       openModal(`
     <h2>📊 Current Standings</h2>
     <p>Keep playing to secure your spot on the final podium.</p>
     <div class="leaderboard">${rows}</div>
-    
-    <!-- 3. ADD EXTRA NOTE HERE, right below the leaderboard div -->
     ${extraNote}
-
-    <div class="modal-actions">
-      <button class="btn primary" id="mClose">Close</button>
-    </div>
+    <div class="modal-actions"><button class="btn primary" id="mClose">Close</button></div>
   `);
 
       document.getElementById("mClose").onclick = closeModal;
@@ -5219,12 +5239,22 @@
         revealed: revealed,
         hintRevealed: hintRevealed,
         votePhase: state.votePhase,
-        gameOver: state.gameOver, // NEW
-        voters: state.voters.map(v => ({ id: v.id, name: v.name, score: v.score, voted: v.voted, vote: v.vote, guess: v.guess, guessTime: v.guessTime, guessAwarded: v.guessAwarded })),
-        guests: state.guests.map(g => ({ id: g.id, name: g.name, score: g.score, voted: g.voted, vote: g.vote, guess: g.guess, guessTime: g.guessTime, guessAwarded: g.guessAwarded }))
+        gameOver: state.gameOver,
+        voters: state.voters.map(v => ({
+          id: v.id, name: v.name, score: v.score,
+          voted: v.voted, vote: v.vote,
+          guess: v.guess, guessTime: v.guessTime, guessAwarded: v.guessAwarded
+        })),
+        guests: state.guests.map(g => ({
+          id: g.id,
+          clientId: g.clientId,          // NEW — lets the guest find their own row
+          name: g.name,
+          score: g.score,
+          voted: g.voted, vote: g.vote,
+          guess: g.guess, guessTime: g.guessTime, guessAwarded: g.guessAwarded
+        }))
       };
     }
-
     let broadcastTimer = null;
 
     function broadcastState(immediate = false) {
@@ -5259,6 +5289,11 @@
         state.current.text === p.card.text && state.current.deck === p.card.deck;
       const filterChanged = p.filter !== state.filter;
 
+      // NEW: snapshot the guest's own row before we overwrite state.guests
+      const oldSelf = role === "guest"
+        ? state.guests.find(g => g.clientId === clientId)
+        : null;
+
       state.current = p.card;
       state.drawn = p.drawn;
       state.didCount = p.didCount;
@@ -5272,6 +5307,19 @@
         if (role === "guest" && state.voters[0]) state.voters[0].name = "Host";
       }
       if (Array.isArray(p.guests)) state.guests = p.guests.map(g => ({ ...g }));
+
+      // NEW: detect an award arriving on the guest device
+      if (role === "guest") {
+        const newSelf = state.guests.find(g => g.clientId === clientId);
+        if (newSelf && oldSelf && newSelf.guessAwarded && !oldSelf.guessAwarded) {
+          const pts = newSelf.score - oldSelf.score;
+          if (pts > 0) {
+            toast(`You got it! +${pts} 🎉`);
+            tone(pts === 3 ? 1200 : pts === 2 ? 1000 : 900, 0.12);
+            burst(30 + pts * 10);
+          }
+        }
+      }
 
       if (typeof p.name === "string") { partyName = p.name; nameInput.value = p.name; }
 
@@ -5297,7 +5345,14 @@
         if (isNewCard) {
           cardSound();
           myVoted = false;
-          cardStartTime = Date.now(); // <-- ADD THIS LINE HERE
+          myGuess = null;                                    // NEW
+          cardStartTime = Date.now();
+          if (guessInput) {                                  // NEW: reset guest UI on new card
+            guessInput.value = "";
+            guessInput.disabled = false;
+            submitGuessBtn.disabled = false;
+            submitGuessBtn.textContent = "Submit";
+          }
         }
         lastSeenDrawn = p.drawn;
         lastSeenCardKey = cardKey;
@@ -5306,10 +5361,10 @@
         lastSeenDrawn = -1;
         lastSeenCardKey = "";
         myVoted = false;
+        myGuess = null;                                      // NEW
         showWelcome();
       }
     }
-
     /* =========================================================
        13. PARTY MODE UI
        ========================================================= */
@@ -5661,12 +5716,16 @@
       role = "solo";
       roomCode = "";
       remoteRemaining = null;
+      myVoted = false;                // NEW
+      myGuess = null;                 // NEW
+      cardStartTime = 0;              // optional hardening
+      lastSeenDrawn = -1;             // optional hardening
+      lastSeenCardKey = "";           // optional hardening
       buildQueue();
       applyRoleUI();
       showWelcome();
       if (location.search) history.replaceState(null, "", location.pathname);
     }
-
     /* =========================================================
        14. SETTINGS
        ========================================================= */
