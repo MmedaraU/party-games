@@ -4849,7 +4849,7 @@
         revealSound();
         burst(60);
         render(state.current, { animate: false });
-        broadcastState();
+        broadcastState(true);
         if (role === "solo") {
           const thisCard = state.current;
           setTimeout(() => {
@@ -4863,10 +4863,18 @@
 
       if (!state.current.answer) return;
       if (revealed) return;
+
       revealed = true;
       revealSound();
+
+      // 1. Update the card to show the answer
       render(state.current, { animate: false, revealed: true, hintRevealed: hintRevealed });
-      if (role === "host") broadcastState();
+
+      // 2. Update the Host's Live Feed to show the Green +1/+2/+3 buttons
+      renderTriviaFeed();
+
+      // 3. Broadcast immediately so guests see it instantly
+      if (role === "host") broadcastState(true);
     }
 
     function skipScoringCard() {
@@ -4953,7 +4961,7 @@
           else if (v.guessTime < 6000) pts = 2;
         }
 
-        // Check if it's the correct answer (using the fuzzy match from earlier)
+        // Check if it's the correct answer using the fuzzy match
         const isCorrect = isCorrectGuess(v.guess, state.current.answer);
         const btnClass = isCorrect ? "guess-correct auto-match" : "guess-correct";
 
@@ -4962,7 +4970,7 @@
             <span class="guess-name">${v.name}:</span> 
             <span class="guess-text">"${v.guess}"</span>${speedText}
           </div>
-          ${state.votePhase === "revealed" && !awarded
+          ${revealed && !awarded
             ? `<button class="${btnClass}" onclick="awardPoint('${v.id}', ${pts})">+${pts}</button>`
             : (awarded ? `<span class="guess-correct awarded">✓</span>` : '')}
         </div>`;
