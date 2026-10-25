@@ -3920,19 +3920,22 @@
       confessions: { label: "Confessions", emoji: "😏", color: "#F43F5E", scoring: true, startScore: 5, mature: true }
     };
 
-    const FILTERS = [
-      { key: "all", label: "🎲 Random Mix", short: "Random Mix" },
-      { key: "banter", label: "🍿 Banter", short: "Banter" },
-      { key: "realtalk", label: "💗 Heart to Heart", short: "Heart to Heart" },
-      { key: "doam", label: "🔥 Leave It or Drop It", short: "Leave It or Drop It" },
-      { key: "charades", label: "🎭 Charades", short: "Charades" },
-      { key: "trivia", label: "✝️ Bible Trivia & Riddles", short: "Bible Trivia & Riddles" },
-      { key: "thisorthat", label: "☠️ Pick Your Poison", short: "Pick Your Poison" },
-      { key: "hottakes", label: "🔥 Hot Takes", short: "Hot Takes" },
-      { key: "nhie", label: "🫣 Never Have I Ever", short: "Never Have I Ever" },
-      { key: "confessions", label: "😏 Confessions", short: "Confessions", mature: true }
-    ];
+    // const FILTERS = [
+    //   { key: "all", label: "🎲 Random Mix", short: "Random Mix" },
+    //   { key: "banter", label: "🍿 Banter", short: "Banter" },
+    //   { key: "realtalk", label: "💗 Heart to Heart", short: "Heart to Heart" },
+    //   { key: "doam", label: "🔥 Leave It or Drop It", short: "Leave It or Drop It" },
+    //   { key: "charades", label: "🎭 Charades", short: "Charades" },
+    //   { key: "trivia", label: "✝️ Bible Trivia & Riddles", short: "Bible Trivia & Riddles" },
+    //   { key: "thisorthat", label: "☠️ Pick Your Poison", short: "Pick Your Poison" },
+    //   { key: "hottakes", label: "🔥 Hot Takes", short: "Hot Takes" },
+    //   { key: "nhie", label: "🫣 Never Have I Ever", short: "Never Have I Ever" },
+    //   { key: "confessions", label: "😏 Confessions", short: "Confessions", mature: true }
+    // ];
 
+    const FILTERS = [
+      { key: "trivia", label: "✝️ Bible Trivia & Riddles", short: "Bible Trivia & Riddles" }
+    ];
 
     const RANDOM_MIX_EXCLUDE = ["charades", "realtalk", "nhie", "confessions"];
 
@@ -4014,7 +4017,8 @@
        ========================================================= */
 
     const state = {
-      filter: "all",
+      // filter: "all",
+      filter: "trivia",
       queue: [],
       current: null,
       drawn: 0,
