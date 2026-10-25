@@ -2232,6 +2232,12 @@
       overflow-y: auto;
       padding-right: 4px;
     }
+
+    .trivia-feed .guess-correct.auto-match {
+      background: #22C55E;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.6);
+      transform: scale(1.1);
+    }
   </style>
 </head>
 
@@ -4015,6 +4021,7 @@
     let myVoted = false;
     let lastSeenDrawn = -1;
     let lastSeenCardKey = "";
+    let cardStartTime = 0;
 
     let soundOn = true;
     let peer = null;
@@ -4163,6 +4170,31 @@
       if (particles.length) rafId = requestAnimationFrame(tickConfetti);
       else { rafId = null; cx.clearRect(0, 0, window.innerWidth, window.innerHeight); }
     }
+
+    function cleanString(str) {
+      if (!str) return "";
+      return str
+        .toLowerCase()
+        // Remove punctuation
+        .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+        // Remove articles and pronouns (the, a, an, he, she, it, they, his, her, etc)
+        .replace(/\b(the|a|an|he|she|it|they|his|her|him|them|who)\b/g, "")
+        // Remove extra spaces
+        .replace(/\s{2,}/g, " ")
+        .trim();
+    }
+
+    function isCorrectGuess(guess, answer) {
+      const cleanGuess = cleanString(guess);
+      const cleanAnswer = cleanString(answer);
+
+      // If the guess is exactly the answer, or contains the answer
+      if (cleanGuess === cleanAnswer) return true;
+      if (cleanGuess.includes(cleanAnswer) && cleanAnswer.length > 3) return true;
+
+      return false;
+    }
+
 
     /* =========================================================
        6. THEME
@@ -4728,9 +4760,10 @@
       const item = state.queue.pop();
       state.current = item;
       state.drawn++;
+      cardStartTime = Date.now(); // <-- ADD THIS
 
       // Reset guesses for the new card
-      state.voters.forEach(v => { v.guess = null; v.guessAwarded = false; });
+      state.voters.forEach(v => { v.guess = null; v.guessTime = null; v.guessAwarded = false; });
       state.guests.forEach(g => { g.guess = null; g.guessAwarded = false; });
 
       revealed = false;
@@ -4867,14 +4900,18 @@
       const val = guessInput.value.trim();
       if (!val) return;
 
+      const timeTaken = Date.now() - cardStartTime; // Calculate speed
+
       if (role === "guest") {
-        sendToHost({ type: "action", action: "guess", value: val });
-        state.voters[0].guess = val; // The guest is voters[0] locally
+        sendToHost({ type: "action", action: "guess", value: val, timeTaken });
+        state.voters[0].guess = val;
+        state.voters[0].guessTime = timeTaken;
         guessInput.disabled = true;
         submitGuessBtn.disabled = true;
         render();
       } else {
         state.voters[0].guess = val;
+        state.voters[0].guessTime = timeTaken;
         guessInput.disabled = true;
         submitGuessBtn.disabled = true;
         render();
@@ -4892,28 +4929,43 @@
 
       triviaFeedList.innerHTML = feed.map(v => {
         const awarded = v.guessAwarded;
+
+        // Calculate points based on speed
+        let pts = 1;
+        let speedText = "";
+        if (v.guessTime) {
+          const secs = (v.guessTime / 1000).toFixed(1);
+          speedText = ` <span style="font-size:0.7rem;color:#9F8494">(${secs}s)</span>`;
+          if (v.guessTime < 3000) pts = 3;
+          else if (v.guessTime < 6000) pts = 2;
+        }
+
+        // Check if it's the correct answer (using the fuzzy match from earlier)
+        const isCorrect = isCorrectGuess(v.guess, state.current.answer);
+        const btnClass = isCorrect ? "guess-correct auto-match" : "guess-correct";
+
         return `<div class="guess-row">
           <div>
             <span class="guess-name">${v.name}:</span> 
-            <span class="guess-text">"${v.guess}"</span>
+            <span class="guess-text">"${v.guess}"</span>${speedText}
           </div>
           ${state.votePhase === "revealed" && !awarded
-            ? `<button class="guess-correct" onclick="awardPoint('${v.id}')">+1</button>`
+            ? `<button class="${btnClass}" onclick="awardPoint('${v.id}', ${pts})">+${pts}</button>`
             : (awarded ? `<span class="guess-correct awarded">✓</span>` : '')}
         </div>`;
       }).join("");
     }
 
-    function awardPoint(voterId) {
+    function awardPoint(voterId, pts = 1) {
       const v = voterId === "you"
         ? state.voters[0]
         : (voterId === "partner" ? state.voters[1] : state.guests.find(g => g.id === voterId));
 
       if (v) {
-        v.score += 1;
+        v.score += pts;
         v.guessAwarded = true;
-        tone(900, 0.1);
-        burst(20);
+        tone(pts === 3 ? 1200 : (pts === 2 ? 1000 : 900), 0.1); // Higher pitch for faster answers
+        burst(20 + (pts * 10)); // More confetti for faster answers
         renderTriviaFeed();
         broadcastState();
       }
@@ -5010,7 +5062,7 @@
       hintRevealed = false;
       state.votePhase = "voting";
       state.actionLocked = false;
-      state.voters.forEach(v => { v.voted = false; v.vote = null; v.score = 5; v.guess = null; v.guessAwarded = false; });
+      state.voters.forEach(v => { v.voted = false; v.vote = null; v.score = 5; v.guess = null; v.guessTime = null; v.guessAwarded = false; });
       state.guests.forEach(g => { g.voted = false; g.vote = null; g.score = 5; g.guess = null; g.guessAwarded = false; });
       buildQueue();
       showWelcome();
@@ -5031,7 +5083,7 @@
       hintRevealed = false;
       state.votePhase = "voting";
       state.actionLocked = false;
-      state.voters.forEach(v => { v.voted = false; v.vote = null; v.score = 5; v.guess = null; v.guessAwarded = false; });
+      state.voters.forEach(v => { v.voted = false; v.vote = null; v.score = 5; v.guess = null; v.guessTime = null; v.guessAwarded = false; });
       state.guests.forEach(g => { g.voted = false; g.vote = null; g.score = 5; g.guess = null; g.guessAwarded = false; });
 
       updateFilterUI();
@@ -5113,8 +5165,8 @@
         hintRevealed: hintRevealed,
         votePhase: state.votePhase,
         gameOver: state.gameOver, // NEW
-        voters: state.voters.map(v => ({ id: v.id, name: v.name, score: v.score, voted: v.voted, vote: v.vote, guess: v.guess, guessAwarded: v.guessAwarded })),
-        guests: state.guests.map(g => ({ id: g.id, name: g.name, score: g.score, voted: g.voted, vote: g.vote, guess: g.guess, guessAwarded: g.guessAwarded }))
+        voters: state.voters.map(v => ({ id: v.id, name: v.name, score: v.score, voted: v.voted, vote: v.vote, guess: v.guess, guessTime: v.guessTime, guessAwarded: v.guessAwarded })),
+        guests: state.guests.map(g => ({ id: g.id, name: g.name, score: g.score, voted: g.voted, vote: g.vote, guess: g.guess, guessTime: g.guessTime, guessAwarded: g.guessAwarded }))
       };
     }
 
@@ -5438,6 +5490,7 @@
               const g = state.guests.find(x => x.conn === conn);
               if (g) {
                 g.guess = data.value;
+                g.guessTime = data.timeTaken || 0; // <-- Save the time
                 renderTriviaFeed();
                 broadcastState();
               }
