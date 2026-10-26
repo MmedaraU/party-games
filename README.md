@@ -78,18 +78,18 @@ When the Host ends the game, every device displays a 3D Podium showing the Gold,
 
 ## The Decks
 
-| Deck                   | Emoji | Count   | Style                                                                | In Random Mix |
-| ---------------------- | ----- | ------- | -------------------------------------------------------------------- | ------------- |
-| Banter                 | 🍿     | **175** | Would-you-rather, playful roast prompts                              | ✅             |
-| Heart to Heart         | 💗     | 100     | Deep questions on perception, connection, and reflection             | ❌             |
-| Leave It or Drop It    | 🔥     | 85      | Dares, performances, reveals                                         | ✅             |
-| Charades               | 🎭     | **200** | Act-it-out prompts — daily life, reactions, professions              | ❌             |
-| Bible Trivia & Riddles | ✝️     | **254** | 164 direct questions + 90 riddles, all with hints                    | ✅             |
-| Pick Your Poison       | ☠️     | **239** | Two bad options — pick the one you can live with                     | ✅             |
-| Hot Takes              | 🔥     | **187** | Debate prompts — relationships and real life                         | ✅             |
-| Never Have I Ever      | 🫣     | 90      | Friends-edition confessions, finger scoring                          | ❌             |
-| Confessions            | 😏     | 88      | Cheekier friend confessions, finger scoring. **MATURE**              | ❌             |
-| **Random Mix**         | 🎲     | **955** | Banter + Leave It or Drop It + Trivia + Pick Your Poison + Hot Takes | —             |
+| Deck                   | Emoji | Count   | Style                                                                | In Classic Mix |
+| ---------------------- | ----- | ------- | -------------------------------------------------------------------- | -------------- |
+| Banter                 | 🍿     | **175** | Would-you-rather, playful roast prompts                              | ✅              |
+| Heart to Heart         | 💗     | 100     | Deep questions on perception, connection, and reflection             | ❌              |
+| Leave It or Drop It    | 🔥     | 85      | Dares, performances, reveals                                         | ✅              |
+| Charades               | 🎭     | **200** | Act-it-out prompts — daily life, reactions, professions              | ❌              |
+| Bible Trivia & Riddles | ✝️     | **254** | 164 direct questions + 90 riddles, all with hints                    | ✅              |
+| Pick Your Poison       | ☠️     | **239** | Two bad options — pick the one you can live with                     | ✅              |
+| Hot Takes              | 🔥     | **187** | Debate prompts — relationships and real life                         | ✅              |
+| Never Have I Ever      | 🫣     | 90      | Friends-edition confessions, finger scoring                          | ❌              |
+| Confessions            | 😏     | 88      | Cheekier friend confessions, finger scoring. **MATURE**              | ❌              |
+| **Classic Mix**        | 🎲     | **955** | Banter + Leave It or Drop It + Trivia + Pick Your Poison + Hot Takes | —              |
 
 ### Card Behaviour
 - **Plain:** No buttons (just answer the prompt).

@@ -2290,7 +2290,7 @@
   <button class="game-select" id="gameSelect" aria-haspopup="dialog" aria-expanded="false" aria-controls="deckSheet"
     title="Choose a game">
     <span class="game-select-emoji" id="gameSelectEmoji">🎲</span>
-    <span class="game-select-label" id="gameSelectLabel">Random Mix</span>
+    <span class="game-select-label" id="gameSelectLabel">Classic Mix</span>
     <span class="game-select-hint">Choose</span>
     <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
   </button>
@@ -2390,7 +2390,7 @@
   <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
   <script>
     /* =========================================================
-       1. THE DECKS  (1,461 prompts total)
+       1. THE DECKS  (see GRAND_TOTAL — computed from deckCount())
        ========================================================= */
 
     const RAW = {
@@ -3921,7 +3921,7 @@
     };
 
     const FILTERS = [
-      { key: "all", label: "🎲 Random Mix", short: "Random Mix" },
+      { key: "all", label: "🎲 Classic Mix", short: "Classic Mix" },
       { key: "banter", label: "🍿 Banter", short: "Banter" },
       { key: "realtalk", label: "💗 Heart to Heart", short: "Heart to Heart" },
       { key: "doam", label: "🔥 Leave It or Drop It", short: "Leave It or Drop It" },
@@ -4332,17 +4332,19 @@
     /* =========================================================
        8. ONBOARDING
        ========================================================= */
+    // Real total across all nine decks — computed, never hardcoded
+    const GRAND_TOTAL = Object.keys(DECKS).reduce((sum, k) => sum + deckCount(k), 0);
 
     const INTRO_STEPS = [
       {
         emoji: "🎈",
         title: "Welcome to The Hangout",
-        body: "1,505 prompts across nine decks — Banter, Heart to Heart, Leave It or Drop It, Charades, Bible Trivia & Riddles, Pick Your Poison, Hot Takes, Never Have I Ever, and Confessions. Pick a game, draw a card, and let the hangout run itself."
+        body: `${GRAND_TOTAL} prompts across nine decks — Banter, Heart to Heart, Leave It or Drop It, Charades, Bible Trivia & Riddles, Pick Your Poison, Hot Takes, Never Have I Ever, and Confessions. Pick a game, draw a card, and let the hangout run itself.`
       },
       {
         emoji: "🎲",
         title: "1. Choose your game",
-        body: "On desktop, tap a chip at the top. On mobile, tap the game selector bar to open the menu. Pick a deck, or leave it on Random Mix for a shuffle of the conversational, dare, trivia, and riddle decks."
+        body: "On desktop, tap a chip at the top. On mobile, tap the game selector bar to open the menu. Pick a deck, or leave it on Classic Mix for a shuffle of the conversational, dare, trivia, and riddle decks."
       },
       {
         emoji: "👉",
