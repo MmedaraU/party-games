@@ -4638,6 +4638,7 @@
       const hv = !!opts.hintRevealed;
       const canReveal = (role !== "guest");
 
+      // --- Hints and Reveal Button state ---
       if (hasHint && hv) {
         hintText.textContent = "💡 " + item.hint;
         hintText.hidden = false;
@@ -4669,7 +4670,7 @@
         (isScoring && canReveal);
       hintRevealRow.hidden = !rowVisible;
 
-      // ===== CHANGED: reveal block now shows the viewer's own guess =====
+      // --- Trivia Reveal Block ---
       if (hasAnswer && rv && !isScoring) {
         let selfFeedback = "";
         const guessToCheck = role === "guest" ? myGuess : state.voters[0].guess;
@@ -4689,20 +4690,62 @@
         revealBlock.hidden = true;
         revealBlock.innerHTML = "";
       }
-      // ===== end changed block =====
 
+      // --- Scoring Deck Logic (NHIE & Confessions) ---
       if (isScoring) {
         choices.hidden = true;
-        scoringChoices.hidden = false;
-        revealBtn.hidden = !canReveal;
-        revealBtn.textContent = "👁️ Reveal Answers";
-        updateRevealState();
-        leaderBtn.hidden = false;
-        const votedYet = role === "guest" ? myVoted : state.voters[0].voted;
-        haveBtn.disabled = votedYet;
-        haventBtn.disabled = votedYet;
+
+        if (state.votePhase === "revealed") {
+          // 1. Hide the voting buttons and actions
+          scoringChoices.hidden = true;
+          revealBtn.hidden = true;
+          skipCardBtn.hidden = true;
+          hintRevealRow.hidden = true;
+
+          // 2. Show the scorecard results in the reveal block
+          revealBlock.hidden = false;
+          const allVoters = role === "solo" ? state.voters : [state.voters[0], ...state.guests];
+
+          let resultHtml = `<div class="reveal-group" style="max-width: 100%; width: 100%;">
+          <div class="reveal-label" style="text-align:center;">Round Results</div>
+          <div class="reveal-list" style="display:flex; flex-direction:column; gap:8px; margin-top: 10px; max-height: 30vh; overflow-y: auto; padding-right: 6px;">`;
+
+          allVoters.forEach(v => {
+            if (!v.voted) return; // Skip anyone who didn't vote
+            const emoji = v.vote === "have" ? "✋" : "🙅";
+            const label = v.vote === "have" ? "HAVE" : "HAVEN'T";
+
+            resultHtml += `
+          <div style="display:flex; justify-content:space-between; align-items:center; background: rgba(31,27,36,.04); padding: 8px 12px; border-radius: 8px;">
+              <span style="font-weight: 700; color: var(--ink);">${v.name} <span style="font-size:0.85rem; font-weight:600; color:var(--ink-soft);">${emoji} ${label}</span></span>
+              <span class="score-inline" style="background:var(--coral); color:#fff; padding:4px 10px; border-radius:6px; font-weight:900; font-size: 0.9rem;">${v.score} pts</span>
+          </div>`;
+          });
+
+          resultHtml += `</div></div>`;
+          revealBlock.innerHTML = resultHtml;
+
+        } else {
+          // 3. Normal Voting Phase
+          revealBlock.hidden = true;
+          scoringChoices.hidden = false;
+          revealBtn.hidden = !canReveal;
+          revealBtn.textContent = "👁️ Reveal Answers";
+          updateRevealState();
+          leaderBtn.hidden = false;
+
+          const votedYet = role === "guest" ? myVoted : state.voters[0].voted;
+          haveBtn.disabled = votedYet;
+          haventBtn.disabled = votedYet;
+
+          const skipVisible = canReveal && state.votePhase === "voting";
+          skipCardBtn.hidden = !skipVisible;
+          hintRevealRow.hidden = !canReveal;
+        }
+
         renderVoteStatus();
       } else {
+        // --- Standard Action or Question Cards ---
         const isPerformance = item.deck === "doam" || item.kind === "charade";
         choices.hidden = !isPerformance;
         scoringChoices.hidden = true;
@@ -4711,7 +4754,7 @@
         voteStatus.hidden = true;
       }
 
-      // ===== Trivia block: guest = guess input, host = live feed, solo = no input =====
+      // --- Trivia Input / Feed Logic ---
       const isTrivia = hasAnswer && !isScoring;
       if (isTrivia) {
         if (role === "guest") {
@@ -4731,15 +4774,14 @@
           triviaFeed.hidden = false;
           renderTriviaFeed();
         } else {
-          // solo: no guess input — reveal the answer directly
           triviaActions.hidden = true;
         }
       } else {
         triviaActions.hidden = true;
         triviaFeed.hidden = true;
       }
-      // ===== end block =====
 
+      // --- Game Over / End Button Logic ---
       if ((role === "host" || role === "solo") && state.guests.length > 0) {
         endGameBtn.hidden = false;
       } else {
@@ -4779,7 +4821,7 @@
       voteStatus.hidden = false;
 
       if (state.votePhase === "revealed") {
-        voteStatus.innerHTML = `<span class="vote-pill wait">Revealed</span>`;
+        voteStatus.innerHTML = `<span class="vote-pill wait">Round Complete</span>`;
         return;
       }
 
@@ -5098,10 +5140,10 @@
     }
 
     function showPodium() {
-      // Host AND guest now both see the guest roster (host is not scored)
+      // Included state.voters[0] so the Host gets a score on the podium in Party Mode
       const allPlayers = role === "solo"
         ? [state.voters[0]].filter(p => p.id !== "partner")
-        : [...state.guests];
+        : [state.voters[0], ...state.guests];
 
       const sorted = allPlayers.slice().sort((a, b) => b.score - a.score);
 
