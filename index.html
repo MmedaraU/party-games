@@ -3920,22 +3920,19 @@
       confessions: { label: "Confessions", emoji: "😏", color: "#F43F5E", scoring: true, startScore: 5, mature: true }
     };
 
-    // const FILTERS = [
-    //   { key: "all", label: "🎲 Random Mix", short: "Random Mix" },
-    //   { key: "banter", label: "🍿 Banter", short: "Banter" },
-    //   { key: "realtalk", label: "💗 Heart to Heart", short: "Heart to Heart" },
-    //   { key: "doam", label: "🔥 Leave It or Drop It", short: "Leave It or Drop It" },
-    //   { key: "charades", label: "🎭 Charades", short: "Charades" },
-    //   { key: "trivia", label: "✝️ Bible Trivia & Riddles", short: "Bible Trivia & Riddles" },
-    //   { key: "thisorthat", label: "☠️ Pick Your Poison", short: "Pick Your Poison" },
-    //   { key: "hottakes", label: "🔥 Hot Takes", short: "Hot Takes" },
-    //   { key: "nhie", label: "🫣 Never Have I Ever", short: "Never Have I Ever" },
-    //   { key: "confessions", label: "😏 Confessions", short: "Confessions", mature: true }
-    // ];
-
     const FILTERS = [
-      { key: "trivia", label: "✝️ Bible Trivia & Riddles", short: "Bible Trivia & Riddles" }
+      { key: "all", label: "🎲 Random Mix", short: "Random Mix" },
+      { key: "banter", label: "🍿 Banter", short: "Banter" },
+      { key: "realtalk", label: "💗 Heart to Heart", short: "Heart to Heart" },
+      { key: "doam", label: "🔥 Leave It or Drop It", short: "Leave It or Drop It" },
+      { key: "charades", label: "🎭 Charades", short: "Charades" },
+      { key: "trivia", label: "✝️ Bible Trivia & Riddles", short: "Bible Trivia & Riddles" },
+      { key: "thisorthat", label: "☠️ Pick Your Poison", short: "Pick Your Poison" },
+      { key: "hottakes", label: "🔥 Hot Takes", short: "Hot Takes" },
+      { key: "nhie", label: "🫣 Never Have I Ever", short: "Never Have I Ever" },
+      { key: "confessions", label: "😏 Confessions", short: "Confessions", mature: true }
     ];
+
 
     const RANDOM_MIX_EXCLUDE = ["charades", "realtalk", "nhie", "confessions"];
 
@@ -4017,8 +4014,7 @@
        ========================================================= */
 
     const state = {
-      // filter: "all",
-      filter: "trivia",
+      filter: "all",
       queue: [],
       current: null,
       drawn: 0,
@@ -4210,33 +4206,34 @@
       const a = cleanString(answer);
       if (!g || !a) return false;
 
-      // Exact match
+      // Exact
       if (g === a) return true;
 
-      // One contains the other (both long enough to avoid false positives)
-      if (g.length >= 3 && a.length >= 3) {
-        if (g.includes(a) || a.includes(g)) return true;
-      }
-
-      // Numeric equivalence ("12" vs "Twelve", "6" vs "six")
+      // Numeric equivalence — "12" vs "Twelve", "6" vs "six"
       const WORDS = {
         one: "1", two: "2", three: "3", four: "4", five: "5",
         six: "6", seven: "7", eight: "8", nine: "9", ten: "10",
         eleven: "11", twelve: "12", forty: "40", fifty: "50", sixty: "60", seventy: "70"
       };
       const toNum = s => WORDS[s] || s;
-      if (toNum(g) === toNum(a)) return true;
+      const looksNumeric = s => /^\d+$/.test(s) || !!WORDS[s];
+      if (looksNumeric(g) && looksNumeric(a) && toNum(g) === toNum(a)) return true;
 
-      // Token overlap — "Judas" matches "Judas Iscariot"
+      // Containment, both long enough
+      if (g.length >= 3 && a.length >= 3) {
+        if (g.includes(a) || a.includes(g)) return true;
+      }
+
+      // Token overlap — requires at least one SHARED token >= 3 chars
       const gTokens = g.split(" ").filter(Boolean);
       const aTokens = a.split(" ").filter(Boolean);
+      const shared = gTokens.filter(t => aTokens.includes(t) && t.length >= 3);
+      if (shared.length === 0) return false;
+
       const gInA = gTokens.every(t => aTokens.includes(t) || t.length < 3);
       const aInG = aTokens.every(t => gTokens.includes(t) || t.length < 3);
-      if (gInA || aInG) return true;
-
-      return false;
-    }
-
+      return gInA || aInG;
+    } s
     /* =========================================================
        6. THEME
        ========================================================= */
@@ -5097,6 +5094,15 @@
         p.guessAwarded = true;
         awarded.push({ name: p.name, pts });
       });
+
+      if (!isCorrectGuess(p.guess, state.current.answer)) return;
+
+      console.log("[award]", p.name, "guessed", JSON.stringify(p.guess),
+        "for answer", JSON.stringify(state.current.answer),
+        "→ +", pts);
+
+      p.score += pts;
+      p.guessAwarded = true;
 
       return awarded;
     }
