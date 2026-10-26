@@ -5073,11 +5073,11 @@
 
     function autoAwardGuesses() {
       if (!state.current || !state.current.answer) return [];
-      if (state.isScoring) return [];                 // nhie / confessions use vote logic
+      if (state.isScoring) return [];
 
       const allPlayers = role === "solo"
         ? state.voters
-        : [state.voters[0], ...state.guests];          // host's own guess + all guests
+        : [state.voters[0], ...state.guests];
 
       const awarded = [];
       allPlayers.forEach(p => {
@@ -5093,19 +5093,14 @@
         p.score += pts;
         p.guessAwarded = true;
         awarded.push({ name: p.name, pts });
+
+        console.log("[award]", p.name, "→ +" + pts,
+          "(", JSON.stringify(p.guess), "for", JSON.stringify(state.current.answer), ")");
       });
-
-      if (!isCorrectGuess(p.guess, state.current.answer)) return;
-
-      console.log("[award]", p.name, "guessed", JSON.stringify(p.guess),
-        "for answer", JSON.stringify(state.current.answer),
-        "→ +", pts);
-
-      p.score += pts;
-      p.guessAwarded = true;
 
       return awarded;
     }
+
     // --- NEW: GAME SHOW LOGIC ---
 
     function endGame() {
